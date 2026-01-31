@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Version3D | Impresión 3D Salto Uruguay</title>
+    <title>Version3D | Impresión 3D Salto</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0f172a; color: white; font-family: sans-serif; scroll-behavior: smooth; }
@@ -16,23 +16,27 @@
             background: rgba(30, 41, 59, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
+            overflow: hidden;
         }
-        .glass:hover {
-            border-color: #38bdf8;
-            transform: translateY(-5px);
-        }
+        .glass:hover { border-color: #38bdf8; transform: translateY(-5px); }
+        .img-placeholder { background: #1e293b; height: 250px; display: flex; items-center; justify-center; }
     </style>
 </head>
 <body>
-    <nav class="p-6 flex justify-between items-center border-b border-gray-800 bg-slate-900/50 sticky top-0 backdrop-blur-md z-40">
-        <h1 class="text-2xl font-bold gradient-text">Version3D</h1>
-        <div class="space-x-4">
-            <a href="#catalogo" class="hover:text-blue-400 transition text-sm md:text-base">Catálogo</a>
-            <a href="https://wa.me/59898680317" class="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm md:text-base">WhatsApp</a>
+    <nav class="p-4 flex justify-between items-center border-b border-gray-800 bg-slate-900/50 sticky top-0 backdrop-blur-md z-40">
+        <div class="flex items-center gap-3">
+            <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain rounded-lg shadow-blue-500/20" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1710/1710166.png'">
+            <h1 class="text-xl font-bold gradient-text">Version3D</h1>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="https://instagram.com/version3d.uy" target="_blank" class="text-pink-500 hover:text-pink-400 transition">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://wa.me/59898680317" class="bg-blue-600 px-3 py-1.5 rounded-lg text-sm font-bold">WhatsApp</a>
         </div>
     </nav>
 
-    <header class="py-20 px-6 text-center max-w-5xl mx-auto">
+    <header class="py-16 px-6 text-center max-w-5xl mx-auto">
         <h2 class="text-3xl md:text-5xl font-extrabold mb-8 leading-tight">
             Servicio de impresión 3D personalizado. 
             <span class="block mt-4 gradient-text text-2xl md:text-4xl">
@@ -42,42 +46,57 @@
         <p class="text-gray-400 text-xl font-medium tracking-wide">
             Salto Uruguay. <span class="text-blue-400 font-bold">Envíos a todo el país. 🇺🇾</span>
         </p>
-        <div class="mt-12">
-            <a href="#catalogo" class="bg-white text-black font-bold py-4 px-12 rounded-full hover:bg-gray-200 transition text-lg shadow-lg shadow-blue-500/20">
-                Ver Catálogo
-            </a>
-        </div>
     </header>
 
-    <section id="catalogo" class="py-20 px-6 max-w-6xl mx-auto">
-        <h3 class="text-2xl font-bold mb-12 text-center uppercase tracking-[0.2em] text-gray-500">Nuestro Catálogo</h3>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div class="glass p-8 rounded-3xl">
-                <div class="text-5xl mb-4">🏆</div>
-                <h4 class="text-xl font-bold mb-2">Choperas de Fútbol</h4>
-                <p class="text-gray-500 text-sm mb-6">Nacional, Peñarol y más. 500ml con interior de aluminio.</p>
-                <a href="https://wa.me/59898680317?text=Hola!%20Me%20interesa%20una%20jarra%20de%20futbol" class="text-blue-400 font-bold hover:text-blue-300 transition">Consultar →</a>
+    <section id="catalogo" class="py-12 px-6 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div class="glass rounded-3xl group">
+                <div class="img-placeholder">
+                    <img src="jarra-futbol.jpg" alt="Jarra Fútbol" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.style.display='none'">
+                    <span class="text-gray-600 font-bold uppercase italic">Foto Jarra Fútbol</span>
+                </div>
+                <div class="p-6">
+                    <h4 class="text-xl font-bold mb-2">Choperas de Fútbol</h4>
+                    <p class="text-gray-500 text-sm mb-4">Escudos en relieve e interior de aluminio.</p>
+                    <a href="https://wa.me/59898680317?text=Me%20interesa%20la%20jarra%20de%20futbol" class="text-blue-400 font-bold">Consultar →</a>
+                </div>
             </div>
 
-            <div class="glass p-8 rounded-3xl border-blue-500/30">
-                <div class="text-5xl mb-4">⚡</div>
-                <h4 class="text-xl font-bold mb-2">Diseños Propios</h4>
-                <p class="text-gray-500 text-sm mb-6">Creamos lo que imagines: logos, fotos o tendencias actuales.</p>
-                <a href="https://wa.me/59898680317?text=Hola!%20Quiero%20una%20jarra%20personalizada" class="text-blue-400 font-bold hover:text-blue-300 transition">Encargar →</a>
+            <div class="glass rounded-3xl group">
+                <div class="img-placeholder">
+                    <img src="jarra-perso.jpg" alt="Jarra Personalizada" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.style.display='none'">
+                    <span class="text-gray-600 font-bold uppercase italic">Foto Jarra Personalizada</span>
+                </div>
+                <div class="p-6">
+                    <h4 class="text-xl font-bold mb-2">Jarras a Pedido</h4>
+                    <p class="text-gray-500 text-sm mb-4">Ponemos tu logo o idea en una jarra térmica.</p>
+                    <a href="https://wa.me/59898680317?text=Me%20interesa%20una%20jarra%20personalizada" class="text-blue-400 font-bold">Encargar →</a>
+                </div>
             </div>
 
-            <div class="glass p-8 rounded-3xl">
-                <div class="text-5xl mb-4">🔑</div>
-                <h4 class="text-xl font-bold mb-2">Llaveros y Figuras</h4>
-                <p class="text-gray-500 text-sm mb-6">Souvenirs empresariales y figuras de colección a medida.</p>
-                <a href="https://wa.me/59898680317?text=Hola!%20Me%20interesan%20llaveros%20o%20figuras" class="text-blue-400 font-bold hover:text-blue-300 transition">Presupuestar →</a>
+            <div class="glass rounded-3xl group">
+                <div class="img-placeholder">
+                    <img src="llaveros.jpg" alt="Llaveros" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.style.display='none'">
+                    <span class="text-gray-600 font-bold uppercase italic">Foto Llaveros/Figuras</span>
+                </div>
+                <div class="p-6">
+                    <h4 class="text-xl font-bold mb-2">Llaveros y Figuras</h4>
+                    <p class="text-gray-500 text-sm mb-4">Diseños detallados para regalos o colección.</p>
+                    <a href="https://wa.me/59898680317?text=Me%20interesan%20los%20llaveros" class="text-blue-400 font-bold">Presupuestar →</a>
+                </div>
             </div>
+
         </div>
     </section>
 
-    <footer class="text-center py-10 border-t border-gray-800 text-gray-500 text-xs">
-        <p>© 2026 Version3D - Salto, Uruguay. Envíos por Agencia Central (DAC) y otros.</p>
+    <footer class="text-center py-10 border-t border-gray-800 bg-slate-900/30">
+        <div class="flex justify-center space-x-6 mb-4 text-gray-400">
+            <a href="https://instagram.com/version3d.uy" target="_blank" class="hover:text-pink-500">Instagram</a>
+            <a href="https://wa.me/59898680317" class="hover:text-green-500">WhatsApp</a>
+        </div>
+        <p class="text-gray-600 text-xs uppercase tracking-widest italic">"Tu idea, impresa en realidad"</p>
+        <p class="text-gray-700 text-[10px] mt-4">© 2026 Version3D - Salto, Uruguay.</p>
     </footer>
 
     <a href="https://wa.me/59898680317" target="_blank" class="fixed bottom-6 right-6 bg-green-500 p-4 rounded-full shadow-2xl hover:scale-110 transition-all z-50">
