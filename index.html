@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Version3D | Impresión 3D Uruguay</title>
+    <title>Version3D | Jarras y Chops Personalizados Uruguay</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #0f172a; color: white; font-family: sans-serif; }
+        body { background-color: #0f172a; color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .gradient-text {
             background: linear-gradient(90deg, #38bdf8, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .whatsapp-pulse {
-            animation: pulse 2s infinite;
+        .product-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: #38bdf8;
+        }
+        .whatsapp-pulse { animation: pulse 2s infinite; }
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
             70% { box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
@@ -23,33 +30,15 @@
     </style>
 </head>
 <body>
-    <nav class="p-6 flex justify-between items-center border-b border-gray-800 bg-slate-900/50 sticky top-0 backdrop-blur-md z-40">
+    <nav class="p-6 flex justify-between items-center border-b border-gray-800 bg-slate-900/80 sticky top-0 backdrop-blur-md z-40">
         <h1 class="text-2xl font-bold gradient-text">Version3D</h1>
-        <div class="hidden md:flex space-x-6">
-            <a href="#productos" class="hover:text-blue-400">Productos</a>
-            <a href="#contacto" class="hover:text-blue-400">Contacto</a>
+        <div class="space-x-4 md:space-x-8">
+            <a href="#productos" class="text-sm md:text-base hover:text-blue-400 transition">Productos</a>
+            <a href="https://wa.me/59898680317" class="bg-blue-600 px-4 py-2 rounded-lg text-sm md:text-base hover:bg-blue-700 transition">Contacto</a>
         </div>
     </nav>
 
-    <header class="py-24 px-6 text-center">
-        <h2 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">Llevamos tus ideas a la <br><span class="gradient-text">tercera dimensión</span></h2>
-        <p class="text-gray-400 text-xl max-w-2xl mx-auto mb-10">Servicio de impresión 3D profesional en Uruguay. Prototipos, repuestos y diseños personalizados con tecnología de vanguardia.</p>
-        <div class="flex flex-col md:flex-row justify-center gap-4">
-            <a href="#productos" class="bg-white text-black font-bold py-4 px-10 rounded-full hover:bg-gray-200 transition text-lg">Ver Catálogo</a>
-            <a href="https://wa.me/59898680317?text=Hola%20Version3D,%20quiero%20consultar%20por%20una%20impresión" target="_blank" class="bg-blue-600 text-white font-bold py-4 px-10 rounded-full hover:bg-blue-700 transition text-lg">Cotizar ahora</a>
-        </div>
-    </header>
-
-    <a href="https://wa.me/59898680317?text=Hola%20Version3D,%20me%20interesa%20realizar%20un%20pedido" 
-       target="_blank" 
-       class="fixed bottom-6 right-6 bg-green-500 p-4 rounded-full shadow-2xl hover:bg-green-600 transition-all z-50 whatsapp-pulse flex items-center justify-center">
-        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.888 11.888-11.888 3.176 0 6.161 1.237 8.404 3.481 2.245 2.244 3.481 5.229 3.481 8.406 0 6.555-5.332 11.887-11.89 11.887-.04 0-.08 0-.12-.001l-.001-.001c-2.023-.012-4.001-.541-5.751-1.529l-6.51 1.708zm6.402-3.738l.359.213c1.469.873 3.158 1.335 4.887 1.336h.01c5.642 0 10.239-4.595 10.239-10.238 0-2.731-1.064-5.3-2.997-7.232s-4.501-2.998-7.232-2.998c-5.64 0-10.236 4.595-10.236 10.238 0 1.956.556 3.863 1.608 5.518l.233.367-1.062 3.879 3.971-1.042z"/>
-        </svg>
-    </a>
-
-    <footer class="text-center py-10 border-t border-gray-800 text-gray-500 text-sm">
-        © 2026 Version3D - Salto, Uruguay.
-    </footer>
-</body>
-</html>
+    <header class="py-16 md:py-24 px-6 text-center border-b border-slate-800/50">
+        <h2 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">Chops y Jarras <br><span class="gradient-text">100% Personalizados</span></h2>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">Servicio profesional en Salto. Jarras de 500ml con interior de aluminio. ¡Diseños que duran para siempre!</p>
+        <a href="#productos" class="bg-white text-black font-bold py-4 px-10 rounded-full hover:bg-gray-200
