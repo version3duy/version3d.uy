@@ -6,130 +6,162 @@
     <title>Version3D | Impresión 3D Salto</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #0f172a; color: white; font-family: sans-serif; scroll-behavior: smooth; }
+        body { background-color: #020617; color: white; font-family: sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
+        
+        /* FONDO DINÁMICO */
+        .bg-glow {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1e293b 0%, #020617 100%);
+            z-index: -1;
+        }
+        .blob {
+            position: absolute; width: 400px; height: 400px;
+            background: rgba(56, 189, 248, 0.15);
+            filter: blur(80px); border-radius: 50%; z-index: -1;
+            animation: move 20s infinite alternate;
+        }
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(20%, 20%); }
+        }
+
         .gradient-text {
-            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            background: linear-gradient(90deg, #38bdf8, #818cf8, #38bdf8);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
         }
+        @keyframes shine { to { background-position: 200% center; } }
+
         .glass {
-            background: rgba(30, 41, 59, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-            overflow: hidden;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .glass:hover { border-color: #38bdf8; transform: translateY(-5px); }
-        .img-placeholder { background: #1e293b; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .logo-container img { height: 80px; width: auto; }
-        details summary::-webkit-details-marker { display:none; }
+        .glass:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: #38bdf8;
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .logo-container img { height: 85px; width: auto; filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.4)); }
+        
+        /* Botón estilo Neón */
+        .btn-neon {
+            background: white; color: black;
+            box-shadow: 0 0 15px rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+        .btn-neon:hover {
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+            transform: scale(1.05);
+        }
     </style>
- head>
+</head>
 <body>
-    <nav class="p-4 flex justify-between items-center border-b border-gray-800 bg-slate-900/50 sticky top-0 backdrop-blur-md z-40">
+    <div class="bg-glow"></div>
+    <div class="blob" style="top: 10%; left: 10%;"></div>
+    <div class="blob" style="bottom: 10%; right: 10%; background: rgba(129, 140, 248, 0.1);"></div>
+
+    <nav class="p-4 flex justify-between items-center border-b border-white/10 bg-black/20 sticky top-0 backdrop-blur-xl z-50">
         <div class="flex items-center gap-4 logo-container">
             <img src="logo.png" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1710/1710166.png'">
             <h1 class="text-xl font-bold gradient-text hidden sm:block">Version3D</h1>
         </div>
         <div class="flex items-center space-x-6">
-            <a href="https://instagram.com/version3d.uy" target="_blank" class="text-pink-500 hover:text-pink-400 transition">
+            <a href="https://instagram.com/version3d.uy" target="_blank" class="text-white/70 hover:text-pink-500 transition-all scale-110">
                 <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             </a>
-            <a href="https://wa.me/59898680317" class="bg-blue-600 px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition">WhatsApp</a>
+            <a href="https://wa.me/59898680317" class="bg-blue-600 hover:bg-blue-500 px-5 py-2 rounded-full font-bold transition-all shadow-lg shadow-blue-500/20">WhatsApp</a>
         </div>
     </nav>
 
-    <header class="py-20 px-6 text-center max-w-5xl mx-auto">
-        <h2 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+    <header class="py-28 px-6 text-center max-w-5xl mx-auto relative">
+        <h2 class="text-6xl md:text-8xl font-black mb-8 leading-tight tracking-tighter">
             Llevamos tus ideas a la <br><span class="gradient-text">tercera dimensión</span>
         </h2>
-        <p class="text-gray-400 text-lg md:text-2xl mb-4 font-medium italic">
-            Servicio de impresión 3D personalizado. Jarras choperas, llaveros, figuras, tendencias.
+        <p class="text-gray-400 text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed">
+            Servicio de impresión 3D personalizado en Salto. <span class="text-white">Jarras choperas, llaveros y figuras</span> con precisión nivel premium.
         </p>
-        <p class="text-blue-400 text-lg font-bold tracking-widest uppercase mb-10">
-            Salto Uruguay • Envíos a todo el país
-        </p>
-        <a href="#catalogo" class="bg-white text-black font-bold py-4 px-12 rounded-full hover:bg-gray-200 transition text-lg shadow-lg shadow-blue-500/10">Ver Catálogo</a>
+        <a href="#catalogo" class="btn-neon text-black font-black py-5 px-14 rounded-full text-xl transition-all inline-block">DESCUBRIR CATÁLOGO</a>
     </header>
 
-    <section class="py-16 bg-slate-900/50 border-y border-gray-800">
-        <div class="max-w-6xl mx-auto px-6">
-            <h3 class="text-center text-2xl font-bold mb-12 gradient-text uppercase tracking-widest">¿Cómo pedir tu personalizado?</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div>
-                    <div class="text-4xl mb-4 text-blue-400 font-black">01</div>
-                    <h4 class="text-xl font-bold mb-2">Envía tu idea</h4>
-                    <p class="text-gray-500 text-sm">Escribinos por WhatsApp o Instagram con tu diseño o cuadro favorito.</p>
-                </div>
-                <div>
-                    <div class="text-4xl mb-4 text-blue-400 font-black">02</div>
-                    <h4 class="text-xl font-bold mb-2">Seña y Diseño</h4>
-                    <p class="text-gray-500 text-sm">En trabajos personalizados pedimos 50% de seña para comenzar.</p>
-                </div>
-                <div>
-                    <div class="text-4xl mb-4 text-blue-400 font-black">03</div>
-                    <h4 class="text-xl font-bold mb-2">¡Recibí tu pieza!</h4>
-                    <p class="text-gray-500 text-sm">Te avisamos cuando esté listo para retirar o enviar.</p>
-                </div>
+    <section class="py-24 px-6 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="glass p-10 rounded-[40px] text-center relative overflow-hidden">
+                <div class="text-6xl font-black opacity-10 absolute -top-4 -left-4">01</div>
+                <h4 class="text-2xl font-bold mb-4">Envía tu idea</h4>
+                <p class="text-gray-400">Escribinos por WhatsApp con tu diseño o cuadro favorito.</p>
+            </div>
+            <div class="glass p-10 rounded-[40px] text-center border-blue-500/30 shadow-2xl shadow-blue-500/10">
+                <div class="text-6xl font-black opacity-10 absolute -top-4 -left-4 text-blue-400">02</div>
+                <h4 class="text-2xl font-bold mb-4">Seña y Diseño</h4>
+                <p class="text-gray-400">Para personalizados pedimos <span class="text-blue-400 font-bold italic">50% de seña</span> para agendar tu lugar.</p>
+            </div>
+            <div class="glass p-10 rounded-[40px] text-center">
+                <div class="text-6xl font-black opacity-10 absolute -top-4 -left-4">03</div>
+                <h4 class="text-2xl font-bold mb-4">¡Listo!</h4>
+                <p class="text-gray-400">Te avisamos para retirar en Salto o te lo enviamos a todo el país.</p>
             </div>
         </div>
     </section>
 
     <section id="catalogo" class="py-20 px-6 max-w-6xl mx-auto">
-        <h3 class="text-3xl font-bold mb-12 text-center text-gray-200">Nuestros <span class="gradient-text">Productos</span></h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass rounded-3xl group">
-                <div class="img-placeholder"><img src="jarra-futbol.jpg" class="w-full h-full object-cover" onerror="this.style.display='none'"><span class="text-gray-600 font-bold uppercase italic">Jarras Fútbol</span></div>
-                <div class="p-6 text-center">
-                    <h4 class="text-xl font-bold mb-2 italic">Choperas de Fútbol</h4>
-                    <a href="https://wa.me/59898680317?text=Hola!%20Me%20interesa%20la%20jarra%20de%20futbol" class="text-blue-400 font-bold">Consultar →</a>
+        <h3 class="text-4xl font-bold mb-16 text-center tracking-widest">NUESTROS <span class="text-blue-400">PRODUCTOS</span></h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="glass rounded-[32px] group">
+                <div class="h-72 overflow-hidden rounded-t-[32px] bg-slate-800 flex items-center justify-center">
+                    <img src="jarra-futbol.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.style.display='none'">
+                    <span class="text-white/20 font-black italic">Jarras Fútbol</span>
+                </div>
+                <div class="p-8 text-center">
+                    <h4 class="text-2xl font-bold mb-4 italic">Choperas de Fútbol</h4>
+                    <a href="https://wa.me/59898680317?text=Hola!%20Me%20interesa%20la%20jarra%20de%20futbol" class="inline-block border border-blue-400 text-blue-400 px-6 py-2 rounded-full font-bold hover:bg-blue-400 hover:text-black transition">Consultar</a>
                 </div>
             </div>
-            <div class="glass rounded-3xl group">
-                <div class="img-placeholder"><img src="jarra-perso.jpg" class="w-full h-full object-cover" onerror="this.style.display='none'"><span class="text-gray-600 font-bold uppercase italic p-4 text-center">Jarras Personalizadas</span></div>
-                <div class="p-6 text-center">
-                    <h4 class="text-xl font-bold mb-2 italic">Diseños a Medida</h4>
-                    <a href="https://wa.me/59898680317?text=Hola!%20Quiero%20una%20jarra%20personalizada" class="text-blue-400 font-bold">Encargar →</a>
+            <div class="glass rounded-[32px] group">
+                <div class="h-72 overflow-hidden rounded-t-[32px] bg-slate-800 flex items-center justify-center">
+                    <img src="jarra-perso.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.style.display='none'">
+                    <span class="text-white/20 font-black italic">Personalizadas</span>
+                </div>
+                <div class="p-8 text-center">
+                    <h4 class="text-2xl font-bold mb-4 italic">Diseños a Medida</h4>
+                    <a href="https://wa.me/59898680317?text=Hola!%20Quiero%20una%20jarra%20personalizada" class="inline-block border border-blue-400 text-blue-400 px-6 py-2 rounded-full font-bold hover:bg-blue-400 hover:text-black transition">Encargar</a>
                 </div>
             </div>
-            <div class="glass rounded-3xl group">
-                <div class="img-placeholder"><img src="llaveros.jpg" class="w-full h-full object-cover" onerror="this.style.display='none'"><span class="text-gray-600 font-bold uppercase italic p-4 text-center">Llaveros y Figuras</span></div>
-                <div class="p-6 text-center">
-                    <h4 class="text-xl font-bold mb-2 italic">Llaveros / Figuras</h4>
-                    <a href="https://wa.me/59898680317?text=Hola!%20Me%20interesan%20los%20llaveros" class="text-blue-400 font-bold">Pedir →</a>
+            <div class="glass rounded-[32px] group">
+                <div class="h-72 overflow-hidden rounded-t-[32px] bg-slate-800 flex items-center justify-center">
+                    <img src="llaveros.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.style.display='none'">
+                    <span class="text-white/20 font-black italic">Llaveros</span>
+                </div>
+                <div class="p-8 text-center">
+                    <h4 class="text-2xl font-bold mb-4 italic">Llaveros y Figuras</h4>
+                    <a href="https://wa.me/59898680317?text=Hola!%20Me%20interesan%20los%20llaveros" class="inline-block border border-blue-400 text-blue-400 px-6 py-2 rounded-full font-bold hover:bg-blue-400 hover:text-black transition">Pedir</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-20 px-6 max-w-3xl mx-auto">
-        <h3 class="text-2xl font-bold mb-10 text-center uppercase tracking-widest text-gray-400">Dudas Frecuentes</h3>
-        <div class="space-y-4">
-            <details class="glass p-5 rounded-2xl cursor-pointer group">
-                <summary class="font-bold text-lg flex justify-between items-center list-none">¿Cómo se realizan los pagos? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
-                <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-gray-800 pt-4">Aceptamos **efectivo**, pagos por transferencia (**PREX**) y **MercadoPago** hasta en 12 cuotas (10% de recargo).</p>
+    <section class="py-24 px-6 max-w-3xl mx-auto">
+        <h3 class="text-3xl font-bold mb-12 text-center text-white/40 uppercase tracking-[0.2em]">Info Útil</h3>
+        <div class="space-y-6">
+            <details class="glass p-6 rounded-3xl cursor-pointer group">
+                <summary class="font-bold text-xl flex justify-between items-center list-none">¿Cómo se realizan los pagos? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
+                <p class="mt-6 text-gray-400 leading-relaxed border-t border-white/5 pt-6">Aceptamos **efectivo**, transferencia (**PREX**) y **MercadoPago** hasta en 12 cuotas (con un 10% de recargo).</p>
             </details>
-            <details class="glass p-5 rounded-2xl cursor-pointer group">
-                <summary class="font-bold text-lg flex justify-between items-center list-none">¿Es necesario realizar seña? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
-                <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-gray-800 pt-4">**¡Si!** En pedidos personalizados pedimos una **seña del 50%** para comenzar el trabajo. Si tu pedido no es personalizado y está en stock, no es necesario realizar seña.</p>
+            <details class="glass p-6 rounded-3xl cursor-pointer group">
+                <summary class="font-bold text-xl flex justify-between items-center list-none">¿Es necesario realizar seña? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
+                <p class="mt-6 text-gray-400 leading-relaxed border-t border-white/5 pt-6"><span class="text-blue-400 font-bold">¡SÍ!</span> En pedidos personalizados pedimos una **seña del 50%** para realizar el trabajo. Si no es personalizado y tenemos stock, no es necesario.</p>
             </details>
-            <details class="glass p-5 rounded-2xl cursor-pointer group">
-                <summary class="font-bold text-lg flex justify-between items-center list-none">¿A qué parte de Uruguay envían? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
-                <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-gray-800 pt-4">Enviamos a todo el país por DAC o la agencia de tu preferencia desde Salto.</p>
-            </details>
-            <details class="glass p-5 rounded-2xl cursor-pointer group">
-                <summary class="font-bold text-lg flex justify-between items-center list-none">¿Cuánto demora la fabricación? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
-                <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-gray-800 pt-4">Normalmente entre 3 y 5 días hábiles, dependiendo de la carga de las impresoras.</p>
+            <details class="glass p-6 rounded-3xl cursor-pointer group">
+                <summary class="font-bold text-xl flex justify-between items-center list-none">¿Envíos a todo el país? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
+                <p class="mt-6 text-gray-400 leading-relaxed border-t border-white/5 pt-6">¡Sí! Por DAC o la agencia de tu preferencia. En Salto coordinamos retiro directo.</p>
             </details>
         </div>
     </section>
 
-    <footer class="text-center py-12 border-t border-gray-800 bg-slate-900/30 text-gray-500">
-        <p class="font-bold mb-4 italic uppercase tracking-tighter">"Tu idea, impresa en realidad"</p>
-        <p class="text-[10px]">© 2026 Version3D - Salto, Uruguay.</p>
-    </footer>
-
-    <a href="https://wa.me/59898680317" target="_blank" class="fixed bottom-6 right-6 bg-green-500 p-4 rounded-full shadow-2xl z-50 hover:scale-110 transition">
-        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.888 11.888-11.888 3.176 0 6.161 1.237 8.404 3.481 2.245 2.244 3.481 5.229 3.481 8.406 0 6.555-5.332 11.887-11.89 11.887-.04 0-.08 0-.12-.001l-.001-.001c-2.023-.012-4.001-.541-5.751-1.529l-6.51 1.708zm6.402-3.738l.359.213c1.469.873 3.158 1.335 4.887 1.336h.01c5.642 0 10.239-4.595 10.239-10.238 0-2.731-1.064-5.3-2.997-7.232s-4.501-2.998-7.232-2.998c-5.64 0-10.236 4.595-10.236 10.238 0 1.956.556 3.863 1.608 5.518l.233.367-1.062 3.879 3.971-1.042z"/></svg>
-    </a>
-</body>
-</html>
+    <a href="https://wa.me/59898680317" target="_blank" class="fixed bottom-8 right-8 bg-green-500 p-5 rounded-full shadow-[0_0_20px_rgba(34,197,94,0.5)] z-50 hover:scale-125 transition-all animate-bounce">
+        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.888 11.888-11.888 3.176 0 6.161 1.237 8.404 3.481 2.245 2.244 3.481 5.229 3.481 8.406 0 6.555-5.332 11.887-11.89 11.887-.04 0-.08 0-.12-.001l-.001-.001c-2.023-.012-4.001-.541-5.751-1.529l-6.51 1.708zm6.402-3.738l.359.213c1.469.873 3.158 1.335 4.887 1.336h.01c5.642 0 10.239-4.595 10.239-10.238 0-2.731-1.06
