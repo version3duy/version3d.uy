@@ -20,12 +20,8 @@
         }
         .glass:hover { border-color: #38bdf8; transform: translateY(-5px); }
         .img-placeholder { background: #1e293b; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        /* LOGO GRANDE */
-        .logo-container img {
-            height: 80px; 
-            width: auto;
-            transition: transform 0.3s ease;
-        }
+        .logo-container img { height: 80px; width: auto; }
+        details summary::-webkit-details-marker { display:none; }
     </style>
 </head>
 <body>
@@ -42,70 +38,93 @@
         </div>
     </nav>
 
-    <header class="py-24 px-6 text-center max-w-5xl mx-auto">
-        <h2 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+    <header class="py-20 px-6 text-center max-w-5xl mx-auto">
+        <h2 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight tracking-tight">
             Llevamos tus ideas a la <br><span class="gradient-text">tercera dimensión</span>
         </h2>
         <p class="text-gray-400 text-lg md:text-2xl mb-4 font-medium italic">
             Servicio de impresión 3D personalizado. Jarras choperas, llaveros, figuras, tendencias.
         </p>
-        <p class="text-blue-400 text-lg font-bold tracking-widest uppercase">
+        <p class="text-blue-400 text-lg font-bold tracking-widest uppercase mb-10">
             Salto Uruguay • Envíos a todo el país
         </p>
-        <div class="mt-12">
-            <a href="#catalogo" class="bg-white text-black font-bold py-4 px-12 rounded-full hover:bg-gray-200 transition text-lg">Ver Catálogo</a>
-        </div>
+        <a href="#catalogo" class="bg-white text-black font-bold py-4 px-12 rounded-full hover:bg-gray-200 transition text-lg">Ver Catálogo</a>
     </header>
 
-    <section id="catalogo" class="py-12 px-6 max-w-6xl mx-auto border-t border-gray-800/50">
-        <h3 class="text-2xl font-bold mb-12 text-center uppercase tracking-widest text-gray-500">Nuestros Productos</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-            
-            <div class="glass rounded-3xl group">
-                <div class="img-placeholder">
-                    <img src="jarra-futbol.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.style.display='none'">
-                    <span class="text-gray-600 font-bold uppercase italic p-4 text-center">Foto Jarras de Fútbol</span>
+    <section class="py-16 bg-slate-900/50 border-y border-gray-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <h3 class="text-center text-2xl font-bold mb-12 gradient-text uppercase tracking-widest">¿Cómo pedir tu personalizado?</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <div class="text-4xl mb-4 text-blue-400 font-black">01</div>
+                    <h4 class="text-xl font-bold mb-2">Envía tu idea</h4>
+                    <p class="text-gray-500">Contactanos por WhatsApp o Instagram con tu diseño o cuadro favorito.</p>
                 </div>
-                <div class="p-6">
-                    <h4 class="text-xl font-bold mb-2">Choperas de Fútbol</h4>
-                    <p class="text-gray-500 text-sm mb-4">Nacional, Peñarol y cuadros locales. Interior de aluminio.</p>
-                    <a href="https://wa.me/59898680317?text=Me%20interesa%20la%20jarra%20de%20futbol" class="text-blue-400 font-bold hover:underline transition">Consultar →</a>
+                <div class="text-center p-6">
+                    <div class="text-4xl mb-4 text-blue-400 font-black">02</div>
+                    <h4 class="text-xl font-bold mb-2">Cotizamos</h4>
+                    <p class="text-gray-500">Te pasamos presupuesto y tiempo de entrega (aprox. 3-5 días).</p>
                 </div>
-            </div>
-
-            <div class="glass rounded-3xl group">
-                <div class="img-placeholder">
-                    <img src="jarra-perso.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.style.display='none'">
-                    <span class="text-gray-600 font-bold uppercase italic p-4 text-center">Foto Jarras Personalizadas</span>
-                </div>
-                <div class="p-6">
-                    <h4 class="text-xl font-bold mb-2">Jarras a Pedido</h4>
-                    <p class="text-gray-500 text-sm mb-4">Personalización total con logos, nombres o diseños exclusivos.</p>
-                    <a href="https://wa.me/59898680317?text=Me%20interesa%20una%20jarra%20personalizada" class="text-blue-400 font-bold hover:underline transition">Encargar →</a>
+                <div class="text-center p-6">
+                    <div class="text-4xl mb-4 text-blue-400 font-black">03</div>
+                    <h4 class="text-xl font-bold mb-2">¡Recibí tu pieza!</h4>
+                    <p class="text-gray-500">Retirá en Salto o te lo enviamos a cualquier punto del país.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
+    <section id="catalogo" class="py-20 px-6 max-w-6xl mx-auto">
+        <h3 class="text-3xl font-bold mb-12 text-center">Nuestros <span class="gradient-text">Productos</span></h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="glass rounded-3xl group">
-                <div class="img-placeholder">
-                    <img src="llaveros.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.style.display='none'">
-                    <span class="text-gray-600 font-bold uppercase italic p-4 text-center">Foto Llaveros / Figuras</span>
-                </div>
+                <div class="img-placeholder"><img src="jarra-futbol.jpg" class="w-full h-full object-cover" onerror="this.style.display='none'"><span class="text-gray-600 font-bold uppercase italic">Jarras Fútbol</span></div>
                 <div class="p-6">
-                    <h4 class="text-xl font-bold mb-2">Llaveros y Figuras</h4>
-                    <p class="text-gray-500 text-sm mb-4">Detalles únicos impresos con alta precisión para regalos.</p>
-                    <a href="https://wa.me/59898680317?text=Me%20interesan%20los%20llaveros" class="text-blue-400 font-bold hover:underline transition">Presupuestar →</a>
+                    <h4 class="text-xl font-bold mb-2 italic">Choperas de Fútbol</h4>
+                    <a href="https://wa.me/59898680317?text=Me%20interesa%20la%20jarra%20de%20futbol" class="text-blue-400 font-bold hover:underline">Consultar →</a>
                 </div>
             </div>
+            <div class="glass rounded-3xl group">
+                <div class="img-placeholder"><img src="jarra-perso.jpg" class="w-full h-full object-cover" onerror="this.style.display='none'"><span class="text-gray-600 font-bold uppercase italic text-center p-4">Jarras Personalizadas</span></div>
+                <div class="p-6">
+                    <h4 class="text-xl font-bold mb-2 italic">Diseños a Medida</h4>
+                    <a href="https://wa.me/59898680317?text=Me%20interesa%20una%20jarra%20personalizada" class="text-blue-400 font-bold hover:underline">Encargar →</a>
+                </div>
+            </div>
+            <div class="glass rounded-3xl group">
+                <div class="img-placeholder"><img src="llaveros.jpg" class="w-full h-full object-cover" onerror="this.style.display='none'"><span class="text-gray-600 font-bold uppercase italic text-center p-4">Llaveros y Accesorios</span></div>
+                <div class="p-6">
+                    <h4 class="text-xl font-bold mb-2 italic">Llaveros y Figuras</h4>
+                    <a href="https://wa.me/59898680317?text=Me%20interesan%20los%20llaveros" class="text-blue-400 font-bold hover:underline">Pedir →</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <section class="py-20 px-6 max-w-3xl mx-auto">
+        <h3 class="text-2xl font-bold mb-10 text-center">Preguntas <span class="gradient-text">Frecuentes</span></h3>
+        <div class="space-y-4">
+            <details class="glass p-4 rounded-xl cursor-pointer">
+                <summary class="font-bold text-lg">¿A qué parte de Uruguay envían?</summary>
+                <p class="mt-4 text-gray-400 text-sm leading-relaxed">Enviamos a todo el país a través de DAC o la agencia de tu preferencia. En Salto se puede coordinar retiro en persona.</p>
+            </details>
+            <details class="glass p-4 rounded-xl cursor-pointer">
+                <summary class="font-bold text-lg">¿Las jarras son resistentes al agua?</summary>
+                <p class="mt-4 text-gray-400 text-sm leading-relaxed">¡Sí! Tienen un vaso de aluminio de 500ml de alta calidad por dentro. La parte impresa es decorativa y muy resistente, pero se recomienda lavar a mano.</p>
+            </details>
+            <details class="glass p-4 rounded-xl cursor-pointer">
+                <summary class="font-bold text-lg">¿Cuánto demora mi pedido?</summary>
+                <p class="mt-4 text-gray-400 text-sm leading-relaxed">Normalmente entre 3 y 5 días hábiles, dependiendo de la complejidad del diseño y la carga de trabajo de las impresoras.</p>
+            </details>
         </div>
     </section>
 
     <footer class="text-center py-12 border-t border-gray-800 bg-slate-900/30">
-        <p class="text-gray-400 font-bold mb-4 uppercase tracking-tighter italic">"Tu idea, impresa en realidad"</p>
+        <p class="text-gray-400 font-bold mb-4 italic">"Tu idea, impresa en realidad"</p>
         <p class="text-gray-700 text-[10px]">© 2026 Version3D - Salto, Uruguay.</p>
     </footer>
 
-    <a href="https://wa.me/59898680317" target="_blank" class="fixed bottom-6 right-6 bg-green-500 p-4 rounded-full shadow-2xl hover:scale-110 transition-all z-50">
+    <a href="https://wa.me/59898680317" target="_blank" class="fixed bottom-6 right-6 bg-green-500 p-4 rounded-full shadow-2xl z-50 hover:scale-110 transition">
         <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.888 11.888-11.888 3.176 0 6.161 1.237 8.404 3.481 2.245 2.244 3.481 5.229 3.481 8.406 0 6.555-5.332 11.887-11.89 11.887-.04 0-.08 0-.12-.001l-.001-.001c-2.023-.012-4.001-.541-5.751-1.529l-6.51 1.708zm6.402-3.738l.359.213c1.469.873 3.158 1.335 4.887 1.336h.01c5.642 0 10.239-4.595 10.239-10.238 0-2.731-1.064-5.3-2.997-7.232s-4.501-2.998-7.232-2.998c-5.64 0-10.236 4.595-10.236 10.238 0 1.956.556 3.863 1.608 5.518l.233.367-1.062 3.879 3.971-1.042z"/></svg>
     </a>
 </body>
