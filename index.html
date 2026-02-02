@@ -9,6 +9,27 @@
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Esto evita que cualquier cosa se salga del ancho de la pantalla */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ajuste para que el texto grande no rompa el diseño en celulares */
+h2 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+/* Reducir un poco el tamaño de letra en móviles */
+@media (max-width: 768px) {
+    h2 { font-size: 3rem !important; line-height: 1.1; }
+    .py-24 { padding-top: 3rem; padding-bottom: 3rem; }
+    .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
         body { background-color: #020617; color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
         
         /* Fondo animado */
