@@ -60,6 +60,26 @@
         
         details summary::-webkit-details-marker { display:none; }
     </style>
+    .whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #25d366; /* Verde WhatsApp */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-btn:hover {
+    background-color: #128c7e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
 </head>
 <body>
     <div class="banner-promo">
@@ -76,9 +96,10 @@
         </div>
         <div class="flex items-center space-x-4">
             <a href="https://instagram.com/version3d.uy" target="_blank" class="text-white/70 hover:text-pink-500 transition-all">Instagram</a>
-           <a href="https://wa.me/59898680317?text=Hola!%20Vi%20la%20promo%20en%20la%20web%20y%20quiero%20mi%2015%25%20de%20descuento%20lanzamiento.%20Código:%20VERSION3D" 
-   class="btn-whatsapp" target="_blank">
-   Pedir con 15% OFF 🚀
+    <a href="https://wa.me/59898680317?text=Hola!%20Vi%20la%20promo%20en%20la%20web%20y%20quiero%20mi%2015%25%20de%20descuento%20lanzamiento.%20Código:%20VERSION3D" 
+   class="whatsapp-btn" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="20">
+    Hacer pedido con 15% OFF
 </a>
         </div>
     </nav>
