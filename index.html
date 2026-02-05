@@ -9,6 +9,24 @@
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        .banner-promo {
+    background: linear-gradient(90deg, #ff4b2b, #ff416c);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-size: 0.9rem;
+}
+.banner-promo span {
+    background: white;
+    color: #ff416c;
+    padding: 2px 8px;
+    border-radius: 5px;
+    margin-left: 5px;
+}
         html, body {
             overflow-x: hidden;
             width: 100%;
@@ -44,6 +62,10 @@
     </style>
 </head>
 <body>
+    <div class="banner-promo">
+    🚀 ¡PROMO LANZAMIENTO! 15% OFF en tu primer pedido web 
+    <span>CÓDIGO: VERSION3D</span>
+</div>
     <div class="bg-glow"></div>
     <div class="blob" style="top: 5%; left: 5%;"></div>
 
