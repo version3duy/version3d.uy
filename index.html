@@ -92,6 +92,79 @@
         .modelo-btn { cursor: pointer; background: none; color: white; }
         .modelo-btn:hover svg { transform: scale(1.05); transition: transform .2s; }
 
+        /* Foto preview jarra */
+        .mug-preview-wrap {
+            position: relative;
+            width: 280px;
+            height: 300px;
+            border-radius: 32px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .mug-bg {
+            position: absolute;
+            inset: 0;
+            background: rgb(231, 231, 231);
+        }
+        .mug-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 16px;
+            transition: opacity .3s, filter .4s;
+            filter: none;
+        }
+        .mug-color-overlay {
+            position: absolute;
+            inset: 0;
+            mix-blend-mode: hue;
+            opacity: 0;
+            transition: opacity .4s, background-color .4s;
+            pointer-events: none;
+            border-radius: 32px;
+        }
+        .mug-model-label {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(8px);
+            color: white;
+            font-size: .72rem;
+            font-weight: 800;
+            letter-spacing: .08em;
+            padding: 5px 14px;
+            border-radius: 99px;
+            white-space: nowrap;
+        }
+        /* Indicadores de color sobre la foto */
+        .color-chips {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .color-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 99px;
+            padding: 5px 12px 5px 6px;
+            font-size: .78rem;
+            font-weight: 700;
+        }
+        .color-chip-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.25);
+            flex-shrink: 0;
+        }
+
         /* Catálogo overlay */
         .cat-card { cursor: pointer; }
         .cat-overlay {
@@ -368,95 +441,17 @@
             <div class="flex flex-col items-center gap-6 lg:sticky lg:top-28">
                 <p class="text-xs text-white/30 uppercase tracking-widest font-bold">Preview en tiempo real</p>
 
-                <!-- Preview - dos modelos intercambiables -->
-
-                <!-- MODELO A: Asa redondeada izquierda (foto 1) -->
-                <svg id="mugA" width="260" height="310" viewBox="0 0 260 310" xmlns="http://www.w3.org/2000/svg" style="display:block">
-                  <defs>
-                    <clipPath id="clipA"><rect x="72" y="22" width="152" height="226" rx="4"/></clipPath>
-                    <linearGradient id="shineA" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%"   stop-color="rgba(0,0,0,0.30)"/>
-                      <stop offset="30%"  stop-color="rgba(255,255,255,0.15)"/>
-                      <stop offset="100%" stop-color="rgba(0,0,0,0.25)"/>
-                    </linearGradient>
-                    <linearGradient id="rimA" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stop-color="#c8c8c8"/>
-                      <stop offset="100%" stop-color="#707070"/>
-                    </linearGradient>
-                  </defs>
-                  <!-- Sombra suelo -->
-                  <ellipse cx="148" cy="304" rx="70" ry="7" fill="rgba(0,0,0,0.3)"/>
-
-                  <!-- ASA redondeada a la IZQUIERDA — curva tipo C gruesa -->
-                  <path id="aHandle" d="M76,90 C30,90 12,120 12,155 C12,190 30,220 76,220" stroke="#e0e0e0" stroke-width="26" fill="none" stroke-linecap="round"/>
-                  <!-- Hueco del asa -->
-                  <path d="M76,105 C44,105 30,125 30,155 C30,185 44,205 76,205" stroke="#1a1a2e" stroke-width="10" fill="none" stroke-linecap="round"/>
-
-                  <!-- Base con anillos (color secundario) — encima del cuerpo -->
-                  <!-- Plataforma base ancha -->
-                  <rect id="aBase" x="66" y="264" width="164" height="20" rx="10" fill="#222"/>
-                  <!-- Anillo intermedio -->
-                  <rect id="aRingM" x="70" y="250" width="156" height="14" rx="3" fill="#e0e0e0"/>
-                  <!-- Anillo oscuro superior -->
-                  <rect id="aRingT" x="70" y="238" width="156" height="12" rx="3" fill="#222"/>
-
-                  <!-- Cuerpo cilíndrico principal -->
-                  <rect id="aBody" x="72" y="22" width="152" height="228" rx="4" fill="#e0e0e0"/>
-                  <rect x="72" y="22" width="152" height="228" rx="4" fill="url(#shineA)"/>
-
-                  <!-- Rim superior (borde metálico) -->
-                  <rect x="68" y="8" width="160" height="20" rx="4" fill="url(#rimA)"/>
-                  <ellipse cx="148" cy="8" rx="80" ry="5" fill="#909090"/>
-                  <rect x="90" y="10" width="50" height="5" rx="2" fill="rgba(255,255,255,0.55)"/>
-
-                  <!-- Logo -->
-                  <image id="aLogo" x="110" y="50" width="76" height="76" href="" clip-path="url(#clipA)" preserveAspectRatio="xMidYMid meet" style="display:none"/>
-                  <!-- Texto -->
-                  <text id="aText" x="148" y="195" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="26" letter-spacing="3" fill="#1a1a1a" clip-path="url(#clipA)">TU NOMBRE</text>
-                </svg>
-
-                <!-- MODELO B: Asa cuadrada derecha (foto 2) -->
-                <svg id="mugB" width="260" height="310" viewBox="0 0 260 310" xmlns="http://www.w3.org/2000/svg" style="display:none">
-                  <defs>
-                    <clipPath id="clipB"><rect x="72" y="22" width="152" height="226" rx="4"/></clipPath>
-                    <linearGradient id="shineB" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%"   stop-color="rgba(0,0,0,0.30)"/>
-                      <stop offset="30%"  stop-color="rgba(255,255,255,0.15)"/>
-                      <stop offset="100%" stop-color="rgba(0,0,0,0.25)"/>
-                    </linearGradient>
-                    <linearGradient id="rimB" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stop-color="#c8c8c8"/>
-                      <stop offset="100%" stop-color="#707070"/>
-                    </linearGradient>
-                  </defs>
-                  <!-- Sombra suelo -->
-                  <ellipse cx="148" cy="304" rx="70" ry="7" fill="rgba(0,0,0,0.3)"/>
-
-                  <!-- ASA rectangular a la DERECHA -->
-                  <!-- Cuerpo exterior del asa -->
-                  <rect id="bHandle" x="220" y="95" width="42" height="115" rx="12" fill="#e0e0e0"/>
-                  <!-- Hueco interior del asa -->
-                  <rect x="232" y="110" width="20" height="85" rx="6" fill="#1a1a2e"/>
-
-                  <!-- Base con anillos (color secundario) -->
-                  <rect id="bBase" x="66" y="264" width="164" height="20" rx="10" fill="#222"/>
-                  <rect id="bRingM" x="70" y="250" width="156" height="14" rx="3" fill="#e0e0e0"/>
-                  <rect id="bRingT" x="70" y="238" width="156" height="12" rx="3" fill="#222"/>
-
-                  <!-- Cuerpo principal -->
-                  <rect id="bBody" x="72" y="22" width="152" height="228" rx="4" fill="#e0e0e0"/>
-                  <rect x="72" y="22" width="152" height="228" rx="4" fill="url(#shineB)"/>
-
-                  <!-- Rim superior -->
-                  <rect x="68" y="8" width="160" height="20" rx="4" fill="url(#rimB)"/>
-                  <ellipse cx="148" cy="8" rx="80" ry="5" fill="#909090"/>
-                  <rect x="90" y="10" width="50" height="5" rx="2" fill="rgba(255,255,255,0.55)"/>
-
-                  <!-- Logo -->
-                  <image id="bLogo" x="110" y="50" width="76" height="76" href="" clip-path="url(#clipB)" preserveAspectRatio="xMidYMid meet" style="display:none"/>
-                  <!-- Texto -->
-                  <text id="bText" x="148" y="195" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="26" letter-spacing="3" fill="#1a1a1a" clip-path="url(#clipB)">TU NOMBRE</text>
-                </svg>
+                <!-- Preview - fotos reales con fondo neutro -->
+                <div id="mugPreview" class="mug-preview-wrap">
+                    <!-- Fondo degradado neutro -->
+                    <div class="mug-bg"></div>
+                    <!-- Imagen de la jarra -->
+                    <img id="mugImg" src="mug_redonda.png" alt="Preview de chopera" class="mug-img"/>
+                    <!-- Overlay de color (mezcla con mix-blend-mode) -->
+                    <div id="mugColorOverlay" class="mug-color-overlay"></div>
+                    <!-- Badge del modelo activo -->
+                    <div id="mugModelLabel" class="mug-model-label">Asa redondeada</div>
+                </div>
 
                 <!-- Mini resumen -->
                 <div class="glass rounded-2xl p-4 w-full max-w-xs text-sm space-y-2">
@@ -506,40 +501,18 @@
                     <h4 class="text-2xl font-black mb-1 italic">Modelo de chopera</h4>
                     <p class="text-gray-400 text-sm mb-7">¿Cuál de los dos modelos preferís?</p>
                     <div class="grid grid-cols-2 gap-4">
-                        <!-- Modelo A: asa redondeada izquierda -->
                         <button id="btnModelA" onclick="selectModelo('A')"
-                            class="modelo-btn glass rounded-2xl p-4 flex flex-col items-center gap-3 border-2 border-transparent hover:border-blue-400 transition-all">
-                            <svg width="100" height="120" viewBox="0 0 260 310">
-                              <!-- asa curva izq -->
-                              <path d="M76,90 C30,90 12,120 12,155 C12,190 30,220 76,220" stroke="rgba(255,255,255,0.7)" stroke-width="26" fill="none" stroke-linecap="round"/>
-                              <path d="M76,105 C44,105 30,125 30,155 C30,185 44,205 76,205" stroke="#0f172a" stroke-width="10" fill="none" stroke-linecap="round"/>
-                              <!-- base anillos -->
-                              <rect x="66" y="264" width="164" height="20" rx="10" fill="rgba(0,0,0,0.6)"/>
-                              <rect x="70" y="250" width="156" height="14" rx="3" fill="rgba(255,255,255,0.5)"/>
-                              <rect x="70" y="238" width="156" height="12" rx="3" fill="rgba(0,0,0,0.6)"/>
-                              <!-- cuerpo -->
-                              <rect x="72" y="22" width="152" height="228" rx="4" fill="rgba(255,255,255,0.85)"/>
-                              <!-- rim -->
-                              <rect x="68" y="8" width="160" height="20" rx="4" fill="#999"/>
-                            </svg>
+                            class="modelo-btn glass rounded-2xl p-3 flex flex-col items-center gap-2 border-2 border-transparent hover:border-blue-400 transition-all">
+                            <div class="w-full h-28 rounded-xl overflow-hidden bg-gradient-to-b from-gray-300 to-gray-400">
+                                <img src="mug_redonda.png" class="w-full h-full object-contain p-1" alt="Asa redondeada">
+                            </div>
                             <span class="text-sm font-bold">Asa redondeada</span>
                         </button>
-                        <!-- Modelo B: asa cuadrada derecha -->
                         <button id="btnModelB" onclick="selectModelo('B')"
-                            class="modelo-btn glass rounded-2xl p-4 flex flex-col items-center gap-3 border-2 border-transparent hover:border-blue-400 transition-all">
-                            <svg width="100" height="120" viewBox="0 0 260 310">
-                              <!-- cuerpo -->
-                              <rect x="72" y="22" width="152" height="228" rx="4" fill="rgba(255,255,255,0.85)"/>
-                              <!-- asa cuadrada derecha -->
-                              <rect x="220" y="95" width="42" height="115" rx="12" fill="rgba(255,255,255,0.7)"/>
-                              <rect x="232" y="110" width="20" height="85" rx="6" fill="#0f172a"/>
-                              <!-- base anillos -->
-                              <rect x="66" y="264" width="164" height="20" rx="10" fill="rgba(0,0,0,0.6)"/>
-                              <rect x="70" y="250" width="156" height="14" rx="3" fill="rgba(255,255,255,0.5)"/>
-                              <rect x="70" y="238" width="156" height="12" rx="3" fill="rgba(0,0,0,0.6)"/>
-                              <!-- rim -->
-                              <rect x="68" y="8" width="160" height="20" rx="4" fill="#999"/>
-                            </svg>
+                            class="modelo-btn glass rounded-2xl p-3 flex flex-col items-center gap-2 border-2 border-transparent hover:border-blue-400 transition-all">
+                            <div class="w-full h-28 rounded-xl overflow-hidden bg-gradient-to-b from-gray-300 to-gray-400">
+                                <img src="mug_cuadrada.png" class="w-full h-full object-contain p-1" alt="Asa cuadrada">
+                            </div>
                             <span class="text-sm font-bold">Asa cuadrada</span>
                         </button>
                     </div>
@@ -738,9 +711,10 @@ const PASOS = 5;
 // ── Selector de modelo ──
 function selectModelo(m) {
     est.modelo = m;
-    document.getElementById('mugA').style.display = m === 'A' ? 'block' : 'none';
-    document.getElementById('mugB').style.display = m === 'B' ? 'block' : 'none';
-    document.getElementById('lblModelo').textContent = m === 'A' ? 'Asa cuadrada' : 'Asa redondeada';
+    // Swap photo
+    document.getElementById('mugImg').src = m === 'A' ? 'mug_redonda.png' : 'mug_cuadrada.png';
+    document.getElementById('mugModelLabel').textContent = m === 'A' ? 'Asa redondeada' : 'Asa cuadrada';
+    document.getElementById('lblModelo').textContent = m === 'A' ? 'Asa redondeada' : 'Asa cuadrada';
     // Highlight selected button
     ['A','B'].forEach(x => {
         const btn = document.getElementById('btnModel' + x);
@@ -749,7 +723,6 @@ function selectModelo(m) {
         btn.classList.toggle('border-transparent', x !== m);
     });
     refresh();
-    // Auto-avanzar al siguiente paso tras un breve delay
     setTimeout(() => nextPaso(), 350);
 }
 
@@ -777,63 +750,30 @@ function mkSwatches(cid, key) {
 function refresh() {
     const ce = COLORES.find(c => c.name === est.ext);   // principal
     const ct = COLORES.find(c => c.name === est.txt);   // secundario
+
+    // Color tint overlay sobre la foto (mezcla suave)
+    const overlay = document.getElementById('mugColorOverlay');
+    if (ce && overlay) {
+        // Solo activar si no es blanco/gris (neutros)
+        const neutrales = ['Blanco','Plateado','Gris'];
+        if (neutrales.includes(ce.name)) {
+            overlay.style.opacity = '0';
+        } else {
+            overlay.style.backgroundColor = ce.hex;
+            overlay.style.opacity = '0.45';
+        }
+    }
+
+    // Mini resumen
+    if (ce) {
+        document.getElementById('dotExt').style.backgroundColor = ce.hex;
+        document.getElementById('lblExt').textContent = ce.name;
+    }
+    if (ct) {
+        document.getElementById('dotTxt').style.backgroundColor = ct.hex;
+        document.getElementById('lblTxt').textContent = ct.name;
+    }
     const nombre = document.getElementById('inpNombre')?.value || '';
-    const fs = nombre.length > 14 ? 13 : nombre.length > 10 ? 17 : nombre.length > 7 ? 21 : 26;
-
-    // ── Modelo A (asa redondeada izq) ──
-    if (ce) {
-        // Principal: cuerpo + asa
-        setFill('aBody', ce.hex);
-        // Asa es un path con stroke
-        const aHnd = document.getElementById('aHandle');
-        if (aHnd) aHnd.setAttribute('stroke', ce.hex);
-        // Anillo del medio (color claro visible = mismo que principal o blanco si es oscuro)
-        setFill('aRingM', ce.hex);
-    }
-    if (ct) {
-        // Secundario: anillos oscuros + texto
-        setFill('aRingT', ct.hex);
-        setFill('aBase',  ct.hex);
-    }
-    const aText = document.getElementById('aText');
-    if (aText) {
-        if (ct) aText.setAttribute('fill', ct.hex);
-        aText.textContent = nombre || 'TU NOMBRE';
-        aText.setAttribute('font-size', fs);
-        aText.setAttribute('y', est.logo64 ? '210' : '195');
-    }
-    const aLogo = document.getElementById('aLogo');
-    if (aLogo) {
-        if (est.logo64) { aLogo.setAttribute('href', est.logo64); aLogo.style.display = 'block'; }
-        else aLogo.style.display = 'none';
-    }
-
-    // ── Modelo B (asa cuadrada der) ──
-    if (ce) {
-        setFill('bBody',   ce.hex);
-        setFill('bHandle', ce.hex);
-        setFill('bRingM',  ce.hex);
-    }
-    if (ct) {
-        setFill('bRingT', ct.hex);
-        setFill('bBase',  ct.hex);
-    }
-    const bText = document.getElementById('bText');
-    if (bText) {
-        if (ct) bText.setAttribute('fill', ct.hex);
-        bText.textContent = nombre || 'TU NOMBRE';
-        bText.setAttribute('font-size', fs);
-        bText.setAttribute('y', est.logo64 ? '210' : '195');
-    }
-    const bLogo = document.getElementById('bLogo');
-    if (bLogo) {
-        if (est.logo64) { bLogo.setAttribute('href', est.logo64); bLogo.style.display = 'block'; }
-        else bLogo.style.display = 'none';
-    }
-
-    // ── Mini resumen ──
-    if (ce) { document.getElementById('dotExt').style.backgroundColor = ce.hex; document.getElementById('lblExt').textContent = ce.name; }
-    if (ct) { document.getElementById('dotTxt').style.backgroundColor = ct.hex; document.getElementById('lblTxt').textContent = ct.name; }
     document.getElementById('lblNombre').textContent = nombre || '—';
     document.getElementById('lblLogo').textContent = est.logo64 ? '✅ Sí' : 'No';
 }
