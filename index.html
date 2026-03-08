@@ -6,326 +6,612 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Version3D | Impresión 3D Salto Uruguay</title>
+    <meta property="og:title" content="Version3D | Impresión 3D Salto Uruguay">
+    <meta property="og:description" content="Choperas térmicas personalizadas, llaveros para empresas y diseños a medida. Envíos a todo Uruguay.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:url" content="https://version3d.uy">
+    <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .banner-promo {
-    background: linear-gradient(90deg, #ff4b2b, #ff416c);
-    color: white;
-    text-align: center;
-    padding: 10px;
-    font-weight: bold;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    font-size: 0.9rem;
-}
-.banner-promo span {
-    background: white;
-    color: #ff416c;
-    padding: 2px 8px;
-    border-radius: 5px;
-    margin-left: 5px;
-}
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-        }
-        h2 {
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            hyphens: auto;
-        }
-        @media (max-width: 768px) {
-            h2 { font-size: 3rem !important; line-height: 1.1; }
-            .py-24 { padding-top: 3rem; padding-bottom: 3rem; }
-            .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
-        }
-        body { background-color: #020617; color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
-        
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;900&display=swap');
+        * { box-sizing: border-box; }
+        html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
+        body { background-color: #020617; color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+
+        .banner-promo { background: linear-gradient(90deg, #ff4b2b, #ff416c); color: white; text-align: center; padding: 10px; font-weight: bold; position: sticky; top: 0; z-index: 1000; font-size: 0.9rem; }
+        .banner-promo span { background: white; color: #ff416c; padding: 2px 8px; border-radius: 5px; margin-left: 5px; }
+
         .bg-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #1e293b 0%, #020617 100%); z-index: -1; }
-        .blob { position: absolute; width: 450px; height: 450px; background: rgba(56, 189, 248, 0.12); filter: blur(80px); border-radius: 50%; z-index: -1; animation: move 20s infinite alternate; }
-        @keyframes move { from { transform: translate(-5%, -5%); } to { transform: translate(15%, 15%); } }
+        .blob { position: absolute; width: 450px; height: 450px; background: rgba(56,189,248,0.12); filter: blur(80px); border-radius: 50%; z-index: -1; animation: move 20s infinite alternate; }
+        @keyframes move { from { transform: translate(-5%,-5%); } to { transform: translate(15%,15%); } }
 
         .gradient-text { background: linear-gradient(90deg, #38bdf8, #818cf8, #38bdf8); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 4s linear infinite; }
         @keyframes shine { to { background-position: 200% center; } }
 
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.4s ease; }
+        .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); transition: all 0.4s ease; }
         .glass:hover { border-color: #38bdf8; transform: translateY(-8px); }
-        
-        .btn-neon { background: white; color: black; box-shadow: 0 0 15px rgba(255,255,255,0.2); transition: all 0.3s; }
-        .btn-neon:hover { box-shadow: 0 0 25px rgba(56, 189, 248, 0.5); transform: scale(1.05); }
-        
-        details summary::-webkit-details-marker { display:none; }
 
-        /* Esto obliga a la imagen a ocupar todo el ancho */
-.foto-ancha {
-    grid-column: 1 / -1; 
-    width: 100% !important;
-}
+        .btn-neon { background: white; color: black; box-shadow: 0 0 15px rgba(255,255,255,0.2); transition: all 0.3s; }
+        .btn-neon:hover { box-shadow: 0 0 25px rgba(56,189,248,0.5); transform: scale(1.05); }
+
+        details summary::-webkit-details-marker { display: none; }
+
+        /* Hamburger */
+        #hamburger { display: none; }
+        @media (max-width: 768px) {
+            h2 { font-size: 3rem !important; line-height: 1.1; }
+            #hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+            #hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; }
+            #nav-links { display: none; flex-direction: column; position: absolute; top: 100%; right: 0; background: rgba(0,0,0,0.97); padding: 1rem 1.5rem; gap: 1rem; border-bottom-left-radius: 16px; border: 1px solid rgba(255,255,255,0.1); }
+            #nav-links.open { display: flex; }
+        }
+
+        /* ── CONFIGURADOR ── */
+        #configurador { scroll-margin-top: 80px; }
+
+        .cfg-wrap { background: rgba(255,255,255,0.02); border: 1px solid rgba(56,189,248,0.2); border-radius: 40px; padding: 3rem; position: relative; overflow: hidden; }
+        .cfg-wrap::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at top left, rgba(56,189,248,0.06) 0%, transparent 60%); pointer-events:none; }
+
+        /* Jarra SVG-like CSS */
+        .mug-preview { position: relative; width: 200px; height: 260px; margin: 0 auto; filter: drop-shadow(0 20px 50px rgba(56,189,248,0.18)); }
+        .mug-body { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 150px; height: 210px; border-radius: 10px 10px 28px 28px; transition: background-color .4s; border: 2px solid rgba(255,255,255,0.12); }
+        .mug-shine { position: absolute; top: 14px; left: 14px; width: 26px; height: 70px; background: rgba(255,255,255,0.1); border-radius: 50%; transform: skewX(-6deg); pointer-events: none; }
+        .mug-handle { position: absolute; right: 10px; top: 50%; transform: translateY(-55%); width: 42px; height: 76px; border-radius: 0 38px 38px 0; border: 13px solid; border-left: none; transition: border-color .4s; }
+        .mug-rim { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 158px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.18); }
+        .mug-bottom { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); width: 120px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.25); }
+        .mug-text-el { position: absolute; bottom: 65px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-weight: 900; font-size: 1rem; letter-spacing: .06em; text-shadow: 0 2px 8px rgba(0,0,0,0.6); transition: color .4s, font-size .2s; max-width: 130px; overflow: hidden; text-overflow: ellipsis; text-align: center; font-family: 'Bebas Neue', sans-serif; pointer-events: none; }
+        .mug-logo-el { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); width: 60px; height: 60px; object-fit: contain; border-radius: 8px; display: none; }
+        .mug-logo-el.vis { display: block; }
+
+        /* Swatches */
+        .swatch { width: 34px; height: 34px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: all .2s; position: relative; flex-shrink: 0; }
+        .swatch:hover { transform: scale(1.18); }
+        .swatch.sel { border-color: white; box-shadow: 0 0 0 2px rgba(56,189,248,0.7), 0 0 14px rgba(56,189,248,0.35); transform: scale(1.22); }
+        .swatch-tip { position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%); font-size: 9px; white-space: nowrap; color: rgba(255,255,255,0.45); pointer-events: none; }
+
+        /* Pasos */
+        .step-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.15); transition: all .3s; }
+        .step-dot.act { background: #38bdf8; box-shadow: 0 0 10px #38bdf8; width: 28px; border-radius: 5px; }
+        .step-dot.done { background: rgba(56,189,248,0.4); }
+
+        .step-panel { display: none; }
+        .step-panel.act { display: block; animation: fadeUp .3s ease; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+        /* Inputs */
+        .cfg-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 14px 18px; color: white; width: 100%; font-size: 1rem; outline: none; transition: border-color .3s; font-family: 'Inter',sans-serif; }
+        .cfg-input:focus { border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56,189,248,0.1); }
+        .cfg-input::placeholder { color: rgba(255,255,255,0.3); }
+
+        /* Botones */
+        .btn-cfg { padding: 13px 30px; border-radius: 99px; font-weight: 800; font-size: .95rem; cursor: pointer; transition: all .25s; border: none; }
+        .btn-primary { background: #38bdf8; color: #020617; }
+        .btn-primary:hover { background: #7dd3fc; transform: scale(1.04); }
+        .btn-secondary { background: rgba(255,255,255,0.07); color: white; border: 1px solid rgba(255,255,255,0.12); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.14); }
+        .btn-wa { background: #25D366; color: white; font-size: 1.05rem; padding: 16px 36px; display: flex; align-items: center; gap: 10px; justify-content: center; }
+        .btn-wa:hover { background: #1ebe5d; transform: scale(1.03); box-shadow: 0 0 28px rgba(37,211,102,0.4); }
+
+        /* Upload */
+        .upload-zone { border: 2px dashed rgba(255,255,255,0.15); border-radius: 20px; padding: 2rem; text-align: center; cursor: pointer; transition: all .3s; }
+        .upload-zone:hover, .upload-zone.drag { border-color: #38bdf8; background: rgba(56,189,248,0.05); }
+
+        /* Resumen */
+        .res-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: .88rem; }
     </style>
 </head>
 <body>
-    <div class="banner-promo">
-    🚀 ¡PROMO LANZAMIENTO! 15% OFF en tu primer pedido web 
-    <span>HAZ CLICK EN "WHATSAPP"</span>
-</div>
-    <div class="bg-glow"></div>
-    <div class="blob" style="top: 5%; left: 5%;"></div>
 
-    <nav class="p-4 flex justify-between items-center border-b border-white/10 bg-black/40 sticky top-0 backdrop-blur-xl z-50">
-        <div class="flex items-center gap-4">
-            <img src="logo.png" alt="Version3D Logo" class="h-12 w-auto" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1710/1710166.png'">
-            <h1 class="text-xl font-black gradient-text">Version3D</h1>
-        </div>
-        <div class="flex items-center space-x-4">
-            <a href="https://instagram.com/version3d.uy" target="_blank" class="text-white/70 hover:text-pink-500 transition-all">Instagram</a>
-<a href="https://wa.me/59898680317?text=Hola!%20Vi%20la%20promo%20en%20la%20web%20y%20quiero%20mi%2015%25%20de%20descuento%20lanzamiento.%20Código:%20VERSION3D" 
-   class="tu-clase-de-antes">
-    WhatsApp
-</a>
-</a>
-        </div>
-    </nav>
+<div class="banner-promo">🚀 ¡PROMO LANZAMIENTO! 15% OFF en tu primer pedido web <span>HAZ CLICK EN "WHATSAPP"</span></div>
+<div class="bg-glow"></div>
+<div class="blob" style="top:5%;left:5%;"></div>
 
-    <header class="py-24 px-6 text-center max-w-5xl mx-auto">
-        <h2 class="text-5xl md:text-8xl font-black mb-8 leading-tight tracking-tighter">
-            Llevamos tus ideas a la <br><span class="gradient-text">tercera dimensión</span>
-        </h2>
-        <p class="text-blue-400 text-lg font-bold tracking-[0.3em] uppercase mb-12">Salto Uruguay • Envíos a todo el país</p>
-        <a href="#catalogo" class="btn-neon py-5 px-14 rounded-full font-black text-xl inline-block">DESCUBRIR CATÁLOGO</a>
-    </header>
+<!-- NAV -->
+<nav class="p-4 flex justify-between items-center border-b border-white/10 bg-black/40 sticky top-0 backdrop-blur-xl z-50 relative">
+    <div class="flex items-center gap-4">
+        <img src="logo.png" alt="Version3D Logo" class="h-12 w-auto" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1710/1710166.png'">
+        <h1 class="text-xl font-black gradient-text">Version3D</h1>
+    </div>
+    <div id="nav-links" class="flex items-center space-x-4">
+        <a href="#configurador" class="text-blue-400 font-bold hover:text-blue-300 transition-all text-sm">🎨 Configurar jarra</a>
+        <a href="https://instagram.com/version3d.uy" target="_blank" class="text-white/70 hover:text-pink-500 transition-all">Instagram</a>
+        <a href="https://wa.me/59898680317?text=Hola!%20Vi%20la%20promo%20en%20la%20web%20y%20quiero%20mi%2015%25%20de%20descuento." target="_blank" class="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-full font-bold transition-all text-sm">WhatsApp</a>
+    </div>
+    <button id="hamburger" aria-label="Menú" onclick="document.getElementById('nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
 
-    <section class="py-16 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="glass p-10 rounded-[40px] relative overflow-hidden">
-            <span class="text-6xl font-black opacity-10 block mb-4 text-white">01</span>
-            <h4 class="text-2xl font-bold mb-2 italic">Envía tu idea</h4>
-            <p class="text-gray-400">WhatsApp o Instagram con tu idea para materializarla en 3D.</p>
-        </div>
-        <div class="glass p-10 rounded-[40px] relative overflow-hidden border-blue-500/30">
-            <span class="text-6xl font-black opacity-10 block mb-4 text-blue-400">02</span>
-            <h4 class="text-2xl font-bold mb-2 italic">Seña y Diseño</h4>
-            <p class="text-gray-400 italic">Personalizados pedimos <span class="text-blue-400 font-bold">50% de seña</span>.</p>
-        </div>
-        <div class="glass p-10 rounded-[40px] relative overflow-hidden">
-            <span class="text-6xl font-black opacity-10 block mb-4 text-white">03</span>
-            <h4 class="text-2xl font-bold mb-2 italic">¡Listo!</h4>
-            <p class="text-gray-400">Retiro en Salto o envío por agencia a todo Uruguay.</p>
-        </div>
-    </section>
+<!-- HERO -->
+<header class="py-24 px-6 text-center max-w-5xl mx-auto">
+    <h2 class="text-5xl md:text-8xl font-black mb-8 leading-tight tracking-tighter">
+        Llevamos tus ideas a la <br><span class="gradient-text">tercera dimensión</span>
+    </h2>
+    <p class="text-blue-400 text-lg font-bold tracking-[0.3em] uppercase mb-12">Salto Uruguay • Envíos a todo el país</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#configurador" class="btn-neon py-5 px-14 rounded-full font-black text-xl inline-block">🎨 DISEÑAR MI JARRA</a>
+        <a href="#catalogo" class="py-5 px-10 rounded-full font-black text-xl inline-block border border-white/20 hover:border-blue-400 transition-all">VER CATÁLOGO</a>
+    </div>
+</header>
 
-    <section id="catalogo" class="py-20 px-6 max-w-7xl mx-auto">
-        <h3 class="text-4xl font-black mb-16 text-center tracking-widest uppercase italic">Catálogo de <span class="text-blue-400">Productos</span></h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
-                <div class="h-60 bg-slate-900"><img src="nacional.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500"></div>
-                <div class="p-8 flex-grow">
-                    <h4 class="text-xl font-bold italic mb-4">Chopera 500ml Nacional</h4>
-                    <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Nacional" class="block w-full py-3 bg-white/10 hover:bg-blue-600 text-center rounded-xl font-bold transition-all">Consultar</a>
+<!-- PASOS -->
+<section class="py-16 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="glass p-10 rounded-[40px]">
+        <span class="text-6xl font-black opacity-10 block mb-4 text-white">01</span>
+        <h4 class="text-2xl font-bold mb-2 italic">Configurá tu jarra</h4>
+        <p class="text-gray-400">Elegí colores, texto y logo en nuestro configurador online.</p>
+    </div>
+    <div class="glass p-10 rounded-[40px] border-blue-500/30">
+        <span class="text-6xl font-black opacity-10 block mb-4 text-blue-400">02</span>
+        <h4 class="text-2xl font-bold mb-2 italic">Seña y Diseño</h4>
+        <p class="text-gray-400 italic">Personalizados pedimos <span class="text-blue-400 font-bold">50% de seña</span>.</p>
+    </div>
+    <div class="glass p-10 rounded-[40px]">
+        <span class="text-6xl font-black opacity-10 block mb-4 text-white">03</span>
+        <h4 class="text-2xl font-bold mb-2 italic">¡Listo!</h4>
+        <p class="text-gray-400">Retiro en Salto o envío por agencia a todo Uruguay.</p>
+    </div>
+</section>
+
+<!-- CONFIGURADOR -->
+<section id="configurador" class="py-20 px-6 max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+        <h3 class="text-4xl font-black tracking-widest uppercase italic mb-3">Diseñá tu <span class="text-blue-400">Chopera</span></h3>
+        <p class="text-gray-400">Personalizá cada detalle y envianos el pedido directo por WhatsApp</p>
+    </div>
+
+    <div class="cfg-wrap">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+            <!-- Preview -->
+            <div class="flex flex-col items-center gap-6 lg:sticky lg:top-28">
+                <p class="text-xs text-white/30 uppercase tracking-widest font-bold">Preview en tiempo real</p>
+
+                <div class="mug-preview" id="mugWrap">
+                    <div class="mug-rim"></div>
+                    <div class="mug-body" id="mugBody">
+                        <div class="mug-shine"></div>
+                    </div>
+                    <div class="mug-handle" id="mugHandle"></div>
+                    <div class="mug-bottom"></div>
+                    <img class="mug-logo-el" id="mugLogo" alt="Logo">
+                    <div class="mug-text-el" id="mugText">TU NOMBRE</div>
+                </div>
+
+                <!-- Mini resumen -->
+                <div class="glass rounded-2xl p-4 w-full max-w-xs text-sm space-y-2">
+                    <div class="flex items-center gap-3">
+                        <div class="w-5 h-5 rounded-full border-2 border-white/20 flex-shrink-0" id="dotExt"></div>
+                        <span class="text-gray-400">Exterior:</span>
+                        <span class="font-bold ml-auto" id="lblExt">—</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-5 h-5 rounded-full border-2 border-white/20 flex-shrink-0" id="dotTxt"></div>
+                        <span class="text-gray-400">Texto:</span>
+                        <span class="font-bold ml-auto" id="lblTxt">—</span>
+                    </div>
+                    <div class="flex items-center gap-3 border-t border-white/5 pt-2">
+                        <span class="text-gray-400">Nombre:</span>
+                        <span class="font-bold ml-auto text-blue-400" id="lblNombre">—</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-gray-400">Logo:</span>
+                        <span class="font-bold ml-auto" id="lblLogo">No</span>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <p class="text-3xl font-black gradient-text">$650 pesos</p>
+                    <p class="text-xs text-gray-500 mt-1">Precio base chopera personalizada</p>
                 </div>
             </div>
 
-            <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
-                <div class="h-60 bg-slate-900"><img src="penarol.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500"></div>
-                <div class="p-8 flex-grow">
-                    <h4 class="text-xl font-bold italic mb-4">Chopera 500ml Peñarol</h4>
-                    <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Peñarol" class="block w-full py-3 bg-white/10 hover:bg-blue-600 text-center rounded-xl font-bold transition-all">Consultar</a>
+            <!-- Pasos -->
+            <div>
+                <div class="flex gap-2 items-center mb-8">
+                    <div class="step-dot act" id="sd1"></div>
+                    <div class="step-dot" id="sd2"></div>
+                    <div class="step-dot" id="sd3"></div>
+                    <div class="step-dot" id="sd4"></div>
+                    <span class="text-xs text-white/30 ml-2" id="stepLbl">Paso 1 de 4</span>
+                </div>
+
+                <!-- Paso 1: Color exterior -->
+                <div class="step-panel act" id="sp1">
+                    <h4 class="text-2xl font-black mb-1 italic">Color exterior</h4>
+                    <p class="text-gray-400 text-sm mb-7">Elegí el color del filamento PLA de la jarra</p>
+                    <div class="flex flex-wrap gap-6 pb-2" id="swExt"></div>
+                    <p class="text-xs text-gray-600 mt-5 italic">* Los colores en pantalla son aproximados al filamento real</p>
+                </div>
+
+                <!-- Paso 2: Color texto -->
+                <div class="step-panel" id="sp2">
+                    <h4 class="text-2xl font-black mb-1 italic">Color del texto / grabado</h4>
+                    <p class="text-gray-400 text-sm mb-7">¿De qué color querés que aparezca tu nombre en la jarra?</p>
+                    <div class="flex flex-wrap gap-6 pb-2" id="swTxt"></div>
+                </div>
+
+                <!-- Paso 3: Nombre y logo -->
+                <div class="step-panel" id="sp3">
+                    <h4 class="text-2xl font-black mb-1 italic">Nombre y logo</h4>
+                    <p class="text-gray-400 text-sm mb-6">Personalizá el texto y agregá tu logo si querés</p>
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-xs text-white/40 uppercase tracking-widest mb-2">Nombre o texto (máx. 20 caracteres)</label>
+                            <input type="text" class="cfg-input" id="inpNombre" maxlength="20" placeholder="Ej: AGUANTE NACIONAL">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-white/40 uppercase tracking-widest mb-2">Logo o imagen (opcional)</label>
+                            <div class="upload-zone" id="upZone" onclick="document.getElementById('inpLogo').click()">
+                                <input type="file" id="inpLogo" accept="image/*" style="display:none">
+                                <div id="upPlaceholder">
+                                    <p class="text-3xl mb-2">📁</p>
+                                    <p class="text-sm text-gray-400">Hacé click o arrastrá tu logo acá</p>
+                                    <p class="text-xs text-gray-600 mt-1">PNG, JPG — Recomendado fondo transparente</p>
+                                </div>
+                                <div id="upDone" style="display:none">
+                                    <p class="text-green-400 font-bold">✅ Logo cargado</p>
+                                    <p class="text-xs text-gray-500 mt-1" id="upName"></p>
+                                    <button class="text-xs text-red-400 mt-2 underline" onclick="quitarLogo(event)">Quitar logo</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-white/40 uppercase tracking-widest mb-2">Notas adicionales (opcional)</label>
+                            <textarea class="cfg-input" id="inpNotas" rows="3" placeholder="Cualquier detalle extra..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paso 4: Resumen -->
+                <div class="step-panel" id="sp4">
+                    <h4 class="text-2xl font-black mb-1 italic">¡Tu jarra está lista! 🎉</h4>
+                    <p class="text-gray-400 text-sm mb-6">Revisá los detalles y enviá el pedido por WhatsApp</p>
+                    <div class="glass rounded-[24px] p-6 mb-6" id="resumen"></div>
+                    <button class="btn-cfg btn-wa w-full rounded-[20px]" onclick="enviarWA()">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Enviar pedido por WhatsApp
+                    </button>
+                    <p class="text-xs text-center text-gray-600 mt-3">Te respondemos en menos de 24hs con la confirmación y el link de pago de la seña 💙</p>
+                </div>
+
+                <!-- Nav botones -->
+                <div class="flex gap-3 mt-8">
+                    <button class="btn-cfg btn-secondary" id="btnPrev" onclick="prevPaso()" style="display:none">← Atrás</button>
+                    <button class="btn-cfg btn-primary ml-auto" id="btnNext" onclick="nextPaso()">Siguiente →</button>
                 </div>
             </div>
-
-            <div class="glass rounded-[32px] p-8 flex flex-col justify-center border-blue-500/40 bg-blue-500/5 shadow-lg shadow-blue-500/10">
-                <h4 class="text-2xl font-black italic text-blue-400 mb-2">Choperas Personalizadas desde $650 pesos</h4>
-                <p class="text-gray-400 text-sm mb-6 italic">Tu logo, nombre, empresa, cuadro favorito,etc</p>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20consultar%20por%20una%20chopera%20con%20diseño%20personalizado" class="bg-blue-600 text-white py-4 rounded-full text-center font-black uppercase tracking-tighter hover:scale-105 transition-transform">Consultar ahora</a>
-            </div>
-
-            <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
-                <div class="h-48 bg-slate-900"><img src="llaveros.jpg" class="w-full h-full object-cover"></div>
-                <div class="p-6">
-                    <h4 class="text-lg font-bold italic mb-4">Llaveros Personalizados</h4>
-                    <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20gustaría%20hacer%20unos%20llaveros%20personalizados" class="block w-full py-2 bg-white/5 hover:bg-white/20 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
-                </div>
-            </div>
-
-            <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
-                <div class="h-48 bg-slate-900"><img src="empresas.jpg" class="w-full h-full object-cover"></div>
-                <div class="p-6">
-                    <h4 class="text-lg font-bold italic mb-4">Llaveros para Empresas (Precio por cantidad 10/20/30/50 y 100 unidades)</h4>
-                    <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20presupuesto%20por%20llaveros%20para%20mi%20empresa" class="block w-full py-2 bg-white/5 hover:bg-white/20 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
-                </div>
-            </div>
-
-            <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
-                <div class="h-48 bg-slate-900"><img src="medida.png" class="w-full h-full object-cover"></div>
-                <div class="p-6">
-                    <h4 class="text-lg font-bold italic mb-4">Diseños a Medida</h4>
-                    <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Tengo%20una%20idea%20para%20un%20diseño%20específico" class="block w-full py-2 bg-white/5 hover:bg-white/20 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
-                </div>
-            </div>
-
-            <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
-                <div class="h-48 bg-slate-900"><img src="bt21.jpg" class="w-full h-full object-cover"></div>
-                <div class="p-6">
-                    <h4 class="text-lg font-bold italic mb-4">Colección BT21</h4>
-                    <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20info%20sobre%20la%20colección%20BT21" class="block w-full py-2 bg-white/5 hover:bg-white/20 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
-                </div>
-            </div>
-
-            <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
-                <div class="h-48 bg-slate-900"><img src="brianrots.png" class="w-full h-full object-cover"></div>
-                <div class="p-6">
-                    <h4 class="text-lg font-bold italic mb-4">Brainrots</h4>
-                    <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20interesan%20los%20Brianrots" class="block w-full py-2 bg-white/5 hover:bg-white/20 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
-                </div>
-            </div>
-
-            <div class="glass rounded-[32px] group overflow-hidden border-pink-500/20 flex flex-col">
-                <div class="h-48 bg-slate-900"><img src="huntrix.jpg" class="w-full h-full object-cover"></div>
-                <div class="p-6 bg-pink-500/5">
-                    <h4 class="text-lg font-bold italic text-pink-500 mb-4">Muñecas Huntrix</h4>
-                    <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Consulto%20por%20las%20muñecas%20Huntrix" class="block w-full py-2 bg-pink-500/20 hover:bg-pink-500 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
-                </div>
-            </div>
-
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="py-24 px-6 max-w-6xl mx-auto border-t border-white/5">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div class="grid grid-cols-2 gap-4 relative">
-                <div class="absolute -inset-4 bg-blue-500/10 blur-3xl -z-10"></div>
-<div class="block">
-    <img src="feria1.jpg" class="rounded-[32px] w-full h-64 object-cover rotate-[-2deg] border border-white/10 hover:rotate-0 transition duration-500" alt="Feria Salto" onerror="this.src='https://via.placeholder.com/400?text=Feria+1'">
-</div>
-
-<div class="block">
-    <img src="feria2.jpg" class="rounded-[32px] w-full h-64 object-cover translate-y-8 rotate-[2deg] border border-white/10 hover:rotate-0 transition duration-500" alt="Stand Version3D" onerror="this.src='https://via.placeholder.com/400?text=Feria+2'">
-</div>
-
-<div class="col-span-2 mt-8">
-    <img src="feria3.jpg" class="rounded-[32px] w-full h-auto object-contain border border-white/10 transition duration-500" alt="Trabajo Version3D" onerror="this.src='https://via.placeholder.com/800x400?text=Feria+3+Grande'">
-</div>
-            </div>
-            <div class="space-y-6">
-                <h3 class="text-4xl font-black italic tracking-tighter">Pasión por lo <span class="text-blue-400 underline decoration-blue-500/30">Hecho en Salto</span></h3>
-                <p class="text-gray-400 leading-relaxed text-lg">
-                    Version3D nació de la curiosidad y las ganas de transformar ideas digitales en objetos reales. Empezamos con una pequeña impresora y hoy somos parte de la comunidad de emprendedores de Salto.
-                </p>
+<!-- CATÁLOGO -->
+<section id="catalogo" class="py-20 px-6 max-w-7xl mx-auto">
+    <h3 class="text-4xl font-black mb-16 text-center tracking-widest uppercase italic">Catálogo de <span class="text-blue-400">Productos</span></h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
+            <div class="h-60 bg-slate-900"><img src="nacional.jpg" alt="Chopera 500ml Nacional" class="w-full h-full object-cover group-hover:scale-110 transition duration-500"></div>
+            <div class="p-8 flex-grow">
+                <h4 class="text-xl font-bold italic mb-4">Chopera 500ml Nacional</h4>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Nacional" class="block w-full py-3 bg-white/10 hover:bg-blue-600 text-center rounded-xl font-bold transition-all">Consultar</a>
             </div>
         </div>
-    </section>
-
-    <section class="py-24 px-6 max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-            <h3 class="text-3xl font-black tracking-widest uppercase mb-4 text-gray-400 italic">Del Taller a tus Manos</h3>
-            <p class="text-blue-400 italic font-bold text-lg">Pedidos reales entregados con éxito</p>
+        <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
+            <div class="h-60 bg-slate-900"><img src="penarol.jpg" alt="Chopera 500ml Peñarol" class="w-full h-full object-cover group-hover:scale-110 transition duration-500"></div>
+            <div class="p-8 flex-grow">
+                <h4 class="text-xl font-bold italic mb-4">Chopera 500ml Peñarol</h4>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Pe%C3%B1arol" class="block w-full py-3 bg-white/10 hover:bg-blue-600 text-center rounded-xl font-bold transition-all">Consultar</a>
+            </div>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            <img src="trabajo1.jpg" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/400?text=Pedido+1'">
-            <img src="trabajo2.jpg" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/400?text=Pedido+2'">
-            <img src="trabajo3.jpg" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/400?text=Pedido+3'">
-            <img src="trabajo4.jpg" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/400?text=Pedido+4'">
-            <img src="trabajo5.jpg" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/400?text=Pedido+5'">
-            <img src="trabajo6.jpg" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/400?text=Pedido+6'">
-            <img src="trabajo7.jpg" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/400?text=Pedido+7'">
-            <img src="trabajo8.jpg" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/400?text=Pedido+8'">
-            <img src="trabajo9.jpg" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/400?text=Pedido+9'">
-            <img src="trabajo10.jpg" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/400?text=Pedido+10'">
-            <img src="trabajo11.jpg" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/400?text=Pedido+11'">
-            <img src="trabajo12.jpg" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/400?text=Pedido+12'">
+        <div class="glass rounded-[32px] p-8 flex flex-col justify-center border-blue-500/40 bg-blue-500/5 shadow-lg shadow-blue-500/10">
+            <h4 class="text-2xl font-black italic text-blue-400 mb-2">Choperas Personalizadas desde $650 pesos</h4>
+            <p class="text-gray-400 text-sm mb-6 italic">Tu logo, nombre, empresa, cuadro favorito, etc.</p>
+            <a href="#configurador" class="bg-blue-600 text-white py-4 rounded-full text-center font-black uppercase tracking-tighter hover:scale-105 transition-transform">🎨 Configurar ahora</a>
         </div>
-    </section>
-
-    <section class="py-20 px-6 max-w-6xl mx-auto border-t border-white/5 grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div class="glass p-10 rounded-[40px]">
-            <h4 class="text-2xl font-black mb-6 italic text-blue-400">Tips de Cuidado</h4>
-            <ul class="space-y-4 text-gray-400 text-sm">
-                <li>✔ Lavar a mano con agua fría o tibia.</li>
-                <li>✔ No apto para lavavajillas.</li>
-                <li>✔ Evitar exposición solar extrema (más de 50°C).</li>
-            </ul>
+        <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
+            <div class="h-48 bg-slate-900"><img src="llaveros.jpg" alt="Llaveros personalizados" class="w-full h-full object-cover"></div>
+            <div class="p-6">
+                <h4 class="text-lg font-bold italic mb-4">Llaveros Personalizados</h4>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20gustar%C3%ADa%20hacer%20unos%20llaveros%20personalizados" class="block w-full py-2 bg-white/5 hover:bg-white/20 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
+            </div>
         </div>
-        <div class="text-center md:text-left flex flex-col justify-center">
-            <h4 class="text-6xl font-black gradient-text">+500</h4>
-            <p class="text-gray-500 uppercase tracking-widest font-bold text-xs mb-6">Diseños y proyectos terminados</p>
+        <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
+            <div class="h-48 bg-slate-900"><img src="empresas.jpg" alt="Llaveros para empresas" class="w-full h-full object-cover"></div>
+            <div class="p-6">
+                <h4 class="text-lg font-bold italic mb-4">Llaveros para Empresas <span class="text-blue-400 text-xs">(10/20/30/50/100 uds)</span></h4>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20presupuesto%20por%20llaveros%20para%20mi%20empresa" class="block w-full py-2 bg-white/5 hover:bg-white/20 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
+            </div>
         </div>
-    </section>
-
-   <section id="faq" class="py-20 px-6 max-w-4xl mx-auto">
-        <h3 class="text-3xl font-black mb-12 text-center text-white/20 uppercase tracking-[0.3em]">Dudas Frecuentes</h3>
-        <div class="space-y-5">
-            <details class="glass p-6 rounded-[32px] cursor-pointer group">
-                <summary class="font-bold text-lg flex justify-between items-center list-none italic">
-                    ¿A qué parte de Uruguay envían?
-                    <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span>
-                </summary>
-                <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">
-                    Enviamos a **todo el país** principalmente por DAC, pero podemos coordinar por la agencia de tu preferencia desde la terminal de Salto.
-                </p>
-            </details>
-
-            <details class="glass p-6 rounded-[32px] cursor-pointer group">
-                <summary class="font-bold text-lg flex justify-between items-center list-none italic">
-                    ¿De qué material están hechas las piezas?
-                    <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span>
-                </summary>
-                <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">
-                    Utilizamos **PLA de alta calidad**, un bioplástico biodegradable y resistente. Es seguro al tacto y permite un nivel de detalle increíble.
-                </p>
-            </details>
-
-            <details class="glass p-6 rounded-[32px] cursor-pointer group">
-                <summary class="font-bold text-lg flex justify-between items-center list-none italic">
-                    ¿Las jarras son aptas para líquidos?
-                    <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span>
-                </summary>
-                <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">
-                    ¡Sí! Nuestras choperas incluyen un **vaso interno de aluminio térmico de 500ml**. El líquido nunca toca el plástico, manteniendo la higiene y el frío por mucho más tiempo.
-                </p>
-            </details>
-
-            <details class="glass p-6 rounded-[32px] cursor-pointer group">
-                <summary class="font-bold text-lg flex justify-between items-center list-none italic">
-                    ¿Cuánto demora la fabricación?
-                    <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span>
-                </summary>
-                <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">
-                    El tiempo promedio es de **3 a 5 días hábiles**. Dependiendo de la complejidad o la demanda, te informaremos el plazo exacto al confirmar tu seña.
-                </p>
-            </details>
-
-            <details class="glass p-6 rounded-[32px] cursor-pointer group">
-                <summary class="font-bold text-lg flex justify-between items-center list-none italic">
-                    ¿Venden por mayor para empresas o eventos?
-                    <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span>
-                </summary>
-                <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">
-                    Sí, realizamos **descuentos especiales por cantidad** en llaveros, merchandising empresarial y souvenirs. Ideal para marcas que buscan algo único.
-                </p>
-            </details>
-
-            <details class="glass p-6 rounded-[32px] cursor-pointer group">
-                <summary class="font-bold text-lg flex justify-between items-center list-none italic">
-                    ¿Cómo se realizan los pagos?
-                    <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span>
-                </summary>
-                <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">
-                    Aceptamos efectivo y transferencias mediante PREX. También podés pagar con MercadoPago hasta en 12 cuotas (10% de recargo)
-                </p>
-            </details>
+        <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
+            <div class="h-48 bg-slate-900"><img src="medida.png" alt="Diseños a medida" class="w-full h-full object-cover"></div>
+            <div class="p-6">
+                <h4 class="text-lg font-bold italic mb-4">Diseños a Medida</h4>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Tengo%20una%20idea%20para%20un%20dise%C3%B1o%20espec%C3%ADfico" class="block w-full py-2 bg-white/5 hover:bg-white/20 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
+            </div>
         </div>
-    </section>
+        <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
+            <div class="h-48 bg-slate-900"><img src="bt21.jpg" alt="Colección BT21" class="w-full h-full object-cover"></div>
+            <div class="p-6">
+                <h4 class="text-lg font-bold italic mb-4">Colección BT21</h4>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20info%20sobre%20la%20colecci%C3%B3n%20BT21" class="block w-full py-2 bg-white/5 hover:bg-white/20 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
+            </div>
+        </div>
+        <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
+            <div class="h-48 bg-slate-900"><img src="brianrots.png" alt="Brainrots" class="w-full h-full object-cover"></div>
+            <div class="p-6">
+                <h4 class="text-lg font-bold italic mb-4">Brainrots</h4>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20interesan%20los%20Brainrots" class="block w-full py-2 bg-white/5 hover:bg-white/20 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
+            </div>
+        </div>
+        <div class="glass rounded-[32px] group overflow-hidden border-pink-500/20 flex flex-col">
+            <div class="h-48 bg-slate-900"><img src="huntrix.jpg" alt="Muñecas Huntrix" class="w-full h-full object-cover"></div>
+            <div class="p-6 bg-pink-500/5">
+                <h4 class="text-lg font-bold italic text-pink-500 mb-4">Muñecas Huntrix</h4>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Consulto%20por%20las%20mu%C3%B1ecas%20Huntrix" class="block w-full py-2 bg-pink-500/20 hover:bg-pink-500 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
+            </div>
+        </div>
+    </div>
+</section>
 
-</html>
+<!-- SOBRE NOSOTROS -->
+<section class="py-24 px-6 max-w-6xl mx-auto border-t border-white/5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <div class="grid grid-cols-2 gap-4 relative">
+            <div class="absolute -inset-4 bg-blue-500/10 blur-3xl -z-10"></div>
+            <img src="feria1.jpg" class="rounded-[32px] w-full h-64 object-cover rotate-[-2deg] border border-white/10 hover:rotate-0 transition duration-500" alt="Version3D en Feria" onerror="this.src='https://via.placeholder.com/400?text=Feria+1'">
+            <img src="feria2.jpg" class="rounded-[32px] w-full h-64 object-cover translate-y-8 rotate-[2deg] border border-white/10 hover:rotate-0 transition duration-500" alt="Stand Version3D" onerror="this.src='https://via.placeholder.com/400?text=Feria+2'">
+            <div class="col-span-2 mt-8">
+                <img src="feria3.jpg" class="rounded-[32px] w-full h-auto object-contain border border-white/10" alt="Trabajo Version3D" onerror="this.src='https://via.placeholder.com/800x400?text=Feria+3'">
+            </div>
+        </div>
+        <div class="space-y-6">
+            <h3 class="text-4xl font-black italic tracking-tighter">Pasión por lo <span class="text-blue-400 underline decoration-blue-500/30">Hecho en Salto</span></h3>
+            <p class="text-gray-400 leading-relaxed text-lg">Version3D nació de la curiosidad y las ganas de transformar ideas digitales en objetos reales. Empezamos con una pequeña impresora y hoy somos parte de la comunidad de emprendedores de Salto.</p>
+        </div>
+    </div>
+</section>
 
-    <footer class="text-center py-10 border-t border-white/5 text-gray-600 text-[10px] uppercase tracking-widest">
-        © 2026 Version3D - Salto, Uruguay - Enzo López
-    </footer>
+<!-- GALERÍA -->
+<section class="py-24 px-6 max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+        <h3 class="text-3xl font-black tracking-widest uppercase mb-4 text-gray-400 italic">Del Taller a tus Manos</h3>
+        <p class="text-blue-400 italic font-bold text-lg">Pedidos reales entregados con éxito</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <img src="trabajo1.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=1'">
+        <img src="trabajo2.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=2'">
+        <img src="trabajo3.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=3'">
+        <img src="trabajo4.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=4'">
+        <img src="trabajo5.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=5'">
+        <img src="trabajo6.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=6'">
+        <img src="trabajo7.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=7'">
+        <img src="trabajo8.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=8'">
+        <img src="trabajo9.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=9'">
+        <img src="trabajo10.jpg" alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=10'">
+        <img src="trabajo11.jpg" alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=11'">
+        <img src="trabajo12.jpg" alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=12'">
+    </div>
+</section>
 
-    <a href="#" class="fixed bottom-24 right-8 bg-white/5 p-3 rounded-full backdrop-blur-md border border-white/10 hover:bg-white/20 transition-all text-xs">↑</a>
+<!-- TIPS + STATS -->
+<section class="py-20 px-6 max-w-6xl mx-auto border-t border-white/5 grid grid-cols-1 md:grid-cols-2 gap-12">
+    <div class="glass p-10 rounded-[40px]">
+        <h4 class="text-2xl font-black mb-6 italic text-blue-400">Tips de Cuidado</h4>
+        <ul class="space-y-4 text-gray-400 text-sm">
+            <li>✔ Lavar a mano con agua fría o tibia.</li>
+            <li>✔ No apto para lavavajillas.</li>
+            <li>✔ Evitar exposición solar extrema (más de 50°C).</li>
+        </ul>
+    </div>
+    <div class="text-center md:text-left flex flex-col justify-center">
+        <h4 class="text-6xl font-black gradient-text">+500</h4>
+        <p class="text-gray-500 uppercase tracking-widest font-bold text-xs mb-6">Diseños y proyectos terminados</p>
+    </div>
+</section>
 
+<!-- FAQ -->
+<section id="faq" class="py-20 px-6 max-w-4xl mx-auto">
+    <h3 class="text-3xl font-black mb-12 text-center text-white/20 uppercase tracking-[0.3em]">Dudas Frecuentes</h3>
+    <div class="space-y-5">
+        <details class="glass p-6 rounded-[32px] cursor-pointer group">
+            <summary class="font-bold text-lg flex justify-between items-center list-none italic">¿A qué parte de Uruguay envían? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
+            <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">Enviamos a <strong>todo el país</strong>, principalmente por DAC, pero podemos coordinar por la agencia de tu preferencia desde la terminal de Salto.</p>
+        </details>
+        <details class="glass p-6 rounded-[32px] cursor-pointer group">
+            <summary class="font-bold text-lg flex justify-between items-center list-none italic">¿De qué material están hechas las piezas? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
+            <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">Utilizamos <strong>PLA de alta calidad</strong>, un bioplástico biodegradable y resistente. Es seguro al tacto y permite un nivel de detalle increíble.</p>
+        </details>
+        <details class="glass p-6 rounded-[32px] cursor-pointer group">
+            <summary class="font-bold text-lg flex justify-between items-center list-none italic">¿Las jarras son aptas para líquidos? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
+            <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">¡Sí! Nuestras choperas incluyen un <strong>vaso interno de aluminio térmico de 500ml</strong>. El líquido nunca toca el plástico.</p>
+        </details>
+        <details class="glass p-6 rounded-[32px] cursor-pointer group">
+            <summary class="font-bold text-lg flex justify-between items-center list-none italic">¿Cuánto demora la fabricación? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
+            <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">Los productos del catálogo suelen estar listos en <strong>2 a 5 días hábiles</strong>. Los personalizados pueden tardar un poco más según la complejidad.</p>
+        </details>
+        <details class="glass p-6 rounded-[32px] cursor-pointer group">
+            <summary class="font-bold text-lg flex justify-between items-center list-none italic">¿Cómo hago un pedido? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
+            <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">Usá el <strong>configurador de jarras</strong> en esta misma página, o escribinos por <strong>WhatsApp o Instagram</strong>.</p>
+        </details>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-12 px-6 border-t border-white/5 text-center text-gray-600 text-sm">
+    <p>© 2025 Version3D · Salto, Uruguay</p>
+    <div class="flex justify-center gap-6 mt-4">
+        <a href="https://instagram.com/version3d.uy" target="_blank" class="hover:text-pink-500 transition-all">Instagram</a>
+        <a href="https://wa.me/59898680317" target="_blank" class="hover:text-green-400 transition-all">WhatsApp</a>
+    </div>
+</footer>
+
+<!-- SCRIPT CONFIGURADOR -->
+<script>
+const COLORES = [
+    { name: 'Blanco',       hex: '#F0F0F0' },
+    { name: 'Negro',        hex: '#1a1a1a' },
+    { name: 'Rojo',         hex: '#E53935' },
+    { name: 'Azul marino',  hex: '#1565C0' },
+    { name: 'Azul cielo',   hex: '#29B6F6' },
+    { name: 'Verde',        hex: '#43A047' },
+    { name: 'Verde menta',  hex: '#80CBC4' },
+    { name: 'Amarillo',     hex: '#FDD835' },
+    { name: 'Naranja',      hex: '#FB8C00' },
+    { name: 'Rosa',         hex: '#F06292' },
+    { name: 'Violeta',      hex: '#8E24AA' },
+    { name: 'Gris',         hex: '#757575' },
+    { name: 'Marrón',       hex: '#6D4C41' },
+    { name: 'Dorado',       hex: '#FFD600' },
+    { name: 'Plateado',     hex: '#B0BEC5' },
+];
+
+const est = { ext: null, txt: null, nombre: '', logo64: null, logoName: null, notas: '', paso: 1 };
+const PASOS = 4;
+
+function mkSwatches(cid, key) {
+    const c = document.getElementById(cid);
+    c.innerHTML = '';
+    COLORES.forEach(col => {
+        const d = document.createElement('div');
+        d.className = 'swatch' + (est[key] === col.name ? ' sel' : '');
+        d.style.background = col.hex;
+        d.title = col.name;
+        d.innerHTML = `<span class="swatch-tip">${col.name}</span>`;
+        d.addEventListener('click', () => {
+            est[key] = col.name;
+            c.querySelectorAll('.swatch').forEach(s => s.classList.remove('sel'));
+            d.classList.add('sel');
+            refresh();
+        });
+        c.appendChild(d);
+    });
+}
+
+function refresh() {
+    const ce = COLORES.find(c => c.name === est.ext);
+    const ct = COLORES.find(c => c.name === est.txt);
+    if (ce) {
+        document.getElementById('mugBody').style.backgroundColor = ce.hex;
+        document.getElementById('mugHandle').style.borderColor = ce.hex;
+        document.getElementById('dotExt').style.backgroundColor = ce.hex;
+        document.getElementById('lblExt').textContent = ce.name;
+    }
+    const tel = document.getElementById('mugText');
+    if (ct) {
+        tel.style.color = ct.hex;
+        document.getElementById('dotTxt').style.backgroundColor = ct.hex;
+        document.getElementById('lblTxt').textContent = ct.name;
+    }
+    const nombre = document.getElementById('inpNombre')?.value || '';
+    tel.textContent = nombre || 'TU NOMBRE';
+    tel.style.fontSize = nombre.length > 12 ? '0.65rem' : nombre.length > 8 ? '0.82rem' : '1rem';
+    document.getElementById('lblNombre').textContent = nombre || '—';
+
+    const logo = document.getElementById('mugLogo');
+    if (est.logo64) { logo.src = est.logo64; logo.classList.add('vis'); document.getElementById('lblLogo').textContent = '✅ Sí'; }
+    else { logo.classList.remove('vis'); document.getElementById('lblLogo').textContent = 'No'; }
+}
+
+function irPaso(n) {
+    document.getElementById('sp' + est.paso).classList.remove('act');
+    ['sd1','sd2','sd3','sd4'].forEach((id,i) => {
+        const d = document.getElementById(id);
+        d.classList.remove('act','done');
+        if (i+1 < n) d.classList.add('done');
+        if (i+1 === n) d.classList.add('act');
+    });
+    est.paso = n;
+    document.getElementById('sp' + n).classList.add('act');
+    document.getElementById('stepLbl').textContent = `Paso ${n} de ${PASOS}`;
+    document.getElementById('btnPrev').style.display = n > 1 ? 'inline-block' : 'none';
+    document.getElementById('btnNext').style.display = n < PASOS ? 'inline-block' : 'none';
+    if (n === PASOS) buildResumen();
+}
+
+function nextPaso() {
+    if (est.paso === 1 && !est.ext) { alert('Elegí un color exterior 🎨'); return; }
+    if (est.paso === 2 && !est.txt) { alert('Elegí un color para el texto 🎨'); return; }
+    if (est.paso === 3) { est.nombre = document.getElementById('inpNombre').value.trim(); est.notas = document.getElementById('inpNotas').value.trim(); }
+    if (est.paso < PASOS) irPaso(est.paso + 1);
+}
+function prevPaso() { if (est.paso > 1) irPaso(est.paso - 1); }
+
+function buildResumen() {
+    est.nombre = document.getElementById('inpNombre').value.trim();
+    est.notas  = document.getElementById('inpNotas').value.trim();
+    refresh();
+    const rows = [
+        ['🎨 Color exterior',  est.ext     || '—'],
+        ['✏️ Color de texto',   est.txt     || '—'],
+        ['📝 Nombre / texto',   est.nombre  || '(Sin texto)'],
+        ['🖼️ Logo adjunto',     est.logoName || 'No'],
+        ['💬 Notas',            est.notas   || 'Ninguna'],
+        ['💰 Precio base',      '$650 pesos'],
+    ];
+    document.getElementById('resumen').innerHTML = rows.map(([l,v]) =>
+        `<div class="res-row"><span class="text-gray-400">${l}</span><span class="font-bold text-right max-w-[55%]">${v}</span></div>`
+    ).join('');
+}
+
+function enviarWA() {
+    est.nombre = document.getElementById('inpNombre').value.trim();
+    est.notas  = document.getElementById('inpNotas').value.trim();
+    let m = `🛒 *PEDIDO CHOPERA - version3d.uy*\n\n`;
+    m += `🎨 *Color exterior:* ${est.ext    || 'No especificado'}\n`;
+    m += `✏️ *Color texto:*    ${est.txt    || 'No especificado'}\n`;
+    m += `📝 *Nombre/texto:*   ${est.nombre || '(Sin texto)'}\n`;
+    m += `🖼️ *Logo:*           ${est.logoName || 'No adjunta logo'}\n`;
+    if (est.notas) m += `💬 *Notas:* ${est.notas}\n`;
+    m += `\n💰 *Precio base:* $650 pesos\n`;
+    m += `\n_Pedido configurado desde el sitio web ✅_`;
+    if (est.logo64) m += `\n\n📎 _Por favor pedile el logo al cliente por este chat._`;
+    window.open(`https://wa.me/59898680317?text=${encodeURIComponent(m)}`, '_blank');
+}
+
+// Logo upload
+document.getElementById('inpLogo').addEventListener('change', function(e) {
+    const f = e.target.files[0]; if (!f) return;
+    const r = new FileReader();
+    r.onload = ev => {
+        est.logo64 = ev.target.result; est.logoName = f.name;
+        document.getElementById('upPlaceholder').style.display = 'none';
+        document.getElementById('upDone').style.display = 'block';
+        document.getElementById('upName').textContent = f.name;
+        refresh();
+    };
+    r.readAsDataURL(f);
+});
+
+function quitarLogo(e) {
+    e.stopPropagation();
+    est.logo64 = null; est.logoName = null;
+    document.getElementById('inpLogo').value = '';
+    document.getElementById('upPlaceholder').style.display = 'block';
+    document.getElementById('upDone').style.display = 'none';
+    refresh();
+}
+
+const zone = document.getElementById('upZone');
+zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag'); });
+zone.addEventListener('dragleave', () => zone.classList.remove('drag'));
+zone.addEventListener('drop', e => {
+    e.preventDefault(); zone.classList.remove('drag');
+    const f = e.dataTransfer.files[0];
+    if (f && f.type.startsWith('image/')) {
+        const dt = new DataTransfer(); dt.items.add(f);
+        document.getElementById('inpLogo').files = dt.files;
+        document.getElementById('inpLogo').dispatchEvent(new Event('change'));
+    }
+});
+
+document.getElementById('inpNombre').addEventListener('input', refresh);
+
+// Init
+mkSwatches('swExt', 'ext');
+mkSwatches('swTxt', 'txt');
+document.getElementById('mugBody').style.backgroundColor = '#1e40af';
+document.getElementById('mugHandle').style.borderColor = '#1e40af';
+</script>
 </body>
 </html>
