@@ -52,10 +52,6 @@
         .cfg-wrap { background: rgba(255,255,255,0.02); border: 1px solid rgba(56,189,248,0.2); border-radius: 40px; padding: 3rem; position: relative; overflow: hidden; }
         .cfg-wrap::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at top left, rgba(56,189,248,0.06) 0%, transparent 60%); pointer-events:none; }
 
-        /* SVG Jarra */
-        #mugSVG { filter: drop-shadow(0 16px 40px rgba(56,189,248,0.22)); transition: filter .3s; }
-        #mugSVG:hover { filter: drop-shadow(0 20px 55px rgba(56,189,248,0.35)); }
-
         /* Swatches */
         .swatch { width: 34px; height: 34px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: all .2s; position: relative; flex-shrink: 0; }
         .swatch:hover { transform: scale(1.18); }
@@ -95,6 +91,75 @@
         /* Modelo selector */
         .modelo-btn { cursor: pointer; background: none; color: white; }
         .modelo-btn:hover svg { transform: scale(1.05); transition: transform .2s; }
+
+        /* Catálogo overlay */
+        .cat-card { cursor: pointer; }
+        .cat-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(2,6,23,0.95) 0%, rgba(2,6,23,0.6) 45%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity .35s ease;
+        }
+        .cat-card:hover .cat-overlay { opacity: 1; }
+        .overlay-btn {
+            display: inline-block;
+            background: rgba(37,211,102,0.85);
+            color: white;
+            font-weight: 800;
+            font-size: .85rem;
+            padding: 10px 18px;
+            border-radius: 99px;
+            border: 1px solid rgba(37,211,102,0.5);
+            transition: background .2s, transform .2s;
+            backdrop-filter: blur(4px);
+            width: fit-content;
+        }
+        .overlay-btn:hover { background: #1ebe5d; transform: scale(1.04); }
+
+        /* Badges */
+        .badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            z-index: 10;
+            font-size: .72rem;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 99px;
+            letter-spacing: .04em;
+            backdrop-filter: blur(8px);
+        }
+        .badge-hot  { background: rgba(239,68,68,0.85);  color: white; }
+        .badge-new  { background: rgba(56,189,248,0.85); color: #020617; }
+        .badge-blue { background: rgba(99,102,241,0.85); color: white; }
+
+        /* Botón flotante WhatsApp */
+        #waFloat {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            background: #25D366;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 24px rgba(37,211,102,0.5);
+            transition: transform .25s, box-shadow .25s;
+            animation: waPulse 2.5s infinite;
+        }
+        #waFloat:hover { transform: scale(1.12); box-shadow: 0 6px 32px rgba(37,211,102,0.7); animation: none; }
+        @keyframes waPulse {
+            0%,100% { box-shadow: 0 4px 24px rgba(37,211,102,0.5); }
+            50%      { box-shadow: 0 4px 32px rgba(37,211,102,0.85), 0 0 0 8px rgba(37,211,102,0.12); }
+        }
     </style>
 </head>
 <body>
@@ -154,69 +219,139 @@
 <section id="catalogo" class="py-20 px-6 max-w-7xl mx-auto">
     <h3 class="text-4xl font-black mb-16 text-center tracking-widest uppercase italic">Catálogo de <span class="text-blue-400">Productos</span></h3>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
-            <div class="h-60 bg-slate-900"><img src="nacional.jpg" alt="Chopera 500ml Nacional" class="w-full h-full object-cover group-hover:scale-110 transition duration-500"></div>
-            <div class="p-8 flex-grow">
-                <h4 class="text-xl font-bold italic mb-4">Chopera 500ml Nacional</h4>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Nacional" class="block w-full py-3 bg-white/10 hover:bg-blue-600 text-center rounded-xl font-bold transition-all">Consultar</a>
+
+        <!-- Card con overlay -->
+        <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
+            <span class="badge badge-hot">🔥 Más vendido</span>
+            <div class="h-64 bg-slate-900 overflow-hidden">
+                <img src="nacional.jpg" alt="Chopera 500ml Nacional" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="cat-overlay">
+                <p class="text-lg font-black italic mb-3">Chopera 500ml Nacional</p>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Nacional" class="overlay-btn">Consultar por WhatsApp →</a>
+            </div>
+            <div class="p-5">
+                <h4 class="text-lg font-bold italic">Chopera 500ml Nacional</h4>
             </div>
         </div>
-        <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
-            <div class="h-60 bg-slate-900"><img src="penarol.jpg" alt="Chopera 500ml Peñarol" class="w-full h-full object-cover group-hover:scale-110 transition duration-500"></div>
-            <div class="p-8 flex-grow">
-                <h4 class="text-xl font-bold italic mb-4">Chopera 500ml Peñarol</h4>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Pe%C3%B1arol" class="block w-full py-3 bg-white/10 hover:bg-blue-600 text-center rounded-xl font-bold transition-all">Consultar</a>
+
+        <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
+            <span class="badge badge-hot">🔥 Más vendido</span>
+            <div class="h-64 bg-slate-900 overflow-hidden">
+                <img src="penarol.jpg" alt="Chopera 500ml Peñarol" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="cat-overlay">
+                <p class="text-lg font-black italic mb-3">Chopera 500ml Peñarol</p>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Pe%C3%B1arol" class="overlay-btn">Consultar por WhatsApp →</a>
+            </div>
+            <div class="p-5">
+                <h4 class="text-lg font-bold italic">Chopera 500ml Peñarol</h4>
             </div>
         </div>
+
+        <!-- Card especial personalizada (sin overlay, ya tiene CTA) -->
         <div class="glass rounded-[32px] p-8 flex flex-col justify-center border-blue-500/40 bg-blue-500/5 shadow-lg shadow-blue-500/10">
-            <h4 class="text-2xl font-black italic text-blue-400 mb-2">Choperas Personalizadas desde $650 pesos</h4>
+            <span class="text-3xl mb-3">🎨</span>
+            <h4 class="text-2xl font-black italic text-blue-400 mb-2">Choperas Personalizadas</h4>
+            <p class="text-blue-300 font-black text-xl mb-1">desde $650 pesos</p>
             <p class="text-gray-400 text-sm mb-6 italic">Tu logo, nombre, empresa, cuadro favorito, etc.</p>
-            <a href="#configurador" class="bg-blue-600 text-white py-4 rounded-full text-center font-black uppercase tracking-tighter hover:scale-105 transition-transform">🎨 Configurar ahora</a>
+            <a href="#configurador" class="bg-blue-600 text-white py-4 rounded-full text-center font-black uppercase tracking-tighter hover:scale-105 transition-transform">🎨 Diseñar ahora</a>
         </div>
-        <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
-            <div class="h-48 bg-slate-900"><img src="llaveros.jpg" alt="Llaveros personalizados" class="w-full h-full object-cover"></div>
-            <div class="p-6">
-                <h4 class="text-lg font-bold italic mb-4">Llaveros Personalizados</h4>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20gustar%C3%ADa%20hacer%20unos%20llaveros%20personalizados" class="block w-full py-2 bg-white/5 hover:bg-white/20 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
+
+        <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
+            <span class="badge badge-new">✨ Popular</span>
+            <div class="h-56 bg-slate-900 overflow-hidden">
+                <img src="llaveros.jpg" alt="Llaveros personalizados" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="cat-overlay">
+                <p class="text-base font-black italic mb-3">Llaveros Personalizados</p>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20gustar%C3%ADa%20hacer%20unos%20llaveros%20personalizados" class="overlay-btn">Consultar por WhatsApp →</a>
+            </div>
+            <div class="p-5">
+                <h4 class="text-base font-bold italic">Llaveros Personalizados</h4>
             </div>
         </div>
-        <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
-            <div class="h-48 bg-slate-900"><img src="empresas.jpg" alt="Llaveros para empresas" class="w-full h-full object-cover"></div>
-            <div class="p-6">
-                <h4 class="text-lg font-bold italic mb-4">Llaveros para Empresas <span class="text-blue-400 text-xs">(10/20/30/50/100 uds)</span></h4>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20presupuesto%20por%20llaveros%20para%20mi%20empresa" class="block w-full py-2 bg-white/5 hover:bg-white/20 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
+
+        <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
+            <span class="badge badge-blue">💼 Empresas</span>
+            <div class="h-56 bg-slate-900 overflow-hidden">
+                <img src="empresas.jpg" alt="Llaveros para empresas" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="cat-overlay">
+                <p class="text-base font-black italic mb-1">Llaveros para Empresas</p>
+                <p class="text-xs text-white/60 mb-3">10 / 20 / 30 / 50 / 100 unidades</p>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20presupuesto%20por%20llaveros%20para%20mi%20empresa" class="overlay-btn">Consultar por WhatsApp →</a>
+            </div>
+            <div class="p-5">
+                <h4 class="text-base font-bold italic">Llaveros para Empresas <span class="text-blue-400 text-xs">(10–100 uds)</span></h4>
             </div>
         </div>
-        <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
-            <div class="h-48 bg-slate-900"><img src="medida.png" alt="Diseños a medida" class="w-full h-full object-cover"></div>
-            <div class="p-6">
-                <h4 class="text-lg font-bold italic mb-4">Diseños a Medida</h4>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Tengo%20una%20idea%20para%20un%20dise%C3%B1o%20espec%C3%ADfico" class="block w-full py-2 bg-white/5 hover:bg-white/20 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
+
+        <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
+            <div class="h-56 bg-slate-900 overflow-hidden">
+                <img src="medida.png" alt="Diseños a medida" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="cat-overlay">
+                <p class="text-base font-black italic mb-3">Diseños a Medida</p>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Tengo%20una%20idea%20para%20un%20dise%C3%B1o%20espec%C3%ADfico" class="overlay-btn">Consultar por WhatsApp →</a>
+            </div>
+            <div class="p-5">
+                <h4 class="text-base font-bold italic">Diseños a Medida</h4>
             </div>
         </div>
-        <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
-            <div class="h-48 bg-slate-900"><img src="bt21.jpg" alt="Colección BT21" class="w-full h-full object-cover"></div>
-            <div class="p-6">
-                <h4 class="text-lg font-bold italic mb-4">Colección BT21</h4>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20info%20sobre%20la%20colecci%C3%B3n%20BT21" class="block w-full py-2 bg-white/5 hover:bg-white/20 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
+
+        <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
+            <span class="badge badge-new">✨ Nuevo</span>
+            <div class="h-56 bg-slate-900 overflow-hidden">
+                <img src="bt21.jpg" alt="Colección BT21" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="cat-overlay">
+                <p class="text-base font-black italic mb-3">Colección BT21</p>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20info%20sobre%20la%20colecci%C3%B3n%20BT21" class="overlay-btn">Consultar por WhatsApp →</a>
+            </div>
+            <div class="p-5">
+                <h4 class="text-base font-bold italic">Colección BT21</h4>
             </div>
         </div>
-        <div class="glass rounded-[32px] group overflow-hidden flex flex-col">
-            <div class="h-48 bg-slate-900"><img src="brianrots.png" alt="Brainrots" class="w-full h-full object-cover"></div>
-            <div class="p-6">
-                <h4 class="text-lg font-bold italic mb-4">Brainrots</h4>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20interesan%20los%20Brainrots" class="block w-full py-2 bg-white/5 hover:bg-white/20 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
+
+        <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
+            <div class="h-56 bg-slate-900 overflow-hidden">
+                <img src="brianrots.png" alt="Brainrots" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="cat-overlay">
+                <p class="text-base font-black italic mb-3">Brainrots</p>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20interesan%20los%20Brainrots" class="overlay-btn">Consultar por WhatsApp →</a>
+            </div>
+            <div class="p-5">
+                <h4 class="text-base font-bold italic">Brainrots</h4>
             </div>
         </div>
-        <div class="glass rounded-[32px] group overflow-hidden border-pink-500/20 flex flex-col">
-            <div class="h-48 bg-slate-900"><img src="huntrix.jpg" alt="Muñecas Huntrix" class="w-full h-full object-cover"></div>
-            <div class="p-6 bg-pink-500/5">
-                <h4 class="text-lg font-bold italic text-pink-500 mb-4">Muñecas Huntrix</h4>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Consulto%20por%20las%20mu%C3%B1ecas%20Huntrix" class="block w-full py-2 bg-pink-500/20 hover:bg-pink-500 text-center rounded-lg text-sm font-bold transition-all">Consultar</a>
+
+        <div class="cat-card glass rounded-[32px] overflow-hidden relative group border-pink-500/20">
+            <span class="badge" style="background:rgba(240,98,146,0.85);">💖 Especial</span>
+            <div class="h-56 bg-slate-900 overflow-hidden">
+                <img src="huntrix.jpg" alt="Muñecas Huntrix" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="cat-overlay" style="background:linear-gradient(to top, rgba(240,98,146,0.92) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);">
+                <p class="text-base font-black italic mb-3 text-pink-200">Muñecas Huntrix</p>
+                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Consulto%20por%20las%20mu%C3%B1ecas%20Huntrix" class="overlay-btn" style="background:rgba(240,98,146,0.9);border-color:rgba(240,98,146,0.6)">Consultar por WhatsApp →</a>
+            </div>
+            <div class="p-5 bg-pink-500/5">
+                <h4 class="text-base font-bold italic text-pink-400">Muñecas Huntrix</h4>
             </div>
         </div>
+
     </div>
 </section>
+
+<!-- Botón flotante WhatsApp -->
+<a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20consultar%20sobre%20un%20producto"
+   target="_blank"
+   id="waFloat"
+   aria-label="Contactar por WhatsApp"
+   title="Escribinos por WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
 
 
 <!-- CONFIGURADOR -->
@@ -235,66 +370,92 @@
 
                 <!-- Preview - dos modelos intercambiables -->
 
-                <!-- MODELO A: Asa cuadrada (chop1) -->
-                <svg id="mugA" width="240" height="300" viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" style="display:block">
+                <!-- MODELO A: Asa redondeada izquierda (foto 1) -->
+                <svg id="mugA" width="260" height="310" viewBox="0 0 260 310" xmlns="http://www.w3.org/2000/svg" style="display:block">
                   <defs>
-                    <clipPath id="clipA"><rect x="58" y="28" width="138" height="222" rx="6"/></clipPath>
+                    <clipPath id="clipA"><rect x="72" y="22" width="152" height="226" rx="4"/></clipPath>
                     <linearGradient id="shineA" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%"   stop-color="rgba(0,0,0,0.28)"/>
-                      <stop offset="35%"  stop-color="rgba(255,255,255,0.13)"/>
-                      <stop offset="100%" stop-color="rgba(0,0,0,0.22)"/>
+                      <stop offset="0%"   stop-color="rgba(0,0,0,0.30)"/>
+                      <stop offset="30%"  stop-color="rgba(255,255,255,0.15)"/>
+                      <stop offset="100%" stop-color="rgba(0,0,0,0.25)"/>
+                    </linearGradient>
+                    <linearGradient id="rimA" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#c8c8c8"/>
+                      <stop offset="100%" stop-color="#707070"/>
                     </linearGradient>
                   </defs>
-                  <ellipse cx="128" cy="294" rx="62" ry="6" fill="rgba(0,0,0,0.22)"/>
-                  <!-- Asa cuadrada -->
-                  <rect id="aHandle" x="14" y="108" width="50" height="96" rx="5" fill="#1e40af"/>
-                  <rect x="27" y="122" width="25" height="68" rx="3" fill="#020617"/>
-                  <!-- Anillos base -->
-                  <rect id="aRingB" x="58" y="264" width="138" height="12" rx="3" fill="#0a1e6e"/>
-                  <rect id="aRingT" x="58" y="252" width="138" height="12" rx="3" fill="#1232a0"/>
-                  <!-- Cuerpo -->
-                  <rect id="aBody" x="58" y="28" width="138" height="236" rx="6" fill="#1e40af"/>
-                  <rect x="58" y="28" width="138" height="236" rx="6" fill="url(#shineA)"/>
+                  <!-- Sombra suelo -->
+                  <ellipse cx="148" cy="304" rx="70" ry="7" fill="rgba(0,0,0,0.3)"/>
+
+                  <!-- ASA redondeada a la IZQUIERDA — curva tipo C gruesa -->
+                  <path id="aHandle" d="M76,90 C30,90 12,120 12,155 C12,190 30,220 76,220" stroke="#e0e0e0" stroke-width="26" fill="none" stroke-linecap="round"/>
+                  <!-- Hueco del asa -->
+                  <path d="M76,105 C44,105 30,125 30,155 C30,185 44,205 76,205" stroke="#1a1a2e" stroke-width="10" fill="none" stroke-linecap="round"/>
+
+                  <!-- Base con anillos (color secundario) — encima del cuerpo -->
+                  <!-- Plataforma base ancha -->
+                  <rect id="aBase" x="66" y="264" width="164" height="20" rx="10" fill="#222"/>
+                  <!-- Anillo intermedio -->
+                  <rect id="aRingM" x="70" y="250" width="156" height="14" rx="3" fill="#e0e0e0"/>
+                  <!-- Anillo oscuro superior -->
+                  <rect id="aRingT" x="70" y="238" width="156" height="12" rx="3" fill="#222"/>
+
+                  <!-- Cuerpo cilíndrico principal -->
+                  <rect id="aBody" x="72" y="22" width="152" height="228" rx="4" fill="#e0e0e0"/>
+                  <rect x="72" y="22" width="152" height="228" rx="4" fill="url(#shineA)"/>
+
+                  <!-- Rim superior (borde metálico) -->
+                  <rect x="68" y="8" width="160" height="20" rx="4" fill="url(#rimA)"/>
+                  <ellipse cx="148" cy="8" rx="80" ry="5" fill="#909090"/>
+                  <rect x="90" y="10" width="50" height="5" rx="2" fill="rgba(255,255,255,0.55)"/>
+
                   <!-- Logo -->
-                  <image id="aLogo" x="93" y="42" width="68" height="68" href="" clip-path="url(#clipA)" preserveAspectRatio="xMidYMid meet" style="display:none"/>
+                  <image id="aLogo" x="110" y="50" width="76" height="76" href="" clip-path="url(#clipA)" preserveAspectRatio="xMidYMid meet" style="display:none"/>
                   <!-- Texto -->
-                  <text id="aText" x="127" y="185" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="24" letter-spacing="3" fill="white" clip-path="url(#clipA)">TU NOMBRE</text>
-                  <!-- Rim aluminio -->
-                  <rect x="54" y="14" width="148" height="22" rx="5" fill="#aaa"/>
-                  <rect x="58" y="16" width="140" height="16" rx="4" fill="#888"/>
-                  <rect x="78" y="18" width="48" height="6" rx="3" fill="rgba(255,255,255,0.5)"/>
+                  <text id="aText" x="148" y="195" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="26" letter-spacing="3" fill="#1a1a1a" clip-path="url(#clipA)">TU NOMBRE</text>
                 </svg>
 
-                <!-- MODELO B: Asa redondeada (chop2) -->
-                <svg id="mugB" width="240" height="300" viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" style="display:none">
+                <!-- MODELO B: Asa cuadrada derecha (foto 2) -->
+                <svg id="mugB" width="260" height="310" viewBox="0 0 260 310" xmlns="http://www.w3.org/2000/svg" style="display:none">
                   <defs>
-                    <clipPath id="clipB"><rect x="58" y="28" width="138" height="215" rx="10"/></clipPath>
+                    <clipPath id="clipB"><rect x="72" y="22" width="152" height="226" rx="4"/></clipPath>
                     <linearGradient id="shineB" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%"   stop-color="rgba(0,0,0,0.28)"/>
-                      <stop offset="35%"  stop-color="rgba(255,255,255,0.13)"/>
-                      <stop offset="100%" stop-color="rgba(0,0,0,0.22)"/>
+                      <stop offset="0%"   stop-color="rgba(0,0,0,0.30)"/>
+                      <stop offset="30%"  stop-color="rgba(255,255,255,0.15)"/>
+                      <stop offset="100%" stop-color="rgba(0,0,0,0.25)"/>
+                    </linearGradient>
+                    <linearGradient id="rimB" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#c8c8c8"/>
+                      <stop offset="100%" stop-color="#707070"/>
                     </linearGradient>
                   </defs>
-                  <ellipse cx="128" cy="294" rx="62" ry="6" fill="rgba(0,0,0,0.22)"/>
-                  <!-- Asa redondeada/orgánica -->
-                  <path id="bHandle" d="M62,115 Q18,115 18,160 Q18,205 62,205" stroke="#1e40af" stroke-width="20" fill="none" stroke-linecap="round"/>
-                  <!-- Anillos decorativos zona media-baja (como en chop2) -->
-                  <rect id="bRing1" x="58" y="218" width="138" height="8" rx="3" fill="#1232a0"/>
-                  <rect id="bRing2" x="58" y="228" width="138" height="8" rx="3" fill="#0a1e6e"/>
-                  <rect id="bRing3" x="58" y="238" width="138" height="10" rx="3" fill="#1232a0"/>
-                  <!-- Base más pronunciada -->
-                  <rect id="bBase" x="52" y="248" width="150" height="26" rx="8" fill="#0a1e6e"/>
-                  <!-- Cuerpo principal (levemente más acampanado arriba) -->
-                  <path id="bBody" d="M58,28 Q56,28 56,34 L56,248 Q56,254 62,254 L194,254 Q200,254 200,248 L200,34 Q200,28 198,28 Z" fill="#1e40af"/>
-                  <path d="M58,28 Q56,28 56,34 L56,248 Q56,254 62,254 L194,254 Q200,254 200,248 L200,34 Q200,28 198,28 Z" fill="url(#shineB)"/>
+                  <!-- Sombra suelo -->
+                  <ellipse cx="148" cy="304" rx="70" ry="7" fill="rgba(0,0,0,0.3)"/>
+
+                  <!-- ASA rectangular a la DERECHA -->
+                  <!-- Cuerpo exterior del asa -->
+                  <rect id="bHandle" x="220" y="95" width="42" height="115" rx="12" fill="#e0e0e0"/>
+                  <!-- Hueco interior del asa -->
+                  <rect x="232" y="110" width="20" height="85" rx="6" fill="#1a1a2e"/>
+
+                  <!-- Base con anillos (color secundario) -->
+                  <rect id="bBase" x="66" y="264" width="164" height="20" rx="10" fill="#222"/>
+                  <rect id="bRingM" x="70" y="250" width="156" height="14" rx="3" fill="#e0e0e0"/>
+                  <rect id="bRingT" x="70" y="238" width="156" height="12" rx="3" fill="#222"/>
+
+                  <!-- Cuerpo principal -->
+                  <rect id="bBody" x="72" y="22" width="152" height="228" rx="4" fill="#e0e0e0"/>
+                  <rect x="72" y="22" width="152" height="228" rx="4" fill="url(#shineB)"/>
+
+                  <!-- Rim superior -->
+                  <rect x="68" y="8" width="160" height="20" rx="4" fill="url(#rimB)"/>
+                  <ellipse cx="148" cy="8" rx="80" ry="5" fill="#909090"/>
+                  <rect x="90" y="10" width="50" height="5" rx="2" fill="rgba(255,255,255,0.55)"/>
+
                   <!-- Logo -->
-                  <image id="bLogo" x="93" y="42" width="68" height="68" href="" clip-path="url(#clipB)" preserveAspectRatio="xMidYMid meet" style="display:none"/>
+                  <image id="bLogo" x="110" y="50" width="76" height="76" href="" clip-path="url(#clipB)" preserveAspectRatio="xMidYMid meet" style="display:none"/>
                   <!-- Texto -->
-                  <text id="bText" x="129" y="185" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="24" letter-spacing="3" fill="white" clip-path="url(#clipB)">TU NOMBRE</text>
-                  <!-- Rim aluminio -->
-                  <rect x="54" y="14" width="148" height="22" rx="5" fill="#aaa"/>
-                  <rect x="58" y="16" width="140" height="16" rx="4" fill="#888"/>
-                  <rect x="78" y="18" width="48" height="6" rx="3" fill="rgba(255,255,255,0.5)"/>
+                  <text id="bText" x="148" y="195" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="26" letter-spacing="3" fill="#1a1a1a" clip-path="url(#clipB)">TU NOMBRE</text>
                 </svg>
 
                 <!-- Mini resumen -->
@@ -305,12 +466,12 @@
                     </div>
                     <div class="flex items-center gap-3">
                         <div class="w-5 h-5 rounded-full border-2 border-white/20 flex-shrink-0" id="dotExt"></div>
-                        <span class="text-gray-400">Exterior:</span>
+                        <span class="text-gray-400">Principal:</span>
                         <span class="font-bold ml-auto" id="lblExt">—</span>
                     </div>
                     <div class="flex items-center gap-3">
                         <div class="w-5 h-5 rounded-full border-2 border-white/20 flex-shrink-0" id="dotTxt"></div>
-                        <span class="text-gray-400">Texto:</span>
+                        <span class="text-gray-400">Secundario:</span>
                         <span class="font-bold ml-auto" id="lblTxt">—</span>
                     </div>
                     <div class="flex items-center gap-3 border-t border-white/5 pt-2">
@@ -336,14 +497,6 @@
                     <div class="step-dot" id="sd2"></div>
                     <div class="step-dot" id="sd3"></div>
                     <div class="step-dot" id="sd4"></div>
-                    <span class="text-xs text-white/30 ml-2" id="stepLbl">Paso 1 de 4</span>
-                </div>
-
-                <div class="flex gap-2 items-center mb-8">
-                    <div class="step-dot act" id="sd1"></div>
-                    <div class="step-dot" id="sd2"></div>
-                    <div class="step-dot" id="sd3"></div>
-                    <div class="step-dot" id="sd4"></div>
                     <div class="step-dot" id="sd5"></div>
                     <span class="text-xs text-white/30 ml-2" id="stepLbl">Paso 1 de 5</span>
                 </div>
@@ -353,48 +506,63 @@
                     <h4 class="text-2xl font-black mb-1 italic">Modelo de chopera</h4>
                     <p class="text-gray-400 text-sm mb-7">¿Cuál de los dos modelos preferís?</p>
                     <div class="grid grid-cols-2 gap-4">
+                        <!-- Modelo A: asa redondeada izquierda -->
                         <button id="btnModelA" onclick="selectModelo('A')"
                             class="modelo-btn glass rounded-2xl p-4 flex flex-col items-center gap-3 border-2 border-transparent hover:border-blue-400 transition-all">
-                            <svg width="90" height="110" viewBox="0 0 240 300">
-                              <rect x="14" y="108" width="50" height="96" rx="5" fill="white" opacity="0.7"/>
-                              <rect x="27" y="122" width="25" height="68" rx="3" fill="#020617"/>
-                              <rect x="58" y="264" width="138" height="12" rx="3" fill="rgba(255,255,255,0.4)"/>
-                              <rect x="58" y="252" width="138" height="12" rx="3" fill="rgba(255,255,255,0.55)"/>
-                              <rect x="58" y="28" width="138" height="236" rx="6" fill="white" opacity="0.8"/>
-                              <rect x="54" y="14" width="148" height="22" rx="5" fill="#aaa"/>
-                              <rect x="78" y="18" width="48" height="6" rx="3" fill="rgba(255,255,255,0.6)"/>
-                            </svg>
-                            <span class="text-sm font-bold">Asa cuadrada</span>
-                        </button>
-                        <button id="btnModelB" onclick="selectModelo('B')"
-                            class="modelo-btn glass rounded-2xl p-4 flex flex-col items-center gap-3 border-2 border-transparent hover:border-blue-400 transition-all">
-                            <svg width="90" height="110" viewBox="0 0 240 300">
-                              <path d="M62,115 Q18,115 18,160 Q18,205 62,205" stroke="white" stroke-width="20" fill="none" stroke-linecap="round" opacity="0.7"/>
-                              <rect x="58" y="218" width="138" height="8" rx="3" fill="rgba(255,255,255,0.4)"/>
-                              <rect x="58" y="228" width="138" height="8" rx="3" fill="rgba(255,255,255,0.35)"/>
-                              <rect x="58" y="238" width="138" height="10" rx="3" fill="rgba(255,255,255,0.4)"/>
-                              <rect x="52" y="248" width="150" height="26" rx="8" fill="rgba(255,255,255,0.35)"/>
-                              <rect x="58" y="28" width="138" height="220" rx="10" fill="white" opacity="0.8"/>
-                              <rect x="54" y="14" width="148" height="22" rx="5" fill="#aaa"/>
-                              <rect x="78" y="18" width="48" height="6" rx="3" fill="rgba(255,255,255,0.6)"/>
+                            <svg width="100" height="120" viewBox="0 0 260 310">
+                              <!-- asa curva izq -->
+                              <path d="M76,90 C30,90 12,120 12,155 C12,190 30,220 76,220" stroke="rgba(255,255,255,0.7)" stroke-width="26" fill="none" stroke-linecap="round"/>
+                              <path d="M76,105 C44,105 30,125 30,155 C30,185 44,205 76,205" stroke="#0f172a" stroke-width="10" fill="none" stroke-linecap="round"/>
+                              <!-- base anillos -->
+                              <rect x="66" y="264" width="164" height="20" rx="10" fill="rgba(0,0,0,0.6)"/>
+                              <rect x="70" y="250" width="156" height="14" rx="3" fill="rgba(255,255,255,0.5)"/>
+                              <rect x="70" y="238" width="156" height="12" rx="3" fill="rgba(0,0,0,0.6)"/>
+                              <!-- cuerpo -->
+                              <rect x="72" y="22" width="152" height="228" rx="4" fill="rgba(255,255,255,0.85)"/>
+                              <!-- rim -->
+                              <rect x="68" y="8" width="160" height="20" rx="4" fill="#999"/>
                             </svg>
                             <span class="text-sm font-bold">Asa redondeada</span>
+                        </button>
+                        <!-- Modelo B: asa cuadrada derecha -->
+                        <button id="btnModelB" onclick="selectModelo('B')"
+                            class="modelo-btn glass rounded-2xl p-4 flex flex-col items-center gap-3 border-2 border-transparent hover:border-blue-400 transition-all">
+                            <svg width="100" height="120" viewBox="0 0 260 310">
+                              <!-- cuerpo -->
+                              <rect x="72" y="22" width="152" height="228" rx="4" fill="rgba(255,255,255,0.85)"/>
+                              <!-- asa cuadrada derecha -->
+                              <rect x="220" y="95" width="42" height="115" rx="12" fill="rgba(255,255,255,0.7)"/>
+                              <rect x="232" y="110" width="20" height="85" rx="6" fill="#0f172a"/>
+                              <!-- base anillos -->
+                              <rect x="66" y="264" width="164" height="20" rx="10" fill="rgba(0,0,0,0.6)"/>
+                              <rect x="70" y="250" width="156" height="14" rx="3" fill="rgba(255,255,255,0.5)"/>
+                              <rect x="70" y="238" width="156" height="12" rx="3" fill="rgba(0,0,0,0.6)"/>
+                              <!-- rim -->
+                              <rect x="68" y="8" width="160" height="20" rx="4" fill="#999"/>
+                            </svg>
+                            <span class="text-sm font-bold">Asa cuadrada</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- Paso 2: Color exterior -->
+                <!-- Paso 2: Color principal -->
                 <div class="step-panel" id="sp2">
-                    <h4 class="text-2xl font-black mb-1 italic">Color exterior</h4>
-                    <p class="text-gray-400 text-sm mb-7">Elegí el color del filamento PLA de la jarra</p>
+                    <h4 class="text-2xl font-black mb-1 italic">Color principal</h4>
+                    <p class="text-gray-400 text-sm mb-2">El color del <strong class="text-white">cuerpo y el asa</strong> de la chopera</p>
+                    <div class="flex items-center gap-2 mb-6 bg-white/5 rounded-xl px-4 py-2 text-xs text-white/50">
+                        <span>💡</span><span>En las fotos de ejemplo, el color principal es el blanco</span>
+                    </div>
                     <div class="flex flex-wrap gap-6 pb-2" id="swExt"></div>
                     <p class="text-xs text-gray-600 mt-5 italic">* Los colores en pantalla son aproximados al filamento real</p>
                 </div>
 
-                <!-- Paso 3: Color texto -->
+                <!-- Paso 3: Color secundario -->
                 <div class="step-panel" id="sp3">
-                    <h4 class="text-2xl font-black mb-1 italic">Color del texto / grabado</h4>
-                    <p class="text-gray-400 text-sm mb-7">¿De qué color querés que aparezca tu nombre en la jarra?</p>
+                    <h4 class="text-2xl font-black mb-1 italic">Color secundario</h4>
+                    <p class="text-gray-400 text-sm mb-2">El color de los <strong class="text-white">anillos de la base</strong> y el texto grabado</p>
+                    <div class="flex items-center gap-2 mb-6 bg-white/5 rounded-xl px-4 py-2 text-xs text-white/50">
+                        <span>💡</span><span>En las fotos de ejemplo, el color secundario es el negro</span>
+                    </div>
                     <div class="flex flex-wrap gap-6 pb-2" id="swTxt"></div>
                 </div>
 
@@ -607,50 +775,72 @@ function mkSwatches(cid, key) {
 
 // ── Refresh preview ──
 function refresh() {
-    const ce = COLORES.find(c => c.name === est.ext);
-    const ct = COLORES.find(c => c.name === est.txt);
+    const ce = COLORES.find(c => c.name === est.ext);   // principal
+    const ct = COLORES.find(c => c.name === est.txt);   // secundario
     const nombre = document.getElementById('inpNombre')?.value || '';
-    const fs = nombre.length > 14 ? 14 : nombre.length > 10 ? 17 : nombre.length > 7 ? 20 : 24;
+    const fs = nombre.length > 14 ? 13 : nombre.length > 10 ? 17 : nombre.length > 7 ? 21 : 26;
 
-    // Actualizar ambos modelos SVG
-    ['A','B'].forEach(m => {
-        const pfx = m.toLowerCase();
-        if (ce) {
-            const body = document.getElementById(pfx + 'Body');
-            const handle = document.getElementById(pfx + 'Handle');
-            if (body) body.setAttribute('fill', ce.hex);
-            if (handle) {
-                if (m === 'A') handle.setAttribute('fill', ce.hex);
-                else handle.setAttribute('stroke', ce.hex);
-            }
-            const r1 = document.getElementById(pfx + 'Ring1') || document.getElementById(pfx + 'RingT');
-            const r2 = document.getElementById(pfx + 'Ring2') || document.getElementById(pfx + 'RingB');
-            const r3 = document.getElementById(pfx + 'Ring3');
-            const base = document.getElementById(pfx + 'Base');
-            if (r1) r1.setAttribute('fill', shadeColor(ce.hex, -20));
-            if (r2) r2.setAttribute('fill', shadeColor(ce.hex, -35));
-            if (r3) r3.setAttribute('fill', shadeColor(ce.hex, -20));
-            if (base) base.setAttribute('fill', shadeColor(ce.hex, -55));
-        }
-        const txt = document.getElementById(pfx + 'Text');
-        if (txt) {
-            if (ct) txt.setAttribute('fill', ct.hex);
-            txt.textContent = nombre || 'TU NOMBRE';
-            txt.setAttribute('font-size', fs);
-            txt.setAttribute('y', est.logo64 ? '205' : '185');
-        }
-        const logo = document.getElementById(pfx + 'Logo');
-        if (logo) {
-            if (est.logo64) { logo.setAttribute('href', est.logo64); logo.style.display = 'block'; }
-            else { logo.style.display = 'none'; }
-        }
-    });
+    // ── Modelo A (asa redondeada izq) ──
+    if (ce) {
+        // Principal: cuerpo + asa
+        setFill('aBody', ce.hex);
+        // Asa es un path con stroke
+        const aHnd = document.getElementById('aHandle');
+        if (aHnd) aHnd.setAttribute('stroke', ce.hex);
+        // Anillo del medio (color claro visible = mismo que principal o blanco si es oscuro)
+        setFill('aRingM', ce.hex);
+    }
+    if (ct) {
+        // Secundario: anillos oscuros + texto
+        setFill('aRingT', ct.hex);
+        setFill('aBase',  ct.hex);
+    }
+    const aText = document.getElementById('aText');
+    if (aText) {
+        if (ct) aText.setAttribute('fill', ct.hex);
+        aText.textContent = nombre || 'TU NOMBRE';
+        aText.setAttribute('font-size', fs);
+        aText.setAttribute('y', est.logo64 ? '210' : '195');
+    }
+    const aLogo = document.getElementById('aLogo');
+    if (aLogo) {
+        if (est.logo64) { aLogo.setAttribute('href', est.logo64); aLogo.style.display = 'block'; }
+        else aLogo.style.display = 'none';
+    }
 
-    // Mini resumen
+    // ── Modelo B (asa cuadrada der) ──
+    if (ce) {
+        setFill('bBody',   ce.hex);
+        setFill('bHandle', ce.hex);
+        setFill('bRingM',  ce.hex);
+    }
+    if (ct) {
+        setFill('bRingT', ct.hex);
+        setFill('bBase',  ct.hex);
+    }
+    const bText = document.getElementById('bText');
+    if (bText) {
+        if (ct) bText.setAttribute('fill', ct.hex);
+        bText.textContent = nombre || 'TU NOMBRE';
+        bText.setAttribute('font-size', fs);
+        bText.setAttribute('y', est.logo64 ? '210' : '195');
+    }
+    const bLogo = document.getElementById('bLogo');
+    if (bLogo) {
+        if (est.logo64) { bLogo.setAttribute('href', est.logo64); bLogo.style.display = 'block'; }
+        else bLogo.style.display = 'none';
+    }
+
+    // ── Mini resumen ──
     if (ce) { document.getElementById('dotExt').style.backgroundColor = ce.hex; document.getElementById('lblExt').textContent = ce.name; }
     if (ct) { document.getElementById('dotTxt').style.backgroundColor = ct.hex; document.getElementById('lblTxt').textContent = ct.name; }
     document.getElementById('lblNombre').textContent = nombre || '—';
     document.getElementById('lblLogo').textContent = est.logo64 ? '✅ Sí' : 'No';
+}
+
+function setFill(id, color) {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('fill', color);
 }
 
 function shadeColor(hex, pct) {
@@ -695,8 +885,8 @@ function buildResumen() {
     refresh();
     const rows = [
         ['🏺 Modelo',           est.modelo === 'A' ? 'Asa cuadrada' : est.modelo === 'B' ? 'Asa redondeada' : '—'],
-        ['🎨 Color exterior',   est.ext     || '—'],
-        ['✏️ Color de texto',    est.txt     || '—'],
+        ['🎨 Color principal',   est.ext     || '—'],
+        ['🖌️ Color secundario',  est.txt     || '—'],
         ['📝 Nombre / texto',    est.nombre  || '(Sin texto)'],
         ['🖼️ Logo adjunto',      est.logoName || 'No'],
         ['💬 Notas',             est.notas   || 'Ninguna'],
@@ -713,8 +903,8 @@ function enviarWA() {
     const modeloLabel = est.modelo === 'A' ? 'Asa cuadrada' : est.modelo === 'B' ? 'Asa redondeada' : 'No especificado';
     let m = `🛒 *PEDIDO CHOPERA - version3d.uy*\n\n`;
     m += `🏺 *Modelo:*          ${modeloLabel}\n`;
-    m += `🎨 *Color exterior:* ${est.ext    || 'No especificado'}\n`;
-    m += `✏️ *Color texto:*    ${est.txt    || 'No especificado'}\n`;
+    m += `🎨 *Color principal:*  ${est.ext    || 'No especificado'}\n`;
+    m += `🖌️ *Color secundario:* ${est.txt    || 'No especificado'}\n`;
     m += `📝 *Nombre/texto:*   ${est.nombre || '(Sin texto)'}\n`;
     m += `🖼️ *Logo:*           ${est.logoName || 'No adjunta logo'}\n`;
     if (est.notas) m += `💬 *Notas:* ${est.notas}\n`;
