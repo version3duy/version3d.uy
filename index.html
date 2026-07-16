@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta name="description" content="Impresión 3D profesional en Salto, Uruguay. Choperas térmicas personalizadas, llaveros para empresas y diseños a medida. Envíos a todo el país.">
-    <meta name="keywords" content="Impresión 3D Salto, Choperas Nacional Peñarol, Version3D, Llaveros personalizados Uruguay, 3D Salto">
+    <meta name="description" content="Impresión 3D profesional en Salto, Uruguay. Choperas térmicas, materas, llaveros para empresas y diseños a medida. Envíos a todo el país.">
+    <meta name="keywords" content="Impresión 3D Salto, Choperas Nacional Peñarol, Version3D, Materas 3D, Llaveros personalizados Uruguay">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Version3D | Impresión 3D Salto Uruguay</title>
     <meta property="og:title" content="Version3D | Impresión 3D Salto Uruguay">
-    <meta property="og:description" content="Choperas térmicas personalizadas, llaveros para empresas y diseños a medida. Envíos a todo Uruguay.">
+    <meta property="og:description" content="Choperas térmicas, materas, llaveros para empresas y diseños a medida. Envíos a todo Uruguay.">
     <meta property="og:image" content="logo.png">
     <meta property="og:url" content="https://version3d.uy">
     <meta property="og:type" content="website">
@@ -18,8 +18,6 @@
         * { box-sizing: border-box; }
         html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
         body { background-color: #020617; color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-
-        
 
         .bg-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #1e293b 0%, #020617 100%); z-index: -1; }
         .blob { position: absolute; width: 450px; height: 450px; background: rgba(56,189,248,0.12); filter: blur(80px); border-radius: 50%; z-index: -1; animation: move 20s infinite alternate; }
@@ -42,92 +40,8 @@
             h2 { font-size: 3rem !important; line-height: 1.1; }
             #hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
             #hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; }
-            #nav-links { display: none; flex-direction: column; position: absolute; top: 100%; right: 0; background: rgba(0,0,0,0.97); padding: 1rem 1.5rem; gap: 1rem; border-bottom-left-radius: 16px; border: 1px solid rgba(255,255,255,0.1); }
+            #nav-links { display: none; flex-direction: column; position: absolute; top: 100%; right: 0; background: rgba(0,0,0,0.97); padding: 1rem 1.5rem; gap: 1rem; border-bottom-left-radius: 16px; border: 1px solid rgba(255,255,255,0.1); max-height: 80vh; overflow-y: auto; }
             #nav-links.open { display: flex; }
-        }
-
-        /* ── CONFIGURADOR ── */
-        #configurador { scroll-margin-top: 80px; }
-
-        .cfg-wrap { background: rgba(255,255,255,0.02); border: 1px solid rgba(56,189,248,0.2); border-radius: 40px; padding: 3rem; position: relative; overflow: hidden; }
-        .cfg-wrap::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at top left, rgba(56,189,248,0.06) 0%, transparent 60%); pointer-events:none; }
-
-        /* Swatches */
-        .swatch { width: 34px; height: 34px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: all .2s; position: relative; flex-shrink: 0; }
-        .swatch:hover { transform: scale(1.18); }
-        .swatch.sel { border-color: white; box-shadow: 0 0 0 2px rgba(56,189,248,0.7), 0 0 14px rgba(56,189,248,0.35); transform: scale(1.22); }
-        .swatch-tip { position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%); font-size: 9px; white-space: nowrap; color: rgba(255,255,255,0.45); pointer-events: none; }
-
-        /* Pasos */
-        .step-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.15); transition: all .3s; }
-        .step-dot.act { background: #38bdf8; box-shadow: 0 0 10px #38bdf8; width: 28px; border-radius: 5px; }
-        .step-dot.done { background: rgba(56,189,248,0.4); }
-
-        .step-panel { display: none; }
-        .step-panel.act { display: block; animation: fadeUp .3s ease; }
-        @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-
-        /* Inputs */
-        .cfg-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 14px 18px; color: white; width: 100%; font-size: 1rem; outline: none; transition: border-color .3s; font-family: 'Inter',sans-serif; }
-        .cfg-input:focus { border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56,189,248,0.1); }
-        .cfg-input::placeholder { color: rgba(255,255,255,0.3); }
-
-        /* Botones */
-        .btn-cfg { padding: 13px 30px; border-radius: 99px; font-weight: 800; font-size: .95rem; cursor: pointer; transition: all .25s; border: none; }
-        .btn-primary { background: #38bdf8; color: #020617; }
-        .btn-primary:hover { background: #7dd3fc; transform: scale(1.04); }
-        .btn-secondary { background: rgba(255,255,255,0.07); color: white; border: 1px solid rgba(255,255,255,0.12); }
-        .btn-secondary:hover { background: rgba(255,255,255,0.14); }
-        .btn-wa { background: #25D366; color: white; font-size: 1.05rem; padding: 16px 36px; display: flex; align-items: center; gap: 10px; justify-content: center; }
-        .btn-wa:hover { background: #1ebe5d; transform: scale(1.03); box-shadow: 0 0 28px rgba(37,211,102,0.4); }
-
-        /* Upload */
-        .upload-zone { border: 2px dashed rgba(255,255,255,0.15); border-radius: 20px; padding: 2rem; text-align: center; cursor: pointer; transition: all .3s; }
-        .upload-zone:hover, .upload-zone.drag { border-color: #38bdf8; background: rgba(56,189,248,0.05); }
-
-        /* Resumen */
-        .res-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: .88rem; }
-
-        /* Modelo selector */
-        .modelo-btn { cursor: pointer; background: none; color: white; }
-        .modelo-btn:hover svg { transform: scale(1.05); transition: transform .2s; }
-
-        /* Foto preview jarra */
-        .mug-preview-wrap {
-            position: relative;
-            width: 300px;
-            height: 320px;
-            border-radius: 32px;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-        .mug-bg {
-            position: absolute;
-            inset: 0;
-            background: #000;
-        }
-        .mug-img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            padding: 12px;
-        }
-        .mug-model-label {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.65);
-            backdrop-filter: blur(8px);
-            color: white;
-            font-size: .72rem;
-            font-weight: 800;
-            letter-spacing: .08em;
-            padding: 5px 14px;
-            border-radius: 99px;
-            white-space: nowrap;
         }
 
         /* Catálogo overlay */
@@ -176,6 +90,19 @@
         .badge-new  { background: rgba(56,189,248,0.85); color: #020617; }
         .badge-blue { background: rgba(99,102,241,0.85); color: white; }
 
+        /* Precio */
+        .price-tag { color: #38bdf8; font-weight: 900; font-size: 1.15rem; }
+        .price-note { color: rgba(255,255,255,0.4); font-size: .72rem; }
+
+        /* Tabla de precios por cantidad (llaveros) */
+        .tier-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+        .tier-table td { padding: 6px 4px; border-bottom: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); }
+        .tier-table td:last-child { text-align: right; color: #38bdf8; font-weight: 700; }
+
+        /* Menú de categorías del catálogo */
+        .cat-pill { border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); font-size: .8rem; font-weight: 700; transition: all .25s ease; }
+        .cat-pill:hover { border-color: #38bdf8; color: #38bdf8; }
+
         /* Botón flotante WhatsApp */
         #waFloat {
             position: fixed;
@@ -213,7 +140,12 @@
         <h1 class="text-xl font-black gradient-text">Version3D</h1>
     </div>
     <div id="nav-links" class="flex items-center space-x-4">
-        <a href="#configurador" class="text-blue-400 font-bold hover:text-blue-300 transition-all text-sm">🎨 Diseñar mi jarra</a>
+        <a href="#choperas" class="text-white/70 hover:text-blue-400 transition-all text-sm font-bold">Choperas</a>
+        <a href="#materas" class="text-white/70 hover:text-blue-400 transition-all text-sm font-bold">Materas</a>
+        <a href="#llaveros" class="text-white/70 hover:text-blue-400 transition-all text-sm font-bold">Llaveros</a>
+        <a href="#decoracion" class="text-white/70 hover:text-blue-400 transition-all text-sm font-bold">Decoración</a>
+        <a href="#personalizado" class="text-white/70 hover:text-blue-400 transition-all text-sm font-bold">Personalizado</a>
+        <a href="#coleccion" class="text-white/70 hover:text-blue-400 transition-all text-sm font-bold">Colección</a>
         <a href="https://instagram.com/version3d.uy" target="_blank" class="text-white/70 hover:text-pink-500 transition-all">Instagram</a>
         <a href="https://wa.me/59898680317?text=Hola!%20Vi%20la%20promo%20en%20la%20web%20y%20quiero%20mi%2015%25%20de%20descuento." target="_blank" class="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-full font-bold transition-all text-sm">WhatsApp</a>
     </div>
@@ -229,8 +161,8 @@
     </h2>
     <p class="text-blue-400 text-lg font-bold tracking-[0.3em] uppercase mb-12">Salto Uruguay • Envíos a todo el país</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#configurador" class="btn-neon py-5 px-14 rounded-full font-black text-xl inline-block">🎨 DISEÑAR MI JARRA</a>
-        <a href="#catalogo" class="py-5 px-10 rounded-full font-black text-xl inline-block border border-white/20 hover:border-blue-400 transition-all">VER CATÁLOGO</a>
+        <a href="#choperas" class="btn-neon py-5 px-14 rounded-full font-black text-xl inline-block">VER CATÁLOGO</a>
+        <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20consultar%20sobre%20un%20producto" target="_blank" class="py-5 px-10 rounded-full font-black text-xl inline-block border border-white/20 hover:border-blue-400 transition-all">ESCRIBINOS</a>
     </div>
 </header>
 
@@ -238,8 +170,8 @@
 <section class="py-16 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
     <div class="glass p-10 rounded-[40px]">
         <span class="text-6xl font-black opacity-10 block mb-4 text-white">01</span>
-        <h4 class="text-2xl font-bold mb-2 italic">Configurá tu jarra</h4>
-        <p class="text-gray-400">Elegí colores, texto y logo en nuestro configurador online.</p>
+        <h4 class="text-2xl font-bold mb-2 italic">Elegí tu producto</h4>
+        <p class="text-gray-400">Mirá el catálogo y elegí el modelo, color o equipo que más te guste.</p>
     </div>
     <div class="glass p-10 rounded-[40px] border-blue-500/30">
         <span class="text-6xl font-black opacity-10 block mb-4 text-blue-400">02</span>
@@ -254,132 +186,47 @@
 </section>
 
 <!-- CATÁLOGO -->
-<section id="catalogo" class="py-20 px-6 max-w-7xl mx-auto">
-    <h3 class="text-4xl font-black mb-16 text-center tracking-widest uppercase italic">Catálogo de <span class="text-blue-400">Productos</span></h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-        <!-- Card con overlay -->
-        <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
-            <span class="badge badge-hot">🔥 Más vendido</span>
-            <div class="h-64 bg-slate-900 overflow-hidden">
-                <img src="nacional.jpg" alt="Chopera 500ml Nacional" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-            </div>
-            <div class="cat-overlay">
-                <p class="text-lg font-black italic mb-3">Chopera 500ml Nacional</p>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Nacional" class="overlay-btn">Consultar por WhatsApp →</a>
-            </div>
-            <div class="p-5">
-                <h4 class="text-lg font-bold italic">Chopera 500ml Nacional</h4>
-            </div>
-        </div>
-
-        <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
-            <span class="badge badge-hot">🔥 Más vendido</span>
-            <div class="h-64 bg-slate-900 overflow-hidden">
-                <img src="penarol.jpg" alt="Chopera 500ml Peñarol" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-            </div>
-            <div class="cat-overlay">
-                <p class="text-lg font-black italic mb-3">Chopera 500ml Peñarol</p>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Pe%C3%B1arol" class="overlay-btn">Consultar por WhatsApp →</a>
-            </div>
-            <div class="p-5">
-                <h4 class="text-lg font-bold italic">Chopera 500ml Peñarol</h4>
-            </div>
-        </div>
-
-        <!-- Card especial personalizada (sin overlay, ya tiene CTA) -->
-        <div class="glass rounded-[32px] p-8 flex flex-col justify-center border-blue-500/40 bg-blue-500/5 shadow-lg shadow-blue-500/10">
-            <span class="text-3xl mb-3">🎨</span>
-            <h4 class="text-2xl font-black italic text-blue-400 mb-2">Choperas Personalizadas</h4>
-            <p class="text-blue-300 font-black text-xl mb-1">desde $650 pesos</p>
-            <p class="text-gray-400 text-sm mb-6 italic">Tu logo, nombre, empresa, cuadro favorito, etc.</p>
-            <a href="#configurador" class="bg-blue-600 text-white py-4 rounded-full text-center font-black uppercase tracking-tighter hover:scale-105 transition-transform">🎨 Diseñar ahora</a>
-        </div>
-
-        <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
-            <span class="badge badge-new">✨ Popular</span>
-            <div class="h-56 bg-slate-900 overflow-hidden">
-                <img src="llaveros.jpg" alt="Llaveros personalizados" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-            </div>
-            <div class="cat-overlay">
-                <p class="text-base font-black italic mb-3">Llaveros Personalizados</p>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20gustar%C3%ADa%20hacer%20unos%20llaveros%20personalizados" class="overlay-btn">Consultar por WhatsApp →</a>
-            </div>
-            <div class="p-5">
-                <h4 class="text-base font-bold italic">Llaveros Personalizados</h4>
-            </div>
-        </div>
-
-        <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
-            <span class="badge badge-blue">💼 Empresas</span>
-            <div class="h-56 bg-slate-900 overflow-hidden">
-                <img src="empresas.jpg" alt="Llaveros para empresas" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-            </div>
-            <div class="cat-overlay">
-                <p class="text-base font-black italic mb-1">Llaveros para Empresas</p>
-                <p class="text-xs text-white/60 mb-3">10 / 20 / 30 / 50 / 100 unidades</p>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20presupuesto%20por%20llaveros%20para%20mi%20empresa" class="overlay-btn">Consultar por WhatsApp →</a>
-            </div>
-            <div class="p-5">
-                <h4 class="text-base font-bold italic">Llaveros para Empresas <span class="text-blue-400 text-xs">(10–100 uds)</span></h4>
-            </div>
-        </div>
-
-        <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
-            <div class="h-56 bg-slate-900 overflow-hidden">
-                <img src="medida.png" alt="Diseños a medida" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-            </div>
-            <div class="cat-overlay">
-                <p class="text-base font-black italic mb-3">Diseños a Medida</p>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Tengo%20una%20idea%20para%20un%20dise%C3%B1o%20espec%C3%ADfico" class="overlay-btn">Consultar por WhatsApp →</a>
-            </div>
-            <div class="p-5">
-                <h4 class="text-base font-bold italic">Diseños a Medida</h4>
-            </div>
-        </div>
-
-        <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
-            <span class="badge badge-new">✨ Nuevo</span>
-            <div class="h-56 bg-slate-900 overflow-hidden">
-                <img src="bt21.jpg" alt="Colección BT21" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-            </div>
-            <div class="cat-overlay">
-                <p class="text-base font-black italic mb-3">Colección BT21</p>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20info%20sobre%20la%20colecci%C3%B3n%20BT21" class="overlay-btn">Consultar por WhatsApp →</a>
-            </div>
-            <div class="p-5">
-                <h4 class="text-base font-bold italic">Colección BT21</h4>
-            </div>
-        </div>
-
-        <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
-            <div class="h-56 bg-slate-900 overflow-hidden">
-                <img src="brianrots.png" alt="Brainrots" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-            </div>
-            <div class="cat-overlay">
-                <p class="text-base font-black italic mb-3">Brainrots</p>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Me%20interesan%20los%20Brainrots" class="overlay-btn">Consultar por WhatsApp →</a>
-            </div>
-            <div class="p-5">
-                <h4 class="text-base font-bold italic">Brainrots</h4>
-            </div>
-        </div>
-
-        <div class="cat-card glass rounded-[32px] overflow-hidden relative group border-pink-500/20">
-            <span class="badge" style="background:rgba(240,98,146,0.85);">💖 Especial</span>
-            <div class="h-56 bg-slate-900 overflow-hidden">
-                <img src="huntrix.jpg" alt="Muñecas Huntrix" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-            </div>
-            <div class="cat-overlay" style="background:linear-gradient(to top, rgba(240,98,146,0.92) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);">
-                <p class="text-base font-black italic mb-3 text-pink-200">Muñecas Huntrix</p>
-                <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Consulto%20por%20las%20mu%C3%B1ecas%20Huntrix" class="overlay-btn" style="background:rgba(240,98,146,0.9);border-color:rgba(240,98,146,0.6)">Consultar por WhatsApp →</a>
-            </div>
-            <div class="p-5 bg-pink-500/5">
-                <h4 class="text-base font-bold italic text-pink-400">Muñecas Huntrix</h4>
-            </div>
-        </div>
-
+<section class="pt-20 px-6 max-w-7xl mx-auto text-center">
+    <h3 class="text-4xl font-black mb-8 tracking-widest uppercase italic">Catálogo de <span class="text-blue-400">Productos</span></h3>
+    <div class="flex flex-wrap gap-3 justify-center mb-4">
+        <a href="#choperas" class="cat-pill rounded-full px-5 py-2">🍺 Choperas</a>
+        <a href="#materas" class="cat-pill rounded-full px-5 py-2">🧉 Materas</a>
+        <a href="#llaveros" class="cat-pill rounded-full px-5 py-2">🔑 Llaveros</a>
+        <a href="#decoracion" class="cat-pill rounded-full px-5 py-2">🏟️ Decoración</a>
+        <a href="#personalizado" class="cat-pill rounded-full px-5 py-2">🎨 Personalizado</a>
+        <a href="#coleccion" class="cat-pill rounded-full px-5 py-2">✨ Colección</a>
     </div>
+</section>
+
+<section id="choperas" class="py-14 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
+    <h4 class="text-2xl font-black italic mb-3 text-blue-400">🍺 Choperas</h4>
+    <p class="text-sm text-gray-400 mb-8">🎨 Todas nuestras choperas pueden personalizarse con tu logo, nombre o diseño sin costo extra.</p>
+    <div id="grid-choperas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+</section>
+
+<section id="materas" class="py-14 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
+    <h4 class="text-2xl font-black italic mb-8 text-blue-400">🧉 Materas</h4>
+    <div id="grid-materas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+</section>
+
+<section id="llaveros" class="py-14 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
+    <h4 class="text-2xl font-black italic mb-8 text-blue-400">🔑 Llaveros</h4>
+    <div id="grid-llaveros" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+</section>
+
+<section id="decoracion" class="py-14 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
+    <h4 class="text-2xl font-black italic mb-8 text-blue-400">🏟️ Decoración</h4>
+    <div id="grid-decoracion" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+</section>
+
+<section id="personalizado" class="py-14 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
+    <h4 class="text-2xl font-black italic mb-8 text-blue-400">🎨 Personalizado</h4>
+    <div id="grid-personalizado" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+</section>
+
+<section id="coleccion" class="py-14 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
+    <h4 class="text-2xl font-black italic mb-8 text-blue-400">✨ Colección</h4>
+    <div id="grid-coleccion" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
 </section>
 
 <!-- Botón flotante WhatsApp -->
@@ -390,168 +237,6 @@
    title="Escribinos por WhatsApp">
     <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
-
-
-<!-- CONFIGURADOR -->
-<section id="configurador" class="py-20 px-6 max-w-6xl mx-auto">
-    <div class="text-center mb-14">
-        <h3 class="text-4xl font-black tracking-widest uppercase italic mb-3">Diseñá tu <span class="text-blue-400">Chopera</span></h3>
-        <p class="text-gray-400">Personalizá cada detalle y envianos el pedido directo por WhatsApp</p>
-    </div>
-
-    <div class="cfg-wrap">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-
-            <!-- Preview -->
-            <div class="flex flex-col items-center gap-6 lg:sticky lg:top-28">
-                <p class="text-xs text-white/30 uppercase tracking-widest font-bold">Preview en tiempo real</p>
-
-                <!-- Preview - canvas con reemplazo de color real -->
-                <div id="mugPreview" class="mug-preview-wrap">
-                    <div class="mug-bg"></div>
-                    <canvas id="mugCanvas" class="mug-img"></canvas>
-                    <div id="mugModelLabel" class="mug-model-label">Asa redondeada</div>
-                </div>
-
-                <!-- Mini resumen -->
-                <div class="glass rounded-2xl p-4 w-full max-w-xs text-sm space-y-2">
-                    <div class="flex items-center gap-3 border-b border-white/5 pb-2">
-                        <span class="text-gray-400">Modelo:</span>
-                        <span class="font-bold ml-auto text-blue-400" id="lblModelo">—</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-5 h-5 rounded-full border-2 border-white/20 flex-shrink-0" id="dotExt"></div>
-                        <span class="text-gray-400">Principal:</span>
-                        <span class="font-bold ml-auto" id="lblExt">—</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-5 h-5 rounded-full border-2 border-white/20 flex-shrink-0" id="dotTxt"></div>
-                        <span class="text-gray-400">Secundario:</span>
-                        <span class="font-bold ml-auto" id="lblTxt">—</span>
-                    </div>
-                    <div class="flex items-center gap-3 border-t border-white/5 pt-2">
-                        <span class="text-gray-400">Nombre:</span>
-                        <span class="font-bold ml-auto text-blue-400" id="lblNombre">—</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="text-gray-400">Logo:</span>
-                        <span class="font-bold ml-auto" id="lblLogo">No</span>
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <p class="text-3xl font-black gradient-text">$650 pesos</p>
-                    <p class="text-xs text-gray-500 mt-1">Precio base chopera personalizada</p>
-                </div>
-            </div>
-
-            <!-- Pasos -->
-            <div>
-                <div class="flex gap-2 items-center mb-8">
-                    <div class="step-dot act" id="sd1"></div>
-                    <div class="step-dot" id="sd2"></div>
-                    <div class="step-dot" id="sd3"></div>
-                    <div class="step-dot" id="sd4"></div>
-                    <div class="step-dot" id="sd5"></div>
-                    <span class="text-xs text-white/30 ml-2" id="stepLbl">Paso 1 de 5</span>
-                </div>
-
-                <!-- Paso 1: Modelo de chopera -->
-                <div class="step-panel act" id="sp1">
-                    <h4 class="text-2xl font-black mb-1 italic">Modelo de chopera</h4>
-                    <p class="text-gray-400 text-sm mb-7">¿Cuál de los dos modelos preferís?</p>
-                    <div class="grid grid-cols-2 gap-4">
-                        <button id="btnModelA" onclick="selectModelo('A')"
-                            class="modelo-btn glass rounded-2xl p-3 flex flex-col items-center gap-2 border-2 border-transparent hover:border-blue-400 transition-all">
-                            <div class="w-full h-28 rounded-xl overflow-hidden bg-black flex items-center justify-center">
-                                <img src="mug_redonda.png" class="h-full w-full object-contain" alt="Asa redondeada">
-                            </div>
-                            <span class="text-sm font-bold">Asa redondeada</span>
-                        </button>
-                        <button id="btnModelB" onclick="selectModelo('B')"
-                            class="modelo-btn glass rounded-2xl p-3 flex flex-col items-center gap-2 border-2 border-transparent hover:border-blue-400 transition-all">
-                            <div class="w-full h-28 rounded-xl overflow-hidden bg-black flex items-center justify-center">
-                                <img src="mug_cuadrada.png" class="h-full w-full object-contain" alt="Asa cuadrada">
-                            </div>
-                            <span class="text-sm font-bold">Asa cuadrada</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Paso 2: Color principal -->
-                <div class="step-panel" id="sp2">
-                    <h4 class="text-2xl font-black mb-1 italic">Color principal</h4>
-                    <p class="text-gray-400 text-sm mb-2">El color del <strong class="text-white">cuerpo y el asa</strong> de la chopera</p>
-                    <div class="flex items-center gap-2 mb-6 bg-white/5 rounded-xl px-4 py-2 text-xs text-white/50">
-                        <span>💡</span><span>En las fotos de ejemplo, el color principal es el blanco</span>
-                    </div>
-                    <div class="flex flex-wrap gap-6 pb-2" id="swExt"></div>
-                    <p class="text-xs text-gray-600 mt-5 italic">* Los colores en pantalla son aproximados al filamento real</p>
-                </div>
-
-                <!-- Paso 3: Color secundario -->
-                <div class="step-panel" id="sp3">
-                    <h4 class="text-2xl font-black mb-1 italic">Color secundario</h4>
-                    <p class="text-gray-400 text-sm mb-2">El color de los <strong class="text-white">anillos de la base</strong> y el texto grabado</p>
-                    <div class="flex items-center gap-2 mb-6 bg-white/5 rounded-xl px-4 py-2 text-xs text-white/50">
-                        <span>💡</span><span>En las fotos de ejemplo, el color secundario es el negro</span>
-                    </div>
-                    <div class="flex flex-wrap gap-6 pb-2" id="swTxt"></div>
-                </div>
-
-                <!-- Paso 4: Nombre y logo -->
-                <div class="step-panel" id="sp4">
-                    <h4 class="text-2xl font-black mb-1 italic">Nombre y logo</h4>
-                    <p class="text-gray-400 text-sm mb-6">Personalizá el texto y agregá tu logo si querés</p>
-                    <div class="space-y-5">
-                        <div>
-                            <label class="block text-xs text-white/40 uppercase tracking-widest mb-2">Nombre o texto (máx. 20 caracteres)</label>
-                            <input type="text" class="cfg-input" id="inpNombre" maxlength="20" placeholder="Ej: AGUANTE NACIONAL">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-white/40 uppercase tracking-widest mb-2">Logo o imagen (opcional)</label>
-                            <div class="upload-zone" id="upZone" onclick="document.getElementById('inpLogo').click()">
-                                <input type="file" id="inpLogo" accept="image/*" style="display:none">
-                                <div id="upPlaceholder">
-                                    <p class="text-3xl mb-2">📁</p>
-                                    <p class="text-sm text-gray-400">Hacé click o arrastrá tu logo acá</p>
-                                    <p class="text-xs text-gray-600 mt-1">PNG, JPG — Recomendado fondo transparente</p>
-                                </div>
-                                <div id="upDone" style="display:none">
-                                    <p class="text-green-400 font-bold">✅ Logo cargado</p>
-                                    <p class="text-xs text-gray-500 mt-1" id="upName"></p>
-                                    <button class="text-xs text-red-400 mt-2 underline" onclick="quitarLogo(event)">Quitar logo</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-white/40 uppercase tracking-widest mb-2">Notas adicionales (opcional)</label>
-                            <textarea class="cfg-input" id="inpNotas" rows="3" placeholder="Cualquier detalle extra..."></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Paso 4: Resumen -->
-                <div class="step-panel" id="sp5">
-                    <h4 class="text-2xl font-black mb-1 italic">¡Tu jarra está lista! 🎉</h4>
-                    <p class="text-gray-400 text-sm mb-6">Revisá los detalles y enviá el pedido por WhatsApp</p>
-                    <div class="glass rounded-[24px] p-6 mb-6" id="resumen"></div>
-                    <button class="btn-cfg btn-wa w-full rounded-[20px]" onclick="enviarWA()">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                        Enviar pedido por WhatsApp
-                    </button>
-                    <p class="text-xs text-center text-gray-600 mt-3">Te respondemos en menos de 24hs con la confirmación y el link de pago de la seña 💙</p>
-                </div>
-
-                <!-- Nav botones -->
-                <div class="flex gap-3 mt-8">
-                    <button class="btn-cfg btn-secondary" id="btnPrev" onclick="prevPaso()" style="display:none">← Atrás</button>
-                    <button class="btn-cfg btn-primary ml-auto" id="btnNext" onclick="nextPaso()">Siguiente →</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- SOBRE NOSOTROS -->
 <section class="py-24 px-6 max-w-6xl mx-auto border-t border-white/5">
@@ -593,6 +278,17 @@
     </div>
 </section>
 
+<!-- COMPRA AL POR MAYOR -->
+<section class="py-20 px-6 max-w-6xl mx-auto">
+    <div class="glass rounded-[40px] p-10 md:p-14 grid grid-cols-1 md:grid-cols-[1.3fr_auto] gap-8 items-center border-blue-500/20 bg-blue-500/5">
+        <div>
+            <h3 class="text-3xl md:text-4xl font-black italic mb-3">¿Querés comprar <span class="text-blue-400">al por mayor</span>?</h3>
+            <p class="text-gray-400 text-lg">Ofrecemos precios especiales en llaveros y otros productos seleccionados para revendedores, locales o emprendimientos.</p>
+        </div>
+        <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20consultar%20precios%20por%20mayor" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white px-10 py-5 rounded-full font-black text-lg text-center transition-all hover:scale-105 whitespace-nowrap">Contactanos →</a>
+    </div>
+</section>
+
 <!-- TIPS + STATS -->
 <section class="py-20 px-6 max-w-6xl mx-auto border-t border-white/5 grid grid-cols-1 md:grid-cols-2 gap-12">
     <div class="glass p-10 rounded-[40px]">
@@ -631,269 +327,131 @@
         </details>
         <details class="glass p-6 rounded-[32px] cursor-pointer group">
             <summary class="font-bold text-lg flex justify-between items-center list-none italic">¿Cómo hago un pedido? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
-            <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">Usá el <strong>configurador de jarras</strong> en esta misma página, o escribinos por <strong>WhatsApp o Instagram</strong>.</p>
+            <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">Escribinos por <strong>WhatsApp o Instagram</strong> con el producto que te interesa y los detalles que quieras personalizar (colores, nombre, logo).</p>
         </details>
     </div>
 </section>
 
 <!-- FOOTER -->
 <footer class="py-12 px-6 border-t border-white/5 text-center text-gray-600 text-sm">
-    <p>© 2025 Version3D · Salto, Uruguay</p>
+    <p>© 2026 Version3D · Salto, Uruguay</p>
     <div class="flex justify-center gap-6 mt-4">
         <a href="https://instagram.com/version3d.uy" target="_blank" class="hover:text-pink-500 transition-all">Instagram</a>
         <a href="https://wa.me/59898680317" target="_blank" class="hover:text-green-400 transition-all">WhatsApp</a>
     </div>
 </footer>
 
-<!-- SCRIPT CONFIGURADOR -->
 <script>
-const COLORES = [
-    { name: 'Blanco',       hex: '#F0F0F0' },
-    { name: 'Negro',        hex: '#1a1a1a' },
-    { name: 'Rojo',         hex: '#E53935' },
-    { name: 'Azul marino',  hex: '#1565C0' },
-    { name: 'Azul cielo',   hex: '#29B6F6' },
-    { name: 'Verde',        hex: '#43A047' },
-    { name: 'Verde menta',  hex: '#80CBC4' },
-    { name: 'Amarillo',     hex: '#FDD835' },
-    { name: 'Naranja',      hex: '#FB8C00' },
-    { name: 'Rosa',         hex: '#F06292' },
-    { name: 'Violeta',      hex: '#8E24AA' },
-    { name: 'Gris',         hex: '#757575' },
-    { name: 'Marrón',       hex: '#6D4C41' },
-    { name: 'Dorado',       hex: '#FFD600' },
-    { name: 'Plateado',     hex: '#B0BEC5' },
+// ─────────────────────────────────────────
+// CATÁLOGO — array de datos.
+// Para agregar un producto nuevo: copiá un bloque {...} y pegalo en la lista,
+// respetando el "cat" que le corresponda (choperas / materas / llaveros / decoracion / personalizado / coleccion).
+// variant: "normal" (por defecto), "tiered" (tabla de precios por cantidad), "pink" (estilo Huntrix).
+// ─────────────────────────────────────────
+const PRODUCTOS = [
+  { title:"Jarra Chopera Nacional con incrustaciones", cat:"choperas", img:"nacional.jpg", badge:{cls:"badge-hot", text:"🔥 Más vendido"}, price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Nacional" },
+  { title:"Jarra Chopera Peñarol con incrustaciones",  cat:"choperas", img:"penarol.jpg",  badge:{cls:"badge-hot", text:"🔥 Más vendido"}, price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Pe%C3%B1arol" },
+  { title:"Jarra Chopera Camiseta", cat:"choperas", img:null, badge:{cls:"badge-new", text:"✨ Nuevo"}, sub:"Nacional · Peñarol · Uruguay", price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Jarra%20Chopera%20Camiseta%2C%20quiero%20consultar%20por%20el%20equipo" },
+
+  { title:"Matera Nacional",       cat:"materas", img:null, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Matera%20de%20Nacional" },
+  { title:"Matera Peñarol",        cat:"materas", img:null, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Matera%20de%20Pe%C3%B1arol" },
+  { title:"Matera Uruguay",        cat:"materas", img:null, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Matera%20de%20Uruguay" },
+  { title:"Matera Personalizada",  cat:"materas", img:null, badge:{cls:"badge-blue", text:"🎨 A medida"}, price:"$1.190", wa:"Hola%20Version3D!%20Quiero%20una%20matera%20personalizada" },
+
+  { title:"Llaveros Personalizados", cat:"llaveros", img:"llaveros.jpg", variant:"tiered", empresasImg:"empresas.jpg",
+    tiers:[[1,100],[5,70],[10,60],[20,50],[30,45],[50,40],[70,38],[100,35]],
+    wa:"Hola%20Version3D!%20Me%20gustar%C3%ADa%20hacer%20unos%20llaveros%20personalizados" },
+
+  { title:"Estadio Gran Parque Central", cat:"decoracion", img:null, sub:"Nacional · 24cm", badge:{cls:"badge-new", text:"✨ Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Gran%20Parque%20Central" },
+  { title:"Estadio Campeón del Siglo",   cat:"decoracion", img:null, sub:"Peñarol · 24cm",  badge:{cls:"badge-new", text:"✨ Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Campe%C3%B3n%20del%20Siglo" },
+
+  { title:"Diseños a Medida", cat:"personalizado", img:"medida.png", wa:"Hola%20Version3D!%20Tengo%20una%20idea%20para%20un%20dise%C3%B1o%20espec%C3%ADfico" },
+
+  { title:"Colección BT21", cat:"coleccion", img:"bt21.jpg", badge:{cls:"badge-new", text:"✨ Nuevo"}, wa:"Hola%20Version3D!%20Quiero%20info%20sobre%20la%20colecci%C3%B3n%20BT21" },
+  { title:"Brainrots",      cat:"coleccion", img:"brianrots.png", price:"$350", wa:"Hola%20Version3D!%20Me%20interesan%20los%20Brainrots" },
+  { title:"Muñecas Huntrix", cat:"coleccion", img:"huntrix.jpg", variant:"pink", price:"$490", wa:"Hola%20Version3D!%20Consulto%20por%20las%20mu%C3%B1ecas%20Huntrix" },
 ];
 
-const est = { modelo: null, ext: null, txt: null, nombre: '', logo64: null, logoName: null, notas: '', paso: 1 };
-const PASOS = 5;
-
-// ── Selector de modelo ──
-// ── Imágenes precargadas ──
-const MUG_IMAGES = { A: null, B: null };
-const imgA = new Image(); imgA.src = 'mug_redonda.png';
-const imgB = new Image(); imgB.src = 'mug_cuadrada.png';
-imgA.onload = () => { MUG_IMAGES.A = imgA; drawMug(); };
-imgB.onload = () => { MUG_IMAGES.B = imgB; };
-
-function selectModelo(m) {
-    est.modelo = m;
-    const labels = { A: 'Asa redondeada', B: 'Asa cuadrada' };
-    document.getElementById('mugModelLabel').textContent = labels[m];
-    document.getElementById('lblModelo').textContent = labels[m];
-    ['A','B'].forEach(x => {
-        const btn = document.getElementById('btnModel' + x);
-        btn.classList.toggle('border-blue-400', x === m);
-        btn.classList.toggle('bg-blue-500/10', x === m);
-        btn.classList.toggle('border-transparent', x !== m);
-    });
-    drawMug();
-    setTimeout(() => nextPaso(), 350);
+function priceBlock(p){
+  return p.price ? `<p class="price-tag">${p.price}</p>` : `<p class="text-xs text-blue-300/70 italic">Consultar precio</p>`;
 }
 
-// ── Swatches ──
-function mkSwatches(cid, key) {
-    const c = document.getElementById(cid);
-    c.innerHTML = '';
-    COLORES.forEach(col => {
-        const d = document.createElement('div');
-        d.className = 'swatch' + (est[key] === col.name ? ' sel' : '');
-        d.style.background = col.hex;
-        d.title = col.name;
-        d.innerHTML = `<span class="swatch-tip">${col.name}</span>`;
-        d.addEventListener('click', () => {
-            est[key] = col.name;
-            c.querySelectorAll('.swatch').forEach(s => s.classList.remove('sel'));
-            d.classList.add('sel');
-            refresh();
-        });
-        c.appendChild(d);
-    });
+function normalCard(p){
+  const imgTag = p.img
+    ? `<img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/500x400?text=${encodeURIComponent(p.title)}'">`
+    : `<div class="w-full h-full flex items-center justify-center text-white/20 font-black text-3xl">V3D</div>`;
+  return `
+    <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
+      ${p.badge ? `<span class="badge ${p.badge.cls}">${p.badge.text}</span>` : ''}
+      <div class="h-64 bg-slate-900 overflow-hidden">${imgTag}</div>
+      <div class="cat-overlay">
+        <p class="text-lg font-black italic mb-1">${p.title}</p>
+        ${p.sub ? `<p class="text-xs text-white/60 mb-1">${p.sub}</p>` : ''}
+        ${p.price ? `<p class="text-blue-300 font-black mb-3">${p.price}</p>` : ''}
+        <a href="https://wa.me/59898680317?text=${p.wa}" target="_blank" class="overlay-btn">Consultar por WhatsApp →</a>
+      </div>
+      <div class="p-5">
+        <h4 class="text-lg font-bold italic mb-1">${p.title}</h4>
+        ${p.sub ? `<p class="text-xs text-blue-400 mb-1">${p.sub}</p>` : ''}
+        ${priceBlock(p)}
+      </div>
+    </div>
+  `;
 }
 
-function hexToRgb(hex) {
-    return [parseInt(hex.slice(1,3),16), parseInt(hex.slice(3,5),16), parseInt(hex.slice(5,7),16)];
+function tieredCard(p){
+  const rows = p.tiers.map(([q,price]) => `<tr><td>${q} unidad${q>1?'es':''}</td><td>$${price} c/u</td></tr>`).join('');
+  return `
+    <div class="glass rounded-[32px] overflow-hidden relative group cat-card">
+      <span class="badge badge-new">✨ Popular</span>
+      <div class="h-56 bg-slate-900 overflow-hidden">
+        <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/500x400?text=${encodeURIComponent(p.title)}'">
+      </div>
+      <div class="p-5">
+        <h4 class="text-lg font-bold italic mb-1">${p.title}</h4>
+        <p class="price-tag mb-1">desde $${p.tiers[p.tiers.length-1][1]} c/u</p>
+        <p class="price-note mb-3">$${p.tiers[0][1]} la unidad · según cantidad</p>
+        <details class="mb-3">
+          <summary class="text-xs text-blue-400 cursor-pointer font-bold list-none">Ver tabla de precios ▾</summary>
+          <table class="tier-table mt-2">${rows}</table>
+        </details>
+        <a href="https://wa.me/59898680317?text=${p.wa}" target="_blank" class="overlay-btn" style="position:static;">Consultar por WhatsApp →</a>
+      </div>
+    </div>
+  `;
 }
 
-// ── Dibujar jarra con colores reemplazados pixel a pixel ──
-function drawMug() {
-    const canvas = document.getElementById('mugCanvas');
-    const ctx = canvas.getContext('2d');
-    const m = est.modelo || 'A';
-    const src = MUG_IMAGES[m];
-    if (!src) return;
-
-    canvas.width  = src.naturalWidth;
-    canvas.height = src.naturalHeight;
-    ctx.drawImage(src, 0, 0);
-
-    const ce = COLORES.find(c => c.name === est.ext);
-    const ct = COLORES.find(c => c.name === est.txt);
-    if (!ce && !ct) return;
-
-    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const d = imgData.data;
-
-    const [pr, pg, pb] = ce ? hexToRgb(ce.hex) : [220, 220, 220];
-    const [sr, sg, sb] = ct ? hexToRgb(ct.hex) : [30, 30, 30];
-
-    for (let i = 0; i < d.length; i += 4) {
-        const r = d[i], g = d[i+1], b = d[i+2], a = d[i+3];
-        if (a < 10) continue;
-
-        const lum = (r + g + b) / 765; // 0=negro, 1=blanco
-        const maxCh = Math.max(r,g,b), minCh = Math.min(r,g,b);
-        const sat = maxCh > 0 ? (maxCh - minCh) / maxCh : 0;
-        const isNeutral = sat < 0.18;
-
-        if (!isNeutral) continue; // dejar colores no neutros intactos
-
-        if (lum > 0.25) {
-            // Zona blanca/gris clara → color PRINCIPAL, preservando brillo
-            const t = lum; // 0.25..1
-            d[i]   = Math.min(255, pr * t * 1.75);
-            d[i+1] = Math.min(255, pg * t * 1.75);
-            d[i+2] = Math.min(255, pb * t * 1.75);
-        } else if (lum > 0.02) {
-            // Zona gris oscura/negra → color SECUNDARIO, preservando brillo
-            const t = lum / 0.25; // 0..1
-            d[i]   = Math.min(255, sr * t * 2.2);
-            d[i+1] = Math.min(255, sg * t * 2.2);
-            d[i+2] = Math.min(255, sb * t * 2.2);
-        }
-        // negro puro (lum ≈ 0) = fondo → intacto
-    }
-
-    ctx.putImageData(imgData, 0, 0);
+function pinkCard(p){
+  return `
+    <div class="cat-card glass rounded-[32px] overflow-hidden relative group border-pink-500/20">
+      <span class="badge" style="background:rgba(240,98,146,0.85);">💖 Especial</span>
+      <div class="h-56 bg-slate-900 overflow-hidden">
+        <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/500x400?text=${encodeURIComponent(p.title)}'">
+      </div>
+      <div class="cat-overlay" style="background:linear-gradient(to top, rgba(240,98,146,0.92) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);">
+        <p class="text-base font-black italic mb-1 text-pink-200">${p.title}</p>
+        ${p.price ? `<p class="text-pink-100 font-black mb-3">${p.price}</p>` : ''}
+        <a href="https://wa.me/59898680317?text=${p.wa}" target="_blank" class="overlay-btn" style="background:rgba(240,98,146,0.9);border-color:rgba(240,98,146,0.6)">Consultar por WhatsApp →</a>
+      </div>
+      <div class="p-5 bg-pink-500/5">
+        <h4 class="text-base font-bold italic text-pink-400 mb-1">${p.title}</h4>
+        ${p.price ? `<p class="price-tag">${p.price}</p>` : ''}
+      </div>
+    </div>
+  `;
 }
 
-// ── Refresh ──
-function refresh() {
-    const ce = COLORES.find(c => c.name === est.ext);
-    const ct = COLORES.find(c => c.name === est.txt);
-    drawMug();
-    if (ce) { document.getElementById('dotExt').style.backgroundColor = ce.hex; document.getElementById('lblExt').textContent = ce.name; }
-    if (ct) { document.getElementById('dotTxt').style.backgroundColor = ct.hex; document.getElementById('lblTxt').textContent = ct.name; }
-    const nombre = document.getElementById('inpNombre')?.value || '';
-    document.getElementById('lblNombre').textContent = nombre || '—';
-    document.getElementById('lblLogo').textContent = est.logo64 ? '✅ Sí' : 'No';
+function cardHTML(p){
+  if (p.variant === 'tiered') return tieredCard(p);
+  if (p.variant === 'pink') return pinkCard(p);
+  return normalCard(p);
 }
 
-function setFill(id, color) { const el = document.getElementById(id); if (el) el.setAttribute('fill', color); }
-
-
-function shadeColor(hex, pct) {
-    hex = hex.replace('#','');
-    if (hex.length === 3) hex = hex.split('').map(c=>c+c).join('');
-    const num = parseInt(hex, 16);
-    const r = Math.min(255, Math.max(0, (num >> 16) + pct));
-    const g = Math.min(255, Math.max(0, ((num >> 8) & 0xff) + pct));
-    const b = Math.min(255, Math.max(0, (num & 0xff) + pct));
-    return '#' + [r,g,b].map(v=>v.toString(16).padStart(2,'0')).join('');
-}
-
-// ── Navegación ──
-function irPaso(n) {
-    document.getElementById('sp' + est.paso).classList.remove('act');
-    ['sd1','sd2','sd3','sd4','sd5'].forEach((id,i) => {
-        const d = document.getElementById(id);
-        d.classList.remove('act','done');
-        if (i+1 < n) d.classList.add('done');
-        if (i+1 === n) d.classList.add('act');
-    });
-    est.paso = n;
-    document.getElementById('sp' + n).classList.add('act');
-    document.getElementById('stepLbl').textContent = `Paso ${n} de ${PASOS}`;
-    document.getElementById('btnPrev').style.display = n > 1 ? 'inline-block' : 'none';
-    document.getElementById('btnNext').style.display = n < PASOS ? 'inline-block' : 'none';
-    if (n === PASOS) buildResumen();
-}
-
-function nextPaso() {
-    if (est.paso === 1 && !est.modelo) { alert('Elegí un modelo de chopera primero 🏺'); return; }
-    if (est.paso === 2 && !est.ext)    { alert('Elegí un color exterior 🎨'); return; }
-    if (est.paso === 3 && !est.txt)    { alert('Elegí un color para el texto 🎨'); return; }
-    if (est.paso === 4) { est.nombre = document.getElementById('inpNombre').value.trim(); est.notas = document.getElementById('inpNotas').value.trim(); }
-    if (est.paso < PASOS) irPaso(est.paso + 1);
-}
-function prevPaso() { if (est.paso > 1) irPaso(est.paso - 1); }
-
-function buildResumen() {
-    est.nombre = document.getElementById('inpNombre').value.trim();
-    est.notas  = document.getElementById('inpNotas').value.trim();
-    refresh();
-    const rows = [
-        ['🏺 Modelo',           est.modelo === 'A' ? 'Asa cuadrada' : est.modelo === 'B' ? 'Asa redondeada' : '—'],
-        ['🎨 Color principal',   est.ext     || '—'],
-        ['🖌️ Color secundario',  est.txt     || '—'],
-        ['📝 Nombre / texto',    est.nombre  || '(Sin texto)'],
-        ['🖼️ Logo adjunto',      est.logoName || 'No'],
-        ['💬 Notas',             est.notas   || 'Ninguna'],
-        ['💰 Precio base',       '$650 pesos'],
-    ];
-    document.getElementById('resumen').innerHTML = rows.map(([l,v]) =>
-        `<div class="res-row"><span class="text-gray-400">${l}</span><span class="font-bold text-right max-w-[55%]">${v}</span></div>`
-    ).join('');
-}
-
-function enviarWA() {
-    est.nombre = document.getElementById('inpNombre').value.trim();
-    est.notas  = document.getElementById('inpNotas').value.trim();
-    const modeloLabel = est.modelo === 'A' ? 'Asa cuadrada' : est.modelo === 'B' ? 'Asa redondeada' : 'No especificado';
-    let m = `🛒 *PEDIDO CHOPERA - version3d.uy*\n\n`;
-    m += `🏺 *Modelo:*          ${modeloLabel}\n`;
-    m += `🎨 *Color principal:*  ${est.ext    || 'No especificado'}\n`;
-    m += `🖌️ *Color secundario:* ${est.txt    || 'No especificado'}\n`;
-    m += `📝 *Nombre/texto:*   ${est.nombre || '(Sin texto)'}\n`;
-    m += `🖼️ *Logo:*           ${est.logoName || 'No adjunta logo'}\n`;
-    if (est.notas) m += `💬 *Notas:* ${est.notas}\n`;
-    m += `\n💰 *Precio base:* $650 pesos\n`;
-    m += `\n_Pedido configurado desde el sitio web ✅_`;
-    if (est.logo64) m += `\n\n📎 _Por favor pedile el logo al cliente por este chat._`;
-    window.open(`https://wa.me/59898680317?text=${encodeURIComponent(m)}`, '_blank');
-}
-
-// Logo upload
-document.getElementById('inpLogo').addEventListener('change', function(e) {
-    const f = e.target.files[0]; if (!f) return;
-    const r = new FileReader();
-    r.onload = ev => {
-        est.logo64 = ev.target.result; est.logoName = f.name;
-        document.getElementById('upPlaceholder').style.display = 'none';
-        document.getElementById('upDone').style.display = 'block';
-        document.getElementById('upName').textContent = f.name;
-        refresh();
-    };
-    r.readAsDataURL(f);
+['choperas','materas','llaveros','decoracion','personalizado','coleccion'].forEach(cat=>{
+  const el = document.getElementById('grid-' + cat);
+  const items = PRODUCTOS.filter(p => p.cat === cat);
+  el.innerHTML = items.map(cardHTML).join('');
 });
-
-function quitarLogo(e) {
-    e.stopPropagation();
-    est.logo64 = null; est.logoName = null;
-    document.getElementById('inpLogo').value = '';
-    document.getElementById('upPlaceholder').style.display = 'block';
-    document.getElementById('upDone').style.display = 'none';
-    refresh();
-}
-
-const zone = document.getElementById('upZone');
-zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag'); });
-zone.addEventListener('dragleave', () => zone.classList.remove('drag'));
-zone.addEventListener('drop', e => {
-    e.preventDefault(); zone.classList.remove('drag');
-    const f = e.dataTransfer.files[0];
-    if (f && f.type.startsWith('image/')) {
-        const dt = new DataTransfer(); dt.items.add(f);
-        document.getElementById('inpLogo').files = dt.files;
-        document.getElementById('inpLogo').dispatchEvent(new Event('change'));
-    }
-});
-
-document.getElementById('inpNombre').addEventListener('input', refresh);
-
-// Init swatches
-mkSwatches('swExt', 'ext');
-mkSwatches('swTxt', 'txt');
 </script>
 </body>
 </html>
