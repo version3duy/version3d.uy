@@ -14,219 +14,207 @@
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;900&display=swap');
-        * { box-sizing: border-box; }
-        html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
-        body { background-color: #020617; color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
-        .bg-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #1e293b 0%, #020617 100%); z-index: -1; }
-        .blob { position: absolute; width: 450px; height: 450px; background: rgba(56,189,248,0.12); filter: blur(80px); border-radius: 50%; z-index: -1; animation: move 20s infinite alternate; }
-        @keyframes move { from { transform: translate(-5%,-5%); } to { transform: translate(15%,15%); } }
+        :root{
+            --paper:#F3ECDC;
+            --card:#FFFCF5;
+            --ink:#241F16;
+            --ink-soft:#726A57;
+            --ink-faint:#A89C82;
+            --line:#E2D5B8;
+            --accent:#2952C8;
+            --accent-soft:#E7ECFA;
+            --amber:#96650B;
+            --amber-soft:#F5E9D2;
+            --violet:#6B4FD8;
+            --violet-soft:#EFEBFC;
+            --wa:#25D366;
+        }
+        *{ box-sizing:border-box; }
+        html,body{ overflow-x:hidden; width:100%; margin:0; padding:0; }
+        body{ background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; scroll-behavior:smooth; -webkit-font-smoothing:antialiased; }
+        .mono{ font-family:'IBM Plex Mono',monospace; }
 
-        .gradient-text { background: linear-gradient(90deg, #38bdf8, #818cf8, #38bdf8); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 4s linear infinite; }
-        @keyframes shine { to { background-position: 200% center; } }
+        a{ color:inherit; }
+        ::selection{ background:var(--accent); color:#fff; }
+        :focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
 
-        .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); transition: all 0.4s ease; }
-        .glass:hover { border-color: #38bdf8; transform: translateY(-8px); }
+        /* Textura de capas de impresión — elemento de firma, solo en el hero */
+        .layer-lines{
+            position:absolute; inset:0; z-index:0; pointer-events:none;
+            background-image: repeating-linear-gradient(to bottom, rgba(41,82,200,0.07) 0px, rgba(41,82,200,0.07) 1px, transparent 1px, transparent 10px);
+            -webkit-mask-image: linear-gradient(to bottom, black, transparent 92%);
+            mask-image: linear-gradient(to bottom, black, transparent 92%);
+        }
+        .print-head{
+            position:absolute; left:0; right:0; height:1px; background:var(--accent); opacity:.35;
+            animation: printPass 7s ease-in-out infinite;
+        }
+        @keyframes printPass{ 0%,100%{ top:6%; } 50%{ top:88%; } }
+        @media (prefers-reduced-motion: reduce){ .print-head{ animation:none; top:40%; } }
 
-        .btn-neon { background: white; color: black; box-shadow: 0 0 15px rgba(255,255,255,0.2); transition: all 0.3s; }
-        .btn-neon:hover { box-shadow: 0 0 25px rgba(56,189,248,0.5); transform: scale(1.05); }
+        /* Tarjetas */
+        .card{ background:var(--card); border:1px solid var(--line); border-radius:14px; transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+        .card:hover{ border-color:var(--accent); box-shadow:0 6px 24px rgba(26,26,24,0.06); }
 
-        details summary::-webkit-details-marker { display: none; }
+        /* Botón principal */
+        .btn-primary{ background:var(--ink); color:#fff; transition:background .2s ease, transform .15s ease; }
+        .btn-primary:hover{ background:var(--accent); transform:translateY(-1px); }
+        .btn-outline{ border:1px solid var(--line); color:var(--ink); transition:border-color .2s ease, color .2s ease; }
+        .btn-outline:hover{ border-color:var(--ink); }
+
+        details summary::-webkit-details-marker{ display:none; }
 
         /* Hamburger */
-        #hamburger { display: none; }
-        @media (max-width: 768px) {
-            h2 { font-size: 3rem !important; line-height: 1.1; }
-            #hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-            #hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; }
-            #nav-links { display: none; flex-direction: column; position: absolute; top: 100%; right: 0; background: rgba(0,0,0,0.97); padding: 1rem 1.5rem; gap: 1rem; border-bottom-left-radius: 16px; border: 1px solid rgba(255,255,255,0.1); max-height: 80vh; overflow-y: auto; }
-            #nav-links.open { display: flex; }
+        #hamburger{ display:none; }
+        @media (max-width:768px){
+            #hamburger{ display:flex; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+            #hamburger span{ display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; }
+            #nav-links{ display:none; flex-direction:column; align-items:flex-start; position:absolute; top:100%; right:0; left:0; background:var(--card); padding:1.25rem 1.5rem; gap:1rem; border-bottom:1px solid var(--line); }
+            #nav-links.open{ display:flex; }
         }
 
-        /* Catálogo overlay */
-        .cat-card { cursor: pointer; }
-        .cat-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(2,6,23,0.95) 0%, rgba(2,6,23,0.6) 45%, transparent 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 1.5rem;
-            opacity: 0;
-            transition: opacity .35s ease;
-        }
-        .cat-card:hover .cat-overlay { opacity: 1; }
-        .overlay-btn {
-            display: inline-block;
-            background: rgba(37,211,102,0.85);
-            color: white;
-            font-weight: 800;
-            font-size: .85rem;
-            padding: 10px 18px;
-            border-radius: 99px;
-            border: 1px solid rgba(37,211,102,0.5);
-            transition: background .2s, transform .2s;
-            backdrop-filter: blur(4px);
-            width: fit-content;
-        }
-        .overlay-btn:hover { background: #1ebe5d; transform: scale(1.04); }
-
-        /* Badges */
-        .badge {
-            position: absolute;
-            top: 14px;
-            right: 14px;
-            z-index: 10;
-            font-size: .72rem;
-            font-weight: 800;
-            padding: 5px 12px;
-            border-radius: 99px;
-            letter-spacing: .04em;
-            backdrop-filter: blur(8px);
-        }
-        .badge-hot  { background: rgba(239,68,68,0.85);  color: white; }
-        .badge-new  { background: rgba(56,189,248,0.85); color: #020617; }
-        .badge-blue { background: rgba(99,102,241,0.85); color: white; }
+        /* Badges: un mismo estilo, el color del punto distingue el tipo */
+        .badge{ position:absolute; top:12px; left:12px; z-index:10; display:inline-flex; align-items:center; gap:6px; font-size:.68rem; font-weight:600; letter-spacing:.04em; padding:5px 10px 5px 8px; border-radius:99px; background:rgba(255,255,255,0.92); border:1px solid var(--line); backdrop-filter:blur(4px); text-transform:uppercase; }
+        .badge .dot{ width:6px; height:6px; border-radius:50%; flex:none; }
+        .badge-hot .dot{ background:var(--amber); }
+        .badge-new .dot{ background:var(--accent); }
+        .badge-blue .dot{ background:var(--violet); }
 
         /* Precio */
-        .price-tag { color: #38bdf8; font-weight: 900; font-size: 1.15rem; }
-        .price-note { color: rgba(255,255,255,0.4); font-size: .72rem; }
+        .price-tag{ color:var(--ink); font-weight:700; font-size:1.05rem; }
+        .price-note{ color:var(--ink-faint); font-size:.72rem; }
 
         /* Tabla de precios por cantidad (llaveros) */
-        .tier-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
-        .tier-table td { padding: 6px 4px; border-bottom: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); }
-        .tier-table td:last-child { text-align: right; color: #38bdf8; font-weight: 700; }
+        .tier-table{ width:100%; border-collapse:collapse; font-size:.8rem; }
+        .tier-table td{ padding:6px 4px; border-bottom:1px solid var(--line); color:var(--ink-soft); }
+        .tier-table td:last-child{ text-align:right; color:var(--accent); font-weight:700; }
 
         /* Menú de categorías del catálogo */
-        .cat-pill { border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); font-size: .8rem; font-weight: 700; transition: all .25s ease; }
-        .cat-pill:hover { border-color: #38bdf8; color: #38bdf8; }
+        .cat-pill{ border:1px solid var(--line); color:var(--ink-soft); font-size:.8rem; font-weight:600; transition:all .2s ease; }
+        .cat-pill:hover{ border-color:var(--accent); color:var(--accent); }
+
+        /* Barra de categorías sticky */
+        .cat-link{ font-size:.85rem; font-weight:600; color:rgba(255,255,255,0.75); padding:14px 0; border-bottom:2px solid transparent; transition:color .2s ease, border-color .2s ease; }
+        .cat-link:hover{ color:#fff; border-color:#fff; }
+        .no-scrollbar::-webkit-scrollbar{ display:none; }
+
+        /* CTA de WhatsApp dentro de la tarjeta — siempre visible, no depende de hover */
+        .card-wa-btn{ display:inline-flex; align-items:center; gap:6px; font-size:.78rem; font-weight:600; color:var(--wa); }
+        .card-wa-btn:hover{ text-decoration:underline; }
 
         /* Botón flotante WhatsApp */
-        #waFloat {
-            position: fixed;
-            bottom: 28px;
-            right: 28px;
-            z-index: 999;
-            background: #25D366;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 24px rgba(37,211,102,0.5);
-            transition: transform .25s, box-shadow .25s;
-            animation: waPulse 2.5s infinite;
-        }
-        #waFloat:hover { transform: scale(1.12); box-shadow: 0 6px 32px rgba(37,211,102,0.7); animation: none; }
-        @keyframes waPulse {
-            0%,100% { box-shadow: 0 4px 24px rgba(37,211,102,0.5); }
-            50%      { box-shadow: 0 4px 32px rgba(37,211,102,0.85), 0 0 0 8px rgba(37,211,102,0.12); }
-        }
+        #waFloat{ position:fixed; bottom:24px; right:24px; z-index:999; background:var(--wa); width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 16px rgba(37,211,102,0.35); transition:transform .2s ease, box-shadow .2s ease; }
+        #waFloat:hover{ transform:scale(1.08); box-shadow:0 6px 22px rgba(37,211,102,0.5); }
+
+        .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
     </style>
 </head>
 <body>
 
-
-<div class="bg-glow"></div>
-<div class="blob" style="top:5%;left:5%;"></div>
-
 <!-- NAV -->
-<nav class="p-4 flex justify-between items-center border-b border-white/10 bg-black/40 sticky top-0 backdrop-blur-xl z-50 relative">
-    <div class="flex items-center gap-4">
-        <img src="logo.png" alt="Version3D Logo" class="h-12 w-auto" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1710/1710166.png'">
-        <h1 class="text-xl font-black gradient-text">Version3D</h1>
-    </div>
-    <div id="nav-links" class="flex items-center space-x-4">
-        <a href="#choperas" class="text-white/70 hover:text-blue-400 transition-all text-sm font-bold">Choperas</a>
-        <a href="#materas" class="text-white/70 hover:text-blue-400 transition-all text-sm font-bold">Materas</a>
-        <a href="#llaveros" class="text-white/70 hover:text-blue-400 transition-all text-sm font-bold">Llaveros</a>
-        <a href="#decoracion" class="text-white/70 hover:text-blue-400 transition-all text-sm font-bold">Decoración</a>
-        <a href="#personalizado" class="text-white/70 hover:text-blue-400 transition-all text-sm font-bold">Personalizado</a>
-        <a href="#coleccion" class="text-white/70 hover:text-blue-400 transition-all text-sm font-bold">Colección</a>
-        <a href="https://instagram.com/version3d.uy" target="_blank" class="text-white/70 hover:text-pink-500 transition-all">Instagram</a>
-        <a href="https://wa.me/59898680317?text=Hola!%20Vi%20la%20promo%20en%20la%20web%20y%20quiero%20mi%2015%25%20de%20descuento." target="_blank" class="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-full font-bold transition-all text-sm">WhatsApp</a>
+<nav class="px-6 py-4 flex justify-between items-center border-b sticky top-0 bg-[var(--paper)]/95 backdrop-blur z-50 relative" style="border-color:var(--line)">
+    <a href="#top" class="flex items-center gap-3">
+        <img src="logo.png" alt="Version3D" class="h-9 w-auto" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1710/1710166.png'">
+        <span class="text-lg font-bold tracking-tight">Version3D</span>
+    </a>
+    <div id="nav-links" class="flex items-center space-x-6">
+        <a href="#choperas" class="text-sm font-medium" style="color:var(--ink-soft)">Choperas</a>
+        <a href="#materas" class="text-sm font-medium" style="color:var(--ink-soft)">Materas</a>
+        <a href="#llaveros" class="text-sm font-medium" style="color:var(--ink-soft)">Llaveros</a>
+        <a href="#decoracion" class="text-sm font-medium" style="color:var(--ink-soft)">Decoración</a>
+        <a href="#personalizado" class="text-sm font-medium" style="color:var(--ink-soft)">Personalizado</a>
+        <a href="#coleccion" class="text-sm font-medium" style="color:var(--ink-soft)">Colección</a>
+        <a href="https://instagram.com/version3d.uy" target="_blank" class="text-sm font-medium" style="color:var(--ink-soft)">Instagram</a>
+        <a href="https://wa.me/59898680317?text=Hola!%20Vi%20la%20promo%20en%20la%20web%20y%20quiero%20mi%2015%25%20de%20descuento." target="_blank" class="btn-primary px-4 py-2 rounded-full font-semibold text-sm">WhatsApp</a>
     </div>
     <button id="hamburger" aria-label="Menú" onclick="document.getElementById('nav-links').classList.toggle('open')">
         <span></span><span></span><span></span>
     </button>
 </nav>
 
+<!-- BARRA DE CATEGORÍAS -->
+<div class="sticky z-40" style="top:68px; background:var(--accent)">
+    <div class="max-w-7xl mx-auto px-6 flex gap-6 overflow-x-auto no-scrollbar" style="scrollbar-width:none">
+        <a href="#choperas" class="cat-link whitespace-nowrap">Choperas</a>
+        <a href="#materas" class="cat-link whitespace-nowrap">Materas</a>
+        <a href="#llaveros" class="cat-link whitespace-nowrap">Llaveros</a>
+        <a href="#decoracion" class="cat-link whitespace-nowrap">Decoración</a>
+        <a href="#personalizado" class="cat-link whitespace-nowrap">Personalizado</a>
+        <a href="#coleccion" class="cat-link whitespace-nowrap">Colección</a>
+    </div>
+</div>
+
 <!-- HERO -->
-<header class="py-24 px-6 text-center max-w-5xl mx-auto">
-    <h2 class="text-5xl md:text-8xl font-black mb-8 leading-tight tracking-tighter">
-        Llevamos tus ideas a la <br><span class="gradient-text">tercera dimensión</span>
-    </h2>
-    <p class="text-blue-400 text-lg font-bold tracking-[0.3em] uppercase mb-12">Salto Uruguay • Envíos a todo el país</p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#choperas" class="btn-neon py-5 px-14 rounded-full font-black text-xl inline-block">VER CATÁLOGO</a>
-        <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20consultar%20sobre%20un%20producto" target="_blank" class="py-5 px-10 rounded-full font-black text-xl inline-block border border-white/20 hover:border-blue-400 transition-all">ESCRIBINOS</a>
+<header id="top" class="relative py-20 md:py-28 px-6 text-center max-w-5xl mx-auto overflow-hidden">
+    <div class="layer-lines"><div class="print-head"></div></div>
+    <div class="relative">
+        <p class="eyebrow mb-6">Salto, Uruguay — impresión 3D bajo pedido</p>
+        <h1 class="text-4xl md:text-7xl font-extrabold mb-8 leading-[1.05] tracking-tight">
+            Llevamos tus ideas<br>a la <span style="color:var(--accent)">tercera dimensión</span>
+        </h1>
+        <p class="text-base md:text-lg mb-10 max-w-xl mx-auto" style="color:var(--ink-soft)">Choperas, materas, llaveros y diseños a medida. Envíos a todo el país.</p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="#choperas" class="btn-primary py-4 px-10 rounded-full font-semibold text-base inline-block">Ver catálogo</a>
+            <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20consultar%20sobre%20un%20producto" target="_blank" class="btn-outline py-4 px-8 rounded-full font-semibold text-base inline-block">Escribinos</a>
+        </div>
     </div>
 </header>
 
 <!-- PASOS -->
-<section class="py-16 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-    <div class="glass p-10 rounded-[40px]">
-        <span class="text-6xl font-black opacity-10 block mb-4 text-white">01</span>
-        <h4 class="text-2xl font-bold mb-2 italic">Elegí tu producto</h4>
-        <p class="text-gray-400">Mirá el catálogo y elegí el modelo, color o equipo que más te guste.</p>
+<section class="py-14 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="card p-8 rounded-2xl">
+        <span class="eyebrow block mb-4">01</span>
+        <h4 class="text-xl font-bold mb-2">Elegí tu producto</h4>
+        <p style="color:var(--ink-soft)">Mirá el catálogo y elegí el modelo, color o equipo que más te guste.</p>
     </div>
-    <div class="glass p-10 rounded-[40px] border-blue-500/30">
-        <span class="text-6xl font-black opacity-10 block mb-4 text-blue-400">02</span>
-        <h4 class="text-2xl font-bold mb-2 italic">Seña y Diseño</h4>
-        <p class="text-gray-400 italic">Personalizados pedimos <span class="text-blue-400 font-bold">50% de seña</span>.</p>
+    <div class="card p-8 rounded-2xl" style="border-color:var(--accent)">
+        <span class="eyebrow block mb-4">02</span>
+        <h4 class="text-xl font-bold mb-2">Seña y diseño</h4>
+        <p style="color:var(--ink-soft)">Para personalizados pedimos <strong style="color:var(--ink)">50% de seña</strong>.</p>
     </div>
-    <div class="glass p-10 rounded-[40px]">
-        <span class="text-6xl font-black opacity-10 block mb-4 text-white">03</span>
-        <h4 class="text-2xl font-bold mb-2 italic">¡Listo!</h4>
-        <p class="text-gray-400">Retiro en Salto o envío por agencia a todo Uruguay.</p>
+    <div class="card p-8 rounded-2xl">
+        <span class="eyebrow block mb-4">03</span>
+        <h4 class="text-xl font-bold mb-2">¡Listo!</h4>
+        <p style="color:var(--ink-soft)">Retiro en Salto o envío por agencia a todo Uruguay.</p>
     </div>
 </section>
 
 <!-- CATÁLOGO -->
-<section class="pt-20 px-6 max-w-7xl mx-auto text-center">
-    <h3 class="text-4xl font-black mb-8 tracking-widest uppercase italic">Catálogo de <span class="text-blue-400">Productos</span></h3>
-    <div class="flex flex-wrap gap-3 justify-center mb-4">
-        <a href="#choperas" class="cat-pill rounded-full px-5 py-2">🍺 Choperas</a>
-        <a href="#materas" class="cat-pill rounded-full px-5 py-2">🧉 Materas</a>
-        <a href="#llaveros" class="cat-pill rounded-full px-5 py-2">🔑 Llaveros</a>
-        <a href="#decoracion" class="cat-pill rounded-full px-5 py-2">🏟️ Decoración</a>
-        <a href="#personalizado" class="cat-pill rounded-full px-5 py-2">🎨 Personalizado</a>
-        <a href="#coleccion" class="cat-pill rounded-full px-5 py-2">✨ Colección</a>
-    </div>
+<section class="pt-16 px-6 max-w-7xl mx-auto text-center">
+    <h2 class="text-3xl font-extrabold tracking-tight">Catálogo de productos</h2>
 </section>
 
-<section id="choperas" class="py-14 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
-    <h4 class="text-2xl font-black italic mb-3 text-blue-400">🍺 Choperas</h4>
-    <p class="text-sm text-gray-400 mb-8">🎨 Todas nuestras choperas pueden personalizarse con tu logo, nombre o diseño sin costo extra.</p>
-    <div id="grid-choperas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+<section id="choperas" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
+    <h3 class="text-xl font-bold mb-2">Choperas</h3>
+    <p class="text-sm mb-6" style="color:var(--ink-soft)">Todas nuestras choperas pueden personalizarse con tu logo, nombre o diseño sin costo extra.</p>
+    <div id="grid-choperas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
-<section id="materas" class="py-14 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
-    <h4 class="text-2xl font-black italic mb-8 text-blue-400">🧉 Materas</h4>
-    <div id="grid-materas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+<section id="materas" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
+    <h3 class="text-xl font-bold mb-6">Materas</h3>
+    <div id="grid-materas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
-<section id="llaveros" class="py-14 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
-    <h4 class="text-2xl font-black italic mb-8 text-blue-400">🔑 Llaveros</h4>
-    <div id="grid-llaveros" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+<section id="llaveros" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
+    <h3 class="text-xl font-bold mb-6">Llaveros</h3>
+    <div id="grid-llaveros" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
-<section id="decoracion" class="py-14 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
-    <h4 class="text-2xl font-black italic mb-8 text-blue-400">🏟️ Decoración</h4>
-    <div id="grid-decoracion" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+<section id="decoracion" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
+    <h3 class="text-xl font-bold mb-6">Decoración</h3>
+    <div id="grid-decoracion" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
-<section id="personalizado" class="py-14 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
-    <h4 class="text-2xl font-black italic mb-8 text-blue-400">🎨 Personalizado</h4>
-    <div id="grid-personalizado" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+<section id="personalizado" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
+    <h3 class="text-xl font-bold mb-6">Personalizado</h3>
+    <div id="grid-personalizado" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
-<section id="coleccion" class="py-14 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
-    <h4 class="text-2xl font-black italic mb-8 text-blue-400">✨ Colección</h4>
-    <div id="grid-coleccion" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+<section id="coleccion" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
+    <h3 class="text-xl font-bold mb-6">Colección</h3>
+    <div id="grid-coleccion" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
 <!-- Botón flotante WhatsApp -->
@@ -235,109 +223,110 @@
    id="waFloat"
    aria-label="Contactar por WhatsApp"
    title="Escribinos por WhatsApp">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
 <!-- SOBRE NOSOTROS -->
-<section class="py-24 px-6 max-w-6xl mx-auto border-t border-white/5">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-        <div class="grid grid-cols-2 gap-4 relative">
-            <div class="absolute -inset-4 bg-blue-500/10 blur-3xl -z-10"></div>
-            <img src="feria1.jpg" class="rounded-[32px] w-full h-64 object-cover rotate-[-2deg] border border-white/10 hover:rotate-0 transition duration-500" alt="Version3D en Feria" onerror="this.src='https://via.placeholder.com/400?text=Feria+1'">
-            <img src="feria2.jpg" class="rounded-[32px] w-full h-64 object-cover translate-y-8 rotate-[2deg] border border-white/10 hover:rotate-0 transition duration-500" alt="Stand Version3D" onerror="this.src='https://via.placeholder.com/400?text=Feria+2'">
-            <div class="col-span-2 mt-8">
-                <img src="feria3.jpg" class="rounded-[32px] w-full h-auto object-contain border border-white/10" alt="Trabajo Version3D" onerror="this.src='https://via.placeholder.com/800x400?text=Feria+3'">
+<section class="py-20 px-6 max-w-6xl mx-auto border-t" style="border-color:var(--line)">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="grid grid-cols-2 gap-4">
+            <img src="feria1.jpg" class="rounded-2xl w-full h-56 object-cover border" style="border-color:var(--line)" alt="Version3D en Feria" onerror="this.src='https://via.placeholder.com/400?text=Feria+1'">
+            <img src="feria2.jpg" class="rounded-2xl w-full h-56 object-cover border mt-6" style="border-color:var(--line)" alt="Stand Version3D" onerror="this.src='https://via.placeholder.com/400?text=Feria+2'">
+            <div class="col-span-2">
+                <img src="feria3.jpg" class="rounded-2xl w-full h-auto object-cover border" style="border-color:var(--line)" alt="Trabajo Version3D" onerror="this.src='https://via.placeholder.com/800x400?text=Feria+3'">
             </div>
         </div>
-        <div class="space-y-6">
-            <h3 class="text-4xl font-black italic tracking-tighter">Pasión por lo <span class="text-blue-400 underline decoration-blue-500/30">Hecho en Salto</span></h3>
-            <p class="text-gray-400 leading-relaxed text-lg">Version3D nació de la curiosidad y las ganas de transformar ideas digitales en objetos reales. Empezamos con una pequeña impresora y hoy somos parte de la comunidad de emprendedores de Salto.</p>
+        <div class="space-y-5">
+            <p class="eyebrow">Nuestra historia</p>
+            <h3 class="text-3xl font-extrabold tracking-tight">Pasión por lo hecho en Salto</h3>
+            <p class="leading-relaxed text-lg" style="color:var(--ink-soft)">Version3D nació de la curiosidad y las ganas de transformar ideas digitales en objetos reales. Empezamos con una pequeña impresora y hoy somos parte de la comunidad de emprendedores de Salto.</p>
         </div>
     </div>
 </section>
 
 <!-- GALERÍA -->
-<section class="py-24 px-6 max-w-7xl mx-auto">
-    <div class="text-center mb-16">
-        <h3 class="text-3xl font-black tracking-widest uppercase mb-4 text-gray-400 italic">Del Taller a tus Manos</h3>
-        <p class="text-blue-400 italic font-bold text-lg">Pedidos reales entregados con éxito</p>
+<section class="py-20 px-6 max-w-7xl mx-auto">
+    <div class="text-center mb-10">
+        <p class="eyebrow mb-2">Pedidos reales entregados</p>
+        <h3 class="text-2xl font-extrabold tracking-tight">Del taller a tus manos</h3>
     </div>
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        <img src="trabajo1.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=1'">
-        <img src="trabajo2.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=2'">
-        <img src="trabajo3.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=3'">
-        <img src="trabajo4.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=4'">
-        <img src="trabajo5.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=5'">
-        <img src="trabajo6.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=6'">
-        <img src="trabajo7.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=7'">
-        <img src="trabajo8.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=8'">
-        <img src="trabajo9.jpg"  alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=9'">
-        <img src="trabajo10.jpg" alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=10'">
-        <img src="trabajo11.jpg" alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=11'">
-        <img src="trabajo12.jpg" alt="Pedido" class="glass aspect-square rounded-[24px] object-cover hover:scale-110 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=12'">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        <img src="trabajo1.jpg"  alt="Pedido" class="card aspect-square rounded-xl object-cover" onerror="this.src='https://via.placeholder.com/300?text=1'">
+        <img src="trabajo2.jpg"  alt="Pedido" class="card aspect-square rounded-xl object-cover" onerror="this.src='https://via.placeholder.com/300?text=2'">
+        <img src="trabajo3.jpg"  alt="Pedido" class="card aspect-square rounded-xl object-cover" onerror="this.src='https://via.placeholder.com/300?text=3'">
+        <img src="trabajo4.jpg"  alt="Pedido" class="card aspect-square rounded-xl object-cover" onerror="this.src='https://via.placeholder.com/300?text=4'">
+        <img src="trabajo5.jpg"  alt="Pedido" class="card aspect-square rounded-xl object-cover" onerror="this.src='https://via.placeholder.com/300?text=5'">
+        <img src="trabajo6.jpg"  alt="Pedido" class="card aspect-square rounded-xl object-cover" onerror="this.src='https://via.placeholder.com/300?text=6'">
+        <img src="trabajo7.jpg"  alt="Pedido" class="card aspect-square rounded-xl object-cover" onerror="this.src='https://via.placeholder.com/300?text=7'">
+        <img src="trabajo8.jpg"  alt="Pedido" class="card aspect-square rounded-xl object-cover" onerror="this.src='https://via.placeholder.com/300?text=8'">
+        <img src="trabajo9.jpg"  alt="Pedido" class="card aspect-square rounded-xl object-cover" onerror="this.src='https://via.placeholder.com/300?text=9'">
+        <img src="trabajo10.jpg" alt="Pedido" class="card aspect-square rounded-xl object-cover" onerror="this.src='https://via.placeholder.com/300?text=10'">
+        <img src="trabajo11.jpg" alt="Pedido" class="card aspect-square rounded-xl object-cover" onerror="this.src='https://via.placeholder.com/300?text=11'">
+        <img src="trabajo12.jpg" alt="Pedido" class="card aspect-square rounded-xl object-cover" onerror="this.src='https://via.placeholder.com/300?text=12'">
     </div>
 </section>
 
 <!-- COMPRA AL POR MAYOR -->
-<section class="py-20 px-6 max-w-6xl mx-auto">
-    <div class="glass rounded-[40px] p-10 md:p-14 grid grid-cols-1 md:grid-cols-[1.3fr_auto] gap-8 items-center border-blue-500/20 bg-blue-500/5">
+<section class="py-16 px-6 max-w-6xl mx-auto">
+    <div class="card rounded-2xl p-10 md:p-12 grid grid-cols-1 md:grid-cols-[1.3fr_auto] gap-8 items-center" style="background:var(--accent-soft); border-color:var(--accent)">
         <div>
-            <h3 class="text-3xl md:text-4xl font-black italic mb-3">¿Querés comprar <span class="text-blue-400">al por mayor</span>?</h3>
-            <p class="text-gray-400 text-lg">Ofrecemos precios especiales en llaveros y otros productos seleccionados para revendedores, locales o emprendimientos.</p>
+            <p class="eyebrow mb-2">Para revendedores y empresas</p>
+            <h3 class="text-2xl md:text-3xl font-extrabold mb-2 tracking-tight">¿Querés comprar al por mayor?</h3>
+            <p class="text-base" style="color:var(--ink-soft)">Ofrecemos precios especiales en llaveros y otros productos seleccionados para revendedores, locales o emprendimientos.</p>
         </div>
-        <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20consultar%20precios%20por%20mayor" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white px-10 py-5 rounded-full font-black text-lg text-center transition-all hover:scale-105 whitespace-nowrap">Contactanos →</a>
+        <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20consultar%20precios%20por%20mayor" target="_blank" class="btn-primary px-8 py-4 rounded-full font-semibold text-base text-center whitespace-nowrap">Contactanos →</a>
     </div>
 </section>
 
 <!-- TIPS + STATS -->
-<section class="py-20 px-6 max-w-6xl mx-auto border-t border-white/5 grid grid-cols-1 md:grid-cols-2 gap-12">
-    <div class="glass p-10 rounded-[40px]">
-        <h4 class="text-2xl font-black mb-6 italic text-blue-400">Tips de Cuidado</h4>
-        <ul class="space-y-4 text-gray-400 text-sm">
-            <li>✔ Lavar a mano con agua fría o tibia.</li>
-            <li>✔ No apto para lavavajillas.</li>
-            <li>✔ Evitar exposición solar extrema (más de 50°C).</li>
+<section class="py-16 px-6 max-w-6xl mx-auto border-t grid grid-cols-1 md:grid-cols-2 gap-10" style="border-color:var(--line)">
+    <div class="card p-8 rounded-2xl">
+        <h4 class="text-lg font-bold mb-4">Tips de cuidado</h4>
+        <ul class="space-y-3 text-sm" style="color:var(--ink-soft)">
+            <li>· Lavar a mano con agua fría o tibia.</li>
+            <li>· No apto para lavavajillas.</li>
+            <li>· Evitar exposición solar extrema (más de 50°C).</li>
         </ul>
     </div>
-    <div class="text-center md:text-left flex flex-col justify-center">
-        <h4 class="text-6xl font-black gradient-text">+500</h4>
-        <p class="text-gray-500 uppercase tracking-widest font-bold text-xs mb-6">Diseños y proyectos terminados</p>
+    <div class="flex flex-col justify-center">
+        <p class="text-5xl font-extrabold" style="color:var(--accent)">+500</p>
+        <p class="mt-2 text-sm font-medium" style="color:var(--ink-soft)">Diseños y proyectos terminados</p>
     </div>
 </section>
 
 <!-- FAQ -->
-<section id="faq" class="py-20 px-6 max-w-4xl mx-auto">
-    <h3 class="text-3xl font-black mb-12 text-center text-white/20 uppercase tracking-[0.3em]">Dudas Frecuentes</h3>
-    <div class="space-y-5">
-        <details class="glass p-6 rounded-[32px] cursor-pointer group">
-            <summary class="font-bold text-lg flex justify-between items-center list-none italic">¿A qué parte de Uruguay envían? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
-            <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">Enviamos a <strong>todo el país</strong>, principalmente por DAC, pero podemos coordinar por la agencia de tu preferencia desde la terminal de Salto.</p>
+<section id="faq" class="py-16 px-6 max-w-4xl mx-auto">
+    <h3 class="text-2xl font-extrabold mb-10 text-center tracking-tight">Dudas frecuentes</h3>
+    <div class="space-y-4">
+        <details class="card p-6 rounded-2xl cursor-pointer group">
+            <summary class="font-semibold text-base flex justify-between items-center list-none">¿A qué parte de Uruguay envían? <span style="color:var(--accent)" class="group-open:rotate-180 transition-transform">▾</span></summary>
+            <p class="mt-4 text-sm leading-relaxed border-t pt-4" style="color:var(--ink-soft); border-color:var(--line)">Enviamos a <strong style="color:var(--ink)">todo el país</strong>, principalmente por DAC, pero podemos coordinar por la agencia de tu preferencia desde la terminal de Salto.</p>
         </details>
-        <details class="glass p-6 rounded-[32px] cursor-pointer group">
-            <summary class="font-bold text-lg flex justify-between items-center list-none italic">¿De qué material están hechas las piezas? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
-            <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">Utilizamos <strong>PLA de alta calidad</strong>, un bioplástico biodegradable y resistente. Es seguro al tacto y permite un nivel de detalle increíble.</p>
+        <details class="card p-6 rounded-2xl cursor-pointer group">
+            <summary class="font-semibold text-base flex justify-between items-center list-none">¿De qué material están hechas las piezas? <span style="color:var(--accent)" class="group-open:rotate-180 transition-transform">▾</span></summary>
+            <p class="mt-4 text-sm leading-relaxed border-t pt-4" style="color:var(--ink-soft); border-color:var(--line)">Utilizamos <strong style="color:var(--ink)">PLA de alta calidad</strong>, un bioplástico biodegradable y resistente. Es seguro al tacto y permite un nivel de detalle increíble.</p>
         </details>
-        <details class="glass p-6 rounded-[32px] cursor-pointer group">
-            <summary class="font-bold text-lg flex justify-between items-center list-none italic">¿Las jarras son aptas para líquidos? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
-            <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">¡Sí! Nuestras choperas incluyen un <strong>vaso interno de aluminio térmico de 500ml</strong>. El líquido nunca toca el plástico.</p>
+        <details class="card p-6 rounded-2xl cursor-pointer group">
+            <summary class="font-semibold text-base flex justify-between items-center list-none">¿Las jarras son aptas para líquidos? <span style="color:var(--accent)" class="group-open:rotate-180 transition-transform">▾</span></summary>
+            <p class="mt-4 text-sm leading-relaxed border-t pt-4" style="color:var(--ink-soft); border-color:var(--line)">¡Sí! Nuestras choperas incluyen un <strong style="color:var(--ink)">vaso interno de aluminio térmico de 500ml</strong>. El líquido nunca toca el plástico.</p>
         </details>
-        <details class="glass p-6 rounded-[32px] cursor-pointer group">
-            <summary class="font-bold text-lg flex justify-between items-center list-none italic">¿Cuánto demora la fabricación? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
-            <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">Los productos del catálogo suelen estar listos en <strong>2 a 5 días hábiles</strong>. Los personalizados pueden tardar un poco más según la complejidad.</p>
+        <details class="card p-6 rounded-2xl cursor-pointer group">
+            <summary class="font-semibold text-base flex justify-between items-center list-none">¿Cuánto demora la fabricación? <span style="color:var(--accent)" class="group-open:rotate-180 transition-transform">▾</span></summary>
+            <p class="mt-4 text-sm leading-relaxed border-t pt-4" style="color:var(--ink-soft); border-color:var(--line)">Los productos del catálogo suelen estar listos en <strong style="color:var(--ink)">2 a 5 días hábiles</strong>. Los personalizados pueden tardar un poco más según la complejidad.</p>
         </details>
-        <details class="glass p-6 rounded-[32px] cursor-pointer group">
-            <summary class="font-bold text-lg flex justify-between items-center list-none italic">¿Cómo hago un pedido? <span class="text-blue-400 group-open:rotate-180 transition-transform">▼</span></summary>
-            <p class="mt-4 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4 italic">Escribinos por <strong>WhatsApp o Instagram</strong> con el producto que te interesa y los detalles que quieras personalizar (colores, nombre, logo).</p>
+        <details class="card p-6 rounded-2xl cursor-pointer group">
+            <summary class="font-semibold text-base flex justify-between items-center list-none">¿Cómo hago un pedido? <span style="color:var(--accent)" class="group-open:rotate-180 transition-transform">▾</span></summary>
+            <p class="mt-4 text-sm leading-relaxed border-t pt-4" style="color:var(--ink-soft); border-color:var(--line)">Escribinos por <strong style="color:var(--ink)">WhatsApp o Instagram</strong> con el producto que te interesa y los detalles que quieras personalizar (colores, nombre, logo).</p>
         </details>
     </div>
 </section>
 
 <!-- FOOTER -->
-<footer class="py-12 px-6 border-t border-white/5 text-center text-gray-600 text-sm">
+<footer class="py-10 px-6 border-t text-center text-sm" style="border-color:var(--line); color:var(--ink-faint)">
     <p>© 2026 Version3D · Salto, Uruguay</p>
     <div class="flex justify-center gap-6 mt-4">
-        <a href="https://instagram.com/version3d.uy" target="_blank" class="hover:text-pink-500 transition-all">Instagram</a>
-        <a href="https://wa.me/59898680317" target="_blank" class="hover:text-green-400 transition-all">WhatsApp</a>
+        <a href="https://instagram.com/version3d.uy" target="_blank">Instagram</a>
+        <a href="https://wa.me/59898680317" target="_blank">WhatsApp</a>
     </div>
 </footer>
 
@@ -346,54 +335,55 @@
 // CATÁLOGO — array de datos.
 // Para agregar un producto nuevo: copiá un bloque {...} y pegalo en la lista,
 // respetando el "cat" que le corresponda (choperas / materas / llaveros / decoracion / personalizado / coleccion).
-// variant: "normal" (por defecto), "tiered" (tabla de precios por cantidad), "pink" (estilo Huntrix).
+// variant: "normal" (por defecto), "tiered" (tabla de precios por cantidad), "special" (línea especial, ej. colección).
 // ─────────────────────────────────────────
 const PRODUCTOS = [
-  { title:"Jarra Chopera Nacional con incrustaciones", cat:"choperas", img:"nacional.jpg", badge:{cls:"badge-hot", text:"🔥 Más vendido"}, price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Nacional" },
-  { title:"Jarra Chopera Peñarol con incrustaciones",  cat:"choperas", img:"penarol.jpg",  badge:{cls:"badge-hot", text:"🔥 Más vendido"}, price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Pe%C3%B1arol" },
-  { title:"Jarra Chopera Camiseta", cat:"choperas", img:null, badge:{cls:"badge-new", text:"✨ Nuevo"}, sub:"Nacional · Peñarol · Uruguay", price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Jarra%20Chopera%20Camiseta%2C%20quiero%20consultar%20por%20el%20equipo" },
+  { title:"Jarra Chopera Nacional con incrustaciones", cat:"choperas", img:"nacional.jpg", badge:{cls:"badge-hot", text:"Más vendido"}, price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Nacional" },
+  { title:"Jarra Chopera Peñarol con incrustaciones",  cat:"choperas", img:"penarol.jpg",  badge:{cls:"badge-hot", text:"Más vendido"}, price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Pe%C3%B1arol" },
+  { title:"Jarra Chopera Camiseta", cat:"choperas", img:null, badge:{cls:"badge-new", text:"Nuevo"}, sub:"Nacional · Peñarol · Uruguay", price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Jarra%20Chopera%20Camiseta%2C%20quiero%20consultar%20por%20el%20equipo" },
 
   { title:"Matera Nacional",       cat:"materas", img:null, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Matera%20de%20Nacional" },
   { title:"Matera Peñarol",        cat:"materas", img:null, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Matera%20de%20Pe%C3%B1arol" },
   { title:"Matera Uruguay",        cat:"materas", img:null, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Matera%20de%20Uruguay" },
-  { title:"Matera Personalizada",  cat:"materas", img:null, badge:{cls:"badge-blue", text:"🎨 A medida"}, price:"$1.190", wa:"Hola%20Version3D!%20Quiero%20una%20matera%20personalizada" },
+  { title:"Matera Personalizada",  cat:"materas", img:null, badge:{cls:"badge-blue", text:"A medida"}, price:"$1.190", wa:"Hola%20Version3D!%20Quiero%20una%20matera%20personalizada" },
 
   { title:"Llaveros Personalizados", cat:"llaveros", img:"llaveros.jpg", variant:"tiered", empresasImg:"empresas.jpg",
     tiers:[[1,100],[5,70],[10,60],[20,50],[30,45],[50,40],[70,38],[100,35]],
     wa:"Hola%20Version3D!%20Me%20gustar%C3%ADa%20hacer%20unos%20llaveros%20personalizados" },
 
-  { title:"Estadio Gran Parque Central", cat:"decoracion", img:null, sub:"Nacional · 24cm", badge:{cls:"badge-new", text:"✨ Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Gran%20Parque%20Central" },
-  { title:"Estadio Campeón del Siglo",   cat:"decoracion", img:null, sub:"Peñarol · 24cm",  badge:{cls:"badge-new", text:"✨ Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Campe%C3%B3n%20del%20Siglo" },
+  { title:"Estadio Gran Parque Central", cat:"decoracion", img:null, sub:"Nacional · 24cm", badge:{cls:"badge-new", text:"Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Gran%20Parque%20Central" },
+  { title:"Estadio Campeón del Siglo",   cat:"decoracion", img:null, sub:"Peñarol · 24cm",  badge:{cls:"badge-new", text:"Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Campe%C3%B3n%20del%20Siglo" },
 
   { title:"Diseños a Medida", cat:"personalizado", img:"medida.png", wa:"Hola%20Version3D!%20Tengo%20una%20idea%20para%20un%20dise%C3%B1o%20espec%C3%ADfico" },
 
-  { title:"Colección BT21", cat:"coleccion", img:"bt21.jpg", badge:{cls:"badge-new", text:"✨ Nuevo"}, wa:"Hola%20Version3D!%20Quiero%20info%20sobre%20la%20colecci%C3%B3n%20BT21" },
+  { title:"Colección BT21", cat:"coleccion", img:"bt21.jpg", badge:{cls:"badge-new", text:"Nuevo"}, wa:"Hola%20Version3D!%20Quiero%20info%20sobre%20la%20colecci%C3%B3n%20BT21" },
   { title:"Brainrots",      cat:"coleccion", img:"brianrots.png", price:"$350", wa:"Hola%20Version3D!%20Me%20interesan%20los%20Brainrots" },
-  { title:"Muñecas Huntrix", cat:"coleccion", img:"huntrix.jpg", variant:"pink", price:"$490", wa:"Hola%20Version3D!%20Consulto%20por%20las%20mu%C3%B1ecas%20Huntrix" },
+  { title:"Muñecas Huntrix", cat:"coleccion", img:"huntrix.jpg", badge:{cls:"badge-blue", text:"Especial"}, price:"$490", wa:"Hola%20Version3D!%20Consulto%20por%20las%20mu%C3%B1ecas%20Huntrix" },
 ];
 
 function priceBlock(p){
-  return p.price ? `<p class="price-tag">${p.price}</p>` : `<p class="text-xs text-blue-300/70 italic">Consultar precio</p>`;
+  return p.price ? `<p class="price-tag mono">${p.price}</p>` : `<p class="text-xs mono" style="color:var(--accent)">Consultar precio</p>`;
+}
+
+function waButton(p, label){
+  return `<a href="https://wa.me/59898680317?text=${p.wa}" target="_blank" class="card-wa-btn">${label || 'Consultar por WhatsApp'} →</a>`;
 }
 
 function normalCard(p){
   const imgTag = p.img
-    ? `<img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/500x400?text=${encodeURIComponent(p.title)}'">`
-    : `<div class="w-full h-full flex items-center justify-center text-white/20 font-black text-3xl">V3D</div>`;
+    ? `<img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/500x400?text=${encodeURIComponent(p.title)}'">`
+    : `<div class="w-full h-full flex items-center justify-center mono font-bold text-2xl" style="color:var(--ink-faint)">V3D</div>`;
   return `
-    <div class="cat-card glass rounded-[32px] overflow-hidden relative group">
-      ${p.badge ? `<span class="badge ${p.badge.cls}">${p.badge.text}</span>` : ''}
-      <div class="h-64 bg-slate-900 overflow-hidden">${imgTag}</div>
-      <div class="cat-overlay">
-        <p class="text-lg font-black italic mb-1">${p.title}</p>
-        ${p.sub ? `<p class="text-xs text-white/60 mb-1">${p.sub}</p>` : ''}
-        ${p.price ? `<p class="text-blue-300 font-black mb-3">${p.price}</p>` : ''}
-        <a href="https://wa.me/59898680317?text=${p.wa}" target="_blank" class="overlay-btn">Consultar por WhatsApp →</a>
+    <div class="card rounded-2xl overflow-hidden relative flex flex-col">
+      <div class="h-56 relative" style="background:var(--paper)">
+        ${p.badge ? `<span class="badge ${p.badge.cls}"><span class="dot"></span>${p.badge.text}</span>` : ''}
+        ${imgTag}
       </div>
-      <div class="p-5">
-        <h4 class="text-lg font-bold italic mb-1">${p.title}</h4>
-        ${p.sub ? `<p class="text-xs text-blue-400 mb-1">${p.sub}</p>` : ''}
+      <div class="p-5 flex flex-col gap-1 flex-1">
+        <h4 class="text-base font-semibold">${p.title}</h4>
+        ${p.sub ? `<p class="text-xs" style="color:var(--ink-faint)">${p.sub}</p>` : ''}
         ${priceBlock(p)}
+        <div class="mt-3 pt-3 border-t" style="border-color:var(--line)">${waButton(p)}</div>
       </div>
     </div>
   `;
@@ -402,40 +392,20 @@ function normalCard(p){
 function tieredCard(p){
   const rows = p.tiers.map(([q,price]) => `<tr><td>${q} unidad${q>1?'es':''}</td><td>$${price} c/u</td></tr>`).join('');
   return `
-    <div class="glass rounded-[32px] overflow-hidden relative group cat-card">
-      <span class="badge badge-new">✨ Popular</span>
-      <div class="h-56 bg-slate-900 overflow-hidden">
-        <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/500x400?text=${encodeURIComponent(p.title)}'">
+    <div class="card rounded-2xl overflow-hidden relative flex flex-col">
+      <div class="h-52 relative" style="background:var(--paper)">
+        <span class="badge badge-new"><span class="dot"></span>Popular</span>
+        <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/500x400?text=${encodeURIComponent(p.title)}'">
       </div>
-      <div class="p-5">
-        <h4 class="text-lg font-bold italic mb-1">${p.title}</h4>
-        <p class="price-tag mb-1">desde $${p.tiers[p.tiers.length-1][1]} c/u</p>
-        <p class="price-note mb-3">$${p.tiers[0][1]} la unidad · según cantidad</p>
-        <details class="mb-3">
-          <summary class="text-xs text-blue-400 cursor-pointer font-bold list-none">Ver tabla de precios ▾</summary>
+      <div class="p-5 flex flex-col gap-1 flex-1">
+        <h4 class="text-base font-semibold mb-1">${p.title}</h4>
+        <p class="price-tag mono">desde $${p.tiers[p.tiers.length-1][1]} c/u</p>
+        <p class="price-note mono">$${p.tiers[0][1]} la unidad · según cantidad</p>
+        <details class="mt-2">
+          <summary class="text-xs font-semibold cursor-pointer list-none" style="color:var(--accent)">Ver tabla de precios ▾</summary>
           <table class="tier-table mt-2">${rows}</table>
         </details>
-        <a href="https://wa.me/59898680317?text=${p.wa}" target="_blank" class="overlay-btn" style="position:static;">Consultar por WhatsApp →</a>
-      </div>
-    </div>
-  `;
-}
-
-function pinkCard(p){
-  return `
-    <div class="cat-card glass rounded-[32px] overflow-hidden relative group border-pink-500/20">
-      <span class="badge" style="background:rgba(240,98,146,0.85);">💖 Especial</span>
-      <div class="h-56 bg-slate-900 overflow-hidden">
-        <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/500x400?text=${encodeURIComponent(p.title)}'">
-      </div>
-      <div class="cat-overlay" style="background:linear-gradient(to top, rgba(240,98,146,0.92) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);">
-        <p class="text-base font-black italic mb-1 text-pink-200">${p.title}</p>
-        ${p.price ? `<p class="text-pink-100 font-black mb-3">${p.price}</p>` : ''}
-        <a href="https://wa.me/59898680317?text=${p.wa}" target="_blank" class="overlay-btn" style="background:rgba(240,98,146,0.9);border-color:rgba(240,98,146,0.6)">Consultar por WhatsApp →</a>
-      </div>
-      <div class="p-5 bg-pink-500/5">
-        <h4 class="text-base font-bold italic text-pink-400 mb-1">${p.title}</h4>
-        ${p.price ? `<p class="price-tag">${p.price}</p>` : ''}
+        <div class="mt-3 pt-3 border-t" style="border-color:var(--line)">${waButton(p)}</div>
       </div>
     </div>
   `;
@@ -443,7 +413,6 @@ function pinkCard(p){
 
 function cardHTML(p){
   if (p.variant === 'tiered') return tieredCard(p);
-  if (p.variant === 'pink') return pinkCard(p);
   return normalCard(p);
 }
 
@@ -455,3 +424,4 @@ function cardHTML(p){
 </script>
 </body>
 </html>
+
