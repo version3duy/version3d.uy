@@ -40,19 +40,15 @@
         ::selection{ background:var(--accent); color:#fff; }
         :focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
 
-        /* Textura de capas de impresión — elemento de firma, solo en el hero */
-        .layer-lines{
-            position:absolute; inset:0; z-index:0; pointer-events:none;
-            background-image: repeating-linear-gradient(to bottom, rgba(41,82,200,0.07) 0px, rgba(41,82,200,0.07) 1px, transparent 1px, transparent 10px);
-            -webkit-mask-image: linear-gradient(to bottom, black, transparent 92%);
-            mask-image: linear-gradient(to bottom, black, transparent 92%);
+        /* Collage de fotos de fondo en el hero */
+        .hero-collage{ position:absolute; inset:0; z-index:0; overflow:hidden; }
+        .hero-collage-grid{ display:grid; grid-template-columns:repeat(5,1fr); grid-template-rows:repeat(2,1fr); height:100%; width:100%; gap:3px; }
+        .hero-collage-grid img{ width:100%; height:100%; object-fit:cover; display:block; filter:saturate(.92); }
+        .hero-overlay{ position:absolute; inset:0;
+            background:
+                linear-gradient(180deg, var(--paper) 0%, transparent 16%, transparent 84%, var(--paper) 100%),
+                radial-gradient(ellipse 65% 75% at 50% 42%, rgba(243,236,220,0.94) 0%, rgba(243,236,220,0.6) 55%, rgba(243,236,220,0.18) 100%);
         }
-        .print-head{
-            position:absolute; left:0; right:0; height:1px; background:var(--accent); opacity:.35;
-            animation: printPass 7s ease-in-out infinite;
-        }
-        @keyframes printPass{ 0%,100%{ top:6%; } 50%{ top:88%; } }
-        @media (prefers-reduced-motion: reduce){ .print-head{ animation:none; top:40%; } }
 
         /* Tarjetas */
         .card{ background:var(--card); border:1px solid var(--line); border-radius:14px; transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
@@ -66,14 +62,12 @@
 
         details summary::-webkit-details-marker{ display:none; }
 
-        /* Hamburger */
-        #hamburger{ display:none; }
-        @media (max-width:768px){
-            #hamburger{ display:flex; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
-            #hamburger span{ display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; }
-            #nav-links{ display:none; flex-direction:column; align-items:flex-start; position:absolute; top:100%; right:0; left:0; background:var(--card); padding:1.25rem 1.5rem; gap:1rem; border-bottom:1px solid var(--line); }
-            #nav-links.open{ display:flex; }
-        }
+        /* Íconos del nav */
+        .nav-icon-btn{ display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%; border:1px solid var(--line); color:var(--ink-soft); transition:border-color .2s ease, color .2s ease; }
+        .nav-icon-btn:hover{ border-color:var(--accent); color:var(--accent); }
+
+        .btn-instagram{ border:1px solid var(--line); color:var(--ink); background:transparent; transition:background .25s ease, border-color .25s ease, color .25s ease; }
+        .btn-instagram:hover, .btn-instagram:active{ background:linear-gradient(45deg,#f9ce34 0%,#ee2a7b 45%,#6228d7 100%); border-color:transparent; color:#fff; }
 
         /* Badges: un mismo estilo, el color del punto distingue el tipo */
         .badge{ position:absolute; top:12px; left:12px; z-index:10; display:inline-flex; align-items:center; gap:6px; font-size:.68rem; font-weight:600; letter-spacing:.04em; padding:5px 10px 5px 8px; border-radius:99px; background:rgba(255,255,255,0.92); border:1px solid var(--line); backdrop-filter:blur(4px); text-transform:uppercase; }
@@ -81,6 +75,16 @@
         .badge-hot .dot{ background:var(--amber); }
         .badge-new .dot{ background:var(--accent); }
         .badge-blue .dot{ background:var(--violet); }
+
+        /* Tarjetas de producto */
+        .product-card{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:10px; display:flex; flex-direction:column; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+        .product-card:hover{ transform:translateY(-4px); box-shadow:0 14px 30px rgba(36,31,22,0.10); border-color:var(--accent); }
+        .product-media{ position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; background:var(--paper); }
+        .product-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+        .price-chip{ position:absolute; bottom:10px; right:10px; background:rgba(255,252,245,0.95); backdrop-filter:blur(4px); border:1px solid var(--line); border-radius:10px; padding:4px 10px; font-weight:700; font-size:.82rem; color:var(--ink); }
+        .product-body{ padding:14px 6px 6px; display:flex; flex-direction:column; gap:2px; flex:1; }
+        .btn-consult{ margin-top:10px; display:flex; align-items:center; justify-content:center; gap:6px; border:1.5px solid var(--accent); color:var(--accent); font-size:.82rem; font-weight:700; padding:9px; border-radius:10px; transition:background .2s ease, color .2s ease; }
+        .btn-consult:hover{ background:var(--accent); color:#fff; }
 
         /* Precio */
         .price-tag{ color:var(--ink); font-weight:700; font-size:1.05rem; }
@@ -108,76 +112,110 @@
         #waFloat{ position:fixed; bottom:24px; right:24px; z-index:999; background:var(--wa); width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 16px rgba(37,211,102,0.35); transition:transform .2s ease, box-shadow .2s ease; }
         #waFloat:hover{ transform:scale(1.08); box-shadow:0 6px 22px rgba(37,211,102,0.5); }
 
+        /* Tira de pasos */
+        .step-icon{ flex:none; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:var(--accent-soft); color:var(--accent); }
+        .step-divider{ width:1px; background:var(--line); align-self:stretch; margin:12px 0; }
+        @media (max-width:640px){ .step-divider{ width:auto; height:1px; margin:0 20px; } }
+
         .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
     </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav class="px-6 py-4 flex justify-between items-center border-b sticky top-0 bg-[var(--paper)]/95 backdrop-blur z-50 relative" style="border-color:var(--line)">
+<nav class="px-6 py-3 flex justify-between items-center border-b sticky top-0 bg-[var(--paper)]/95 backdrop-blur z-50 relative" style="border-color:var(--line)">
     <a href="#top" class="flex items-center gap-3">
-        <img src="logo.png" alt="Version3D" class="h-9 w-auto" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1710/1710166.png'">
-        <span class="text-lg font-bold tracking-tight">Version3D</span>
+        <img src="logo.png" alt="Version3D" class="h-16 w-auto" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1710/1710166.png'">
+        <span class="text-xl font-bold tracking-tight">Version3D</span>
     </a>
-    <div id="nav-links" class="flex items-center space-x-6">
-        <a href="#choperas" class="text-sm font-medium" style="color:var(--ink-soft)">Choperas</a>
-        <a href="#materas" class="text-sm font-medium" style="color:var(--ink-soft)">Materas</a>
-        <a href="#llaveros" class="text-sm font-medium" style="color:var(--ink-soft)">Llaveros</a>
-        <a href="#decoracion" class="text-sm font-medium" style="color:var(--ink-soft)">Decoración</a>
-        <a href="#personalizado" class="text-sm font-medium" style="color:var(--ink-soft)">Personalizado</a>
-        <a href="#coleccion" class="text-sm font-medium" style="color:var(--ink-soft)">Colección</a>
-        <a href="https://instagram.com/version3d.uy" target="_blank" class="text-sm font-medium" style="color:var(--ink-soft)">Instagram</a>
-        <a href="https://wa.me/59898680317?text=Hola!%20Vi%20la%20promo%20en%20la%20web%20y%20quiero%20mi%2015%25%20de%20descuento." target="_blank" class="btn-primary px-4 py-2 rounded-full font-semibold text-sm">WhatsApp</a>
+    <div class="flex items-center gap-3">
+        <a href="https://instagram.com/version3d.uy" target="_blank" class="btn-instagram pl-3 pr-4 py-2 rounded-full font-semibold text-sm flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            <span class="hidden sm:inline">Instagram</span>
+        </a>
+        <a href="https://wa.me/59898680317?text=Hola!%20Vi%20la%20promo%20en%20la%20web%20y%20quiero%20mi%2015%25%20de%20descuento." target="_blank" class="btn-primary pl-3 pr-4 py-2 rounded-full font-semibold text-sm flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span class="hidden sm:inline">WhatsApp</span>
+        </a>
     </div>
-    <button id="hamburger" aria-label="Menú" onclick="document.getElementById('nav-links').classList.toggle('open')">
-        <span></span><span></span><span></span>
-    </button>
 </nav>
 
 <!-- BARRA DE CATEGORÍAS -->
-<div class="sticky z-40" style="top:68px; background:var(--accent)">
+<div class="sticky z-40" style="top:80px; background:var(--accent)">
     <div class="max-w-7xl mx-auto px-6 flex gap-6 overflow-x-auto no-scrollbar" style="scrollbar-width:none">
-        <a href="#choperas" class="cat-link whitespace-nowrap">Choperas</a>
+        <a href="#jarras" class="cat-link whitespace-nowrap">Jarras</a>
         <a href="#materas" class="cat-link whitespace-nowrap">Materas</a>
         <a href="#llaveros" class="cat-link whitespace-nowrap">Llaveros</a>
+        <a href="#figuras" class="cat-link whitespace-nowrap">Figuras</a>
         <a href="#decoracion" class="cat-link whitespace-nowrap">Decoración</a>
-        <a href="#personalizado" class="cat-link whitespace-nowrap">Personalizado</a>
-        <a href="#coleccion" class="cat-link whitespace-nowrap">Colección</a>
+        <a href="#tendencias" class="cat-link whitespace-nowrap">Tendencias</a>
+        <a href="#personalizados" class="cat-link whitespace-nowrap">Personalizados</a>
     </div>
 </div>
 
 <!-- HERO -->
-<header id="top" class="relative py-20 md:py-28 px-6 text-center max-w-5xl mx-auto overflow-hidden">
-    <div class="layer-lines"><div class="print-head"></div></div>
+<header id="top" class="relative py-24 md:py-32 px-6 text-center max-w-5xl mx-auto overflow-hidden">
+    <div class="hero-collage">
+        <div class="hero-collage-grid">
+            <img src="trabajo1.jpg" alt="" onerror="this.src='https://via.placeholder.com/300?text=+'">
+            <img src="trabajo2.jpg" alt="" onerror="this.src='https://via.placeholder.com/300?text=+'">
+            <img src="nacional.jpg" alt="" onerror="this.src='https://via.placeholder.com/300?text=+'">
+            <img src="trabajo3.jpg" alt="" onerror="this.src='https://via.placeholder.com/300?text=+'">
+            <img src="trabajo4.jpg" alt="" onerror="this.src='https://via.placeholder.com/300?text=+'">
+            <img src="llaveros.jpg" alt="" onerror="this.src='https://via.placeholder.com/300?text=+'">
+            <img src="trabajo5.jpg" alt="" onerror="this.src='https://via.placeholder.com/300?text=+'">
+            <img src="penarol.jpg" alt="" onerror="this.src='https://via.placeholder.com/300?text=+'">
+            <img src="trabajo6.jpg" alt="" onerror="this.src='https://via.placeholder.com/300?text=+'">
+            <img src="trabajo7.jpg" alt="" onerror="this.src='https://via.placeholder.com/300?text=+'">
+        </div>
+        <div class="hero-overlay"></div>
+    </div>
     <div class="relative">
-        <p class="eyebrow mb-6">Salto, Uruguay — impresión 3D bajo pedido</p>
+        <p class="eyebrow mb-6">Salto, Uruguay — Impresión 3D</p>
         <h1 class="text-4xl md:text-7xl font-extrabold mb-8 leading-[1.05] tracking-tight">
             Llevamos tus ideas<br>a la <span style="color:var(--accent)">tercera dimensión</span>
         </h1>
-        <p class="text-base md:text-lg mb-10 max-w-xl mx-auto" style="color:var(--ink-soft)">Choperas, materas, llaveros y diseños a medida. Envíos a todo el país.</p>
+        <p class="text-base md:text-lg mb-10 max-w-xl mx-auto" style="color:var(--ink-soft)">Choperas, figuras, llaveros, diseños personalizados y mucho más. Envíos a todo el país.</p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="#choperas" class="btn-primary py-4 px-10 rounded-full font-semibold text-base inline-block">Ver catálogo</a>
+            <a href="#jarras" class="btn-primary py-4 px-10 rounded-full font-semibold text-base inline-block">Ver catálogo</a>
             <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20consultar%20sobre%20un%20producto" target="_blank" class="btn-outline py-4 px-8 rounded-full font-semibold text-base inline-block">Escribinos</a>
         </div>
     </div>
 </header>
 
 <!-- PASOS -->
-<section class="py-14 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-    <div class="card p-8 rounded-2xl">
-        <span class="eyebrow block mb-4">01</span>
-        <h4 class="text-xl font-bold mb-2">Elegí tu producto</h4>
-        <p style="color:var(--ink-soft)">Mirá el catálogo y elegí el modelo, color o equipo que más te guste.</p>
-    </div>
-    <div class="card p-8 rounded-2xl" style="border-color:var(--accent)">
-        <span class="eyebrow block mb-4">02</span>
-        <h4 class="text-xl font-bold mb-2">Seña y diseño</h4>
-        <p style="color:var(--ink-soft)">Para personalizados pedimos <strong style="color:var(--ink)">50% de seña</strong>.</p>
-    </div>
-    <div class="card p-8 rounded-2xl">
-        <span class="eyebrow block mb-4">03</span>
-        <h4 class="text-xl font-bold mb-2">¡Listo!</h4>
-        <p style="color:var(--ink-soft)">Retiro en Salto o envío por agencia a todo Uruguay.</p>
+<section class="py-10 px-6 max-w-5xl mx-auto">
+    <h2 class="text-2xl font-extrabold text-center mb-6 tracking-tight">¿Cómo realizar mi pedido?</h2>
+    <div class="flex flex-col sm:flex-row items-stretch card rounded-2xl overflow-hidden">
+        <div class="step flex-1 flex items-center gap-4 p-5">
+            <span class="step-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </span>
+            <div>
+                <h4 class="text-sm font-bold">Elegí tu producto</h4>
+                <p class="text-xs" style="color:var(--ink-soft)">Modelo, color o diseño</p>
+            </div>
+        </div>
+        <div class="step-divider"></div>
+        <div class="step flex-1 flex items-center gap-4 p-5">
+            <span class="step-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+            </span>
+            <div>
+                <h4 class="text-sm font-bold">¿Es personalizado?</h4>
+                <p class="text-xs" style="color:var(--ink-soft)">Con seña 50% · de catálogo sin seña</p>
+            </div>
+        </div>
+        <div class="step-divider"></div>
+        <div class="step flex-1 flex items-center gap-4 p-5">
+            <span class="step-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4 7.5 4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.27 6.96 8.73 5.05 8.73-5.05"/><path d="M12 22.08V12"/></svg>
+            </span>
+            <div>
+                <h4 class="text-sm font-bold">¡Listo!</h4>
+                <p class="text-xs" style="color:var(--ink-soft)">Retiro en Salto o envío a todo el país</p>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -186,35 +224,40 @@
     <h2 class="text-3xl font-extrabold tracking-tight">Catálogo de productos</h2>
 </section>
 
-<section id="choperas" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
-    <h3 class="text-xl font-bold mb-2">Choperas</h3>
-    <p class="text-sm mb-6" style="color:var(--ink-soft)">Todas nuestras choperas pueden personalizarse con tu logo, nombre o diseño sin costo extra.</p>
-    <div id="grid-choperas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+<section id="jarras" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:130px">
+    <h3 class="text-xl font-bold mb-2">Jarras</h3>
+    <p class="text-sm mb-6" style="color:var(--ink-soft)">Todas nuestras jarras choperas pueden personalizarse con tu logo, nombre o diseño sin costo extra.</p>
+    <div id="grid-jarras" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
-<section id="materas" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
+<section id="materas" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:130px">
     <h3 class="text-xl font-bold mb-6">Materas</h3>
     <div id="grid-materas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
-<section id="llaveros" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
+<section id="llaveros" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:130px">
     <h3 class="text-xl font-bold mb-6">Llaveros</h3>
     <div id="grid-llaveros" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
-<section id="decoracion" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
+<section id="figuras" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:130px">
+    <h3 class="text-xl font-bold mb-6">Figuras</h3>
+    <div id="grid-figuras" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+</section>
+
+<section id="decoracion" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:130px">
     <h3 class="text-xl font-bold mb-6">Decoración</h3>
     <div id="grid-decoracion" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
-<section id="personalizado" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
-    <h3 class="text-xl font-bold mb-6">Personalizado</h3>
-    <div id="grid-personalizado" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+<section id="tendencias" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:130px">
+    <h3 class="text-xl font-bold mb-6">Tendencias</h3>
+    <div id="grid-tendencias" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
-<section id="coleccion" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:80px">
-    <h3 class="text-xl font-bold mb-6">Colección</h3>
-    <div id="grid-coleccion" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+<section id="personalizados" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:130px">
+    <h3 class="text-xl font-bold mb-6">Personalizados</h3>
+    <div id="grid-personalizados" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
 <!-- Botón flotante WhatsApp -->
@@ -334,13 +377,13 @@
 // ─────────────────────────────────────────
 // CATÁLOGO — array de datos.
 // Para agregar un producto nuevo: copiá un bloque {...} y pegalo en la lista,
-// respetando el "cat" que le corresponda (choperas / materas / llaveros / decoracion / personalizado / coleccion).
-// variant: "normal" (por defecto), "tiered" (tabla de precios por cantidad), "special" (línea especial, ej. colección).
+// respetando el "cat" que le corresponda (jarras / materas / llaveros / figuras / decoracion / tendencias / personalizados).
+// variant: "normal" (por defecto), "tiered" (tabla de precios por cantidad).
 // ─────────────────────────────────────────
 const PRODUCTOS = [
-  { title:"Jarra Chopera Nacional con incrustaciones", cat:"choperas", img:"nacional.jpg", badge:{cls:"badge-hot", text:"Más vendido"}, price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Nacional" },
-  { title:"Jarra Chopera Peñarol con incrustaciones",  cat:"choperas", img:"penarol.jpg",  badge:{cls:"badge-hot", text:"Más vendido"}, price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Pe%C3%B1arol" },
-  { title:"Jarra Chopera Camiseta", cat:"choperas", img:null, badge:{cls:"badge-new", text:"Nuevo"}, sub:"Nacional · Peñarol · Uruguay", price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Jarra%20Chopera%20Camiseta%2C%20quiero%20consultar%20por%20el%20equipo" },
+  { title:"Jarra Chopera Nacional con incrustaciones", cat:"jarras", img:"nacional.jpg", badge:{cls:"badge-hot", text:"Más vendido"}, price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Nacional" },
+  { title:"Jarra Chopera Peñarol con incrustaciones",  cat:"jarras", img:"penarol.jpg",  badge:{cls:"badge-hot", text:"Más vendido"}, price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Pe%C3%B1arol" },
+  { title:"Jarra Chopera Camiseta", cat:"jarras", img:null, badge:{cls:"badge-new", text:"Nuevo"}, sub:"Nacional · Peñarol · Uruguay", price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Jarra%20Chopera%20Camiseta%2C%20quiero%20consultar%20por%20el%20equipo" },
 
   { title:"Matera Nacional",       cat:"materas", img:null, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Matera%20de%20Nacional" },
   { title:"Matera Peñarol",        cat:"materas", img:null, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Matera%20de%20Pe%C3%B1arol" },
@@ -351,39 +394,32 @@ const PRODUCTOS = [
     tiers:[[1,100],[5,70],[10,60],[20,50],[30,45],[50,40],[70,38],[100,35]],
     wa:"Hola%20Version3D!%20Me%20gustar%C3%ADa%20hacer%20unos%20llaveros%20personalizados" },
 
-  { title:"Estadio Gran Parque Central", cat:"decoracion", img:null, sub:"Nacional · 24cm", badge:{cls:"badge-new", text:"Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Gran%20Parque%20Central" },
-  { title:"Estadio Campeón del Siglo",   cat:"decoracion", img:null, sub:"Peñarol · 24cm",  badge:{cls:"badge-new", text:"Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Campe%C3%B3n%20del%20Siglo" },
+  { title:"Estadio Gran Parque Central", cat:"figuras", img:null, sub:"Nacional · 24cm", badge:{cls:"badge-new", text:"Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Gran%20Parque%20Central" },
+  { title:"Estadio Campeón del Siglo",   cat:"figuras", img:null, sub:"Peñarol · 24cm",  badge:{cls:"badge-new", text:"Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Campe%C3%B3n%20del%20Siglo" },
 
-  { title:"Diseños a Medida", cat:"personalizado", img:"medida.png", wa:"Hola%20Version3D!%20Tengo%20una%20idea%20para%20un%20dise%C3%B1o%20espec%C3%ADfico" },
+  { title:"Diseños a Medida", cat:"personalizados", img:"medida.png", wa:"Hola%20Version3D!%20Tengo%20una%20idea%20para%20un%20dise%C3%B1o%20espec%C3%ADfico" },
 
-  { title:"Colección BT21", cat:"coleccion", img:"bt21.jpg", badge:{cls:"badge-new", text:"Nuevo"}, wa:"Hola%20Version3D!%20Quiero%20info%20sobre%20la%20colecci%C3%B3n%20BT21" },
-  { title:"Brainrots",      cat:"coleccion", img:"brianrots.png", price:"$350", wa:"Hola%20Version3D!%20Me%20interesan%20los%20Brainrots" },
-  { title:"Muñecas Huntrix", cat:"coleccion", img:"huntrix.jpg", badge:{cls:"badge-blue", text:"Especial"}, price:"$490", wa:"Hola%20Version3D!%20Consulto%20por%20las%20mu%C3%B1ecas%20Huntrix" },
+  { title:"Colección BT21", cat:"tendencias", img:"bt21.jpg", badge:{cls:"badge-new", text:"Nuevo"}, wa:"Hola%20Version3D!%20Quiero%20info%20sobre%20la%20colecci%C3%B3n%20BT21" },
+  { title:"Brainrots",      cat:"tendencias", img:"brianrots.png", price:"$350", wa:"Hola%20Version3D!%20Me%20interesan%20los%20Brainrots" },
+  { title:"Muñecas Huntrix", cat:"tendencias", img:"huntrix.jpg", badge:{cls:"badge-blue", text:"Especial"}, price:"$490", wa:"Hola%20Version3D!%20Consulto%20por%20las%20mu%C3%B1ecas%20Huntrix" },
 ];
-
-function priceBlock(p){
-  return p.price ? `<p class="price-tag mono">${p.price}</p>` : `<p class="text-xs mono" style="color:var(--accent)">Consultar precio</p>`;
-}
-
-function waButton(p, label){
-  return `<a href="https://wa.me/59898680317?text=${p.wa}" target="_blank" class="card-wa-btn">${label || 'Consultar por WhatsApp'} →</a>`;
-}
 
 function normalCard(p){
   const imgTag = p.img
-    ? `<img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/500x400?text=${encodeURIComponent(p.title)}'">`
+    ? `<img src="${p.img}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/500x400?text=${encodeURIComponent(p.title)}'">`
     : `<div class="w-full h-full flex items-center justify-center mono font-bold text-2xl" style="color:var(--ink-faint)">V3D</div>`;
   return `
-    <div class="card rounded-2xl overflow-hidden relative flex flex-col">
-      <div class="h-56 relative" style="background:var(--paper)">
+    <div class="product-card">
+      <div class="product-media">
         ${p.badge ? `<span class="badge ${p.badge.cls}"><span class="dot"></span>${p.badge.text}</span>` : ''}
         ${imgTag}
+        ${p.price ? `<span class="price-chip mono">${p.price}</span>` : ''}
       </div>
-      <div class="p-5 flex flex-col gap-1 flex-1">
+      <div class="product-body">
         <h4 class="text-base font-semibold">${p.title}</h4>
         ${p.sub ? `<p class="text-xs" style="color:var(--ink-faint)">${p.sub}</p>` : ''}
-        ${priceBlock(p)}
-        <div class="mt-3 pt-3 border-t" style="border-color:var(--line)">${waButton(p)}</div>
+        ${!p.price ? `<p class="text-xs mono" style="color:var(--accent)">Consultar precio</p>` : ''}
+        <a href="https://wa.me/59898680317?text=${p.wa}" target="_blank" class="btn-consult">Consultar por WhatsApp →</a>
       </div>
     </div>
   `;
@@ -392,20 +428,20 @@ function normalCard(p){
 function tieredCard(p){
   const rows = p.tiers.map(([q,price]) => `<tr><td>${q} unidad${q>1?'es':''}</td><td>$${price} c/u</td></tr>`).join('');
   return `
-    <div class="card rounded-2xl overflow-hidden relative flex flex-col">
-      <div class="h-52 relative" style="background:var(--paper)">
+    <div class="product-card">
+      <div class="product-media">
         <span class="badge badge-new"><span class="dot"></span>Popular</span>
-        <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/500x400?text=${encodeURIComponent(p.title)}'">
+        <img src="${p.img}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/500x400?text=${encodeURIComponent(p.title)}'">
+        <span class="price-chip mono">desde $${p.tiers[p.tiers.length-1][1]}</span>
       </div>
-      <div class="p-5 flex flex-col gap-1 flex-1">
-        <h4 class="text-base font-semibold mb-1">${p.title}</h4>
-        <p class="price-tag mono">desde $${p.tiers[p.tiers.length-1][1]} c/u</p>
+      <div class="product-body">
+        <h4 class="text-base font-semibold">${p.title}</h4>
         <p class="price-note mono">$${p.tiers[0][1]} la unidad · según cantidad</p>
-        <details class="mt-2">
+        <details class="mt-1">
           <summary class="text-xs font-semibold cursor-pointer list-none" style="color:var(--accent)">Ver tabla de precios ▾</summary>
           <table class="tier-table mt-2">${rows}</table>
         </details>
-        <div class="mt-3 pt-3 border-t" style="border-color:var(--line)">${waButton(p)}</div>
+        <a href="https://wa.me/59898680317?text=${p.wa}" target="_blank" class="btn-consult">Consultar por WhatsApp →</a>
       </div>
     </div>
   `;
@@ -416,12 +452,13 @@ function cardHTML(p){
   return normalCard(p);
 }
 
-['choperas','materas','llaveros','decoracion','personalizado','coleccion'].forEach(cat=>{
+['jarras','materas','llaveros','figuras','decoracion','tendencias','personalizados'].forEach(cat=>{
   const el = document.getElementById('grid-' + cat);
   const items = PRODUCTOS.filter(p => p.cat === cat);
-  el.innerHTML = items.map(cardHTML).join('');
+  el.innerHTML = items.length
+    ? items.map(cardHTML).join('')
+    : `<p class="text-sm col-span-full" style="color:var(--ink-faint)">Muy pronto vas a encontrar acá nuevas piezas.</p>`;
 });
 </script>
 </body>
 </html>
-
