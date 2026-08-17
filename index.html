@@ -46,9 +46,10 @@
         .hero-collage-grid img{ width:100%; height:100%; object-fit:cover; display:block; filter:saturate(.92); }
         .hero-overlay{ position:absolute; inset:0;
             background:
-                linear-gradient(180deg, var(--paper) 0%, transparent 16%, transparent 84%, var(--paper) 100%),
-                radial-gradient(ellipse 65% 75% at 50% 42%, rgba(243,236,220,0.94) 0%, rgba(243,236,220,0.6) 55%, rgba(243,236,220,0.18) 100%);
+                linear-gradient(180deg, var(--paper) 0%, transparent 12%, transparent 88%, var(--paper) 100%),
+                radial-gradient(ellipse 85% 95% at 50% 48%, rgba(243,236,220,0.96) 0%, rgba(243,236,220,0.82) 50%, rgba(243,236,220,0.4) 100%);
         }
+        .hero-text-glow{ text-shadow:0 0 16px var(--paper), 0 0 16px var(--paper), 0 0 16px var(--paper); }
 
         /* Tarjetas */
         .card{ background:var(--card); border:1px solid var(--line); border-radius:14px; transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
@@ -118,6 +119,8 @@
         @media (max-width:640px){ .step-divider{ width:auto; height:1px; margin:0 20px; } }
 
         .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
+        .eyebrow-badge{ display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:.78rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); background:rgba(255,252,245,0.9); border:1.5px solid var(--accent); border-radius:99px; padding:9px 18px; }
+        .eyebrow-badge .dot{ width:7px; height:7px; border-radius:50%; background:var(--accent); flex:none; }
     </style>
 </head>
 <body>
@@ -171,11 +174,13 @@
         <div class="hero-overlay"></div>
     </div>
     <div class="relative">
-        <p class="eyebrow mb-6">Salto, Uruguay — Impresión 3D</p>
+        <span class="eyebrow-badge mb-6">
+            <span class="dot"></span>Salto, Uruguay — Impresión 3D
+        </span>
         <h1 class="text-4xl md:text-7xl font-extrabold mb-8 leading-[1.05] tracking-tight">
             Llevamos tus ideas<br>a la <span style="color:var(--accent)">tercera dimensión</span>
         </h1>
-        <p class="text-base md:text-lg mb-10 max-w-xl mx-auto" style="color:var(--ink-soft)">Choperas, figuras, llaveros, diseños personalizados y mucho más. Envíos a todo el país.</p>
+        <p class="hero-text-glow text-base md:text-lg mb-10 max-w-xl mx-auto" style="color:var(--ink-soft)">Choperas, figuras, llaveros, diseños personalizados y mucho más. Envíos a todo el país.</p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
             <a href="#jarras" class="btn-primary py-4 px-10 rounded-full font-semibold text-base inline-block">Ver catálogo</a>
             <a href="https://wa.me/59898680317?text=Hola%20Version3D!%20Quiero%20consultar%20sobre%20un%20producto" target="_blank" class="btn-outline py-4 px-8 rounded-full font-semibold text-base inline-block">Escribinos</a>
