@@ -83,6 +83,15 @@
         .product-media{ position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/3; background:var(--paper); }
         .product-media img{ width:100%; height:100%; object-fit:cover; display:block; }
         .price-chip{ position:absolute; bottom:10px; right:10px; background:rgba(255,252,245,0.95); backdrop-filter:blur(4px); border:1px solid var(--line); border-radius:10px; padding:4px 10px; font-weight:700; font-size:.82rem; color:var(--ink); }
+
+        /* Carrusel de imágenes dentro de la tarjeta */
+        .media-arrow{ position:absolute; top:50%; transform:translateY(-50%); width:26px; height:26px; border-radius:50%; background:rgba(255,252,245,0.9); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:1rem; line-height:1; color:var(--ink); z-index:11; opacity:0; transition:opacity .2s ease; }
+        .product-media:hover .media-arrow{ opacity:1; }
+        .media-arrow.left{ left:8px; }
+        .media-arrow.right{ right:8px; }
+        .media-dots{ position:absolute; bottom:10px; left:10px; display:flex; gap:5px; z-index:11; }
+        .media-dot{ width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.7); border:1px solid rgba(0,0,0,0.15); cursor:pointer; padding:0; }
+        .media-dot.active{ background:var(--accent); border-color:var(--accent); }
         .product-body{ padding:14px 6px 6px; display:flex; flex-direction:column; gap:2px; flex:1; }
         .btn-consult{ margin-top:10px; display:flex; align-items:center; justify-content:center; gap:6px; border:1.5px solid var(--accent); color:var(--accent); font-size:.82rem; font-weight:700; padding:9px; border-radius:10px; transition:background .2s ease, color .2s ease; }
         .btn-consult:hover{ background:var(--accent); color:#fff; }
@@ -251,7 +260,8 @@
 </section>
 
 <section id="llaveros" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:130px">
-    <h3 class="text-xl font-bold mb-6">Llaveros</h3>
+    <h3 class="text-xl font-bold mb-1">Llaveros</h3>
+    <p class="text-sm mb-6" style="color:var(--ink-soft)">Los diseños de abajo son solo ejemplos — hacemos llaveros para <strong style="color:var(--ink)">empresas, souvenirs, cumpleaños, casamientos</strong> y mucho más, con el diseño que se te ocurra.</p>
     <div id="grid-llaveros" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
@@ -402,11 +412,14 @@
 // CATÁLOGO — array de datos.
 // Para agregar un producto nuevo: copiá un bloque {...} y pegalo en la lista,
 // respetando el "cat" que le corresponda (jarras / materas / llaveros / figuras / decoracion / tendencias / personalizados).
+// Para una sola foto usá "img": "archivo.jpg". Para varias fotos (carrusel) usá "imgs": ["foto1.jpg","foto2.jpg", ...].
 // variant: "normal" (por defecto), "tiered" (tabla de precios por cantidad).
 // ─────────────────────────────────────────
 const PRODUCTOS = [
-  { title:"Jarra Chopera Nacional con incrustaciones", cat:"jarras", img:"nacional.jpg", badge:{cls:"badge-hot", text:"Más vendido"}, price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Nacional" },
-  { title:"Jarra Chopera Peñarol con incrustaciones",  cat:"jarras", img:"penarol.jpg",  badge:{cls:"badge-hot", text:"Más vendido"}, price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Pe%C3%B1arol" },
+  { title:"Jarra Chopera Nacional con incrustaciones", cat:"jarras", img:"nacional.jpg", badge:{cls:"badge-hot", text:"Más vendido"}, price:"$650", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Nacional" },
+  { title:"Jarra Chopera Peñarol con incrustaciones",  cat:"jarras", img:"penarol.jpg",  badge:{cls:"badge-hot", text:"Más vendido"}, price:"$650", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Chopera%20de%20Pe%C3%B1arol" },
+  { title:"Jarra Chopera de Nacional con revolvedor", cat:"jarras", imgs:["nacional-revolvedor-1.jpg","nacional-revolvedor-2.jpg"], price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Jarra%20Chopera%20de%20Nacional%20con%20revolvedor" },
+  { title:"Jarra Chopera de Peñarol con revolvedor",  cat:"jarras", imgs:["penarol-revolvedor-1.jpg","penarol-revolvedor-2.jpg"], price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Jarra%20Chopera%20de%20Pe%C3%B1arol%20con%20revolvedor" },
   { title:"Jarra Chopera Camiseta", cat:"jarras", img:null, badge:{cls:"badge-new", text:"Nuevo"}, sub:"Nacional · Peñarol · Uruguay", price:"$690", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Jarra%20Chopera%20Camiseta%2C%20quiero%20consultar%20por%20el%20equipo" },
 
   { title:"Matera Nacional",       cat:"materas", img:null, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20la%20Matera%20de%20Nacional" },
@@ -417,6 +430,11 @@ const PRODUCTOS = [
   { title:"Llaveros Personalizados", cat:"llaveros", img:"llaveros.jpg", variant:"tiered", empresasImg:"empresas.jpg",
     tiers:[[1,100],[5,70],[10,60],[20,50],[30,45],[50,40],[70,38],[100,35]],
     wa:"Hola%20Version3D!%20Me%20gustar%C3%ADa%20hacer%20unos%20llaveros%20personalizados" },
+
+  { title:"Llavero con tu nombre", cat:"llaveros", img:"llavero-1.jpg", wa:"Hola%20Version3D!%20Quiero%20un%20llavero%20con%20mi%20nombre" },
+  { title:"Llavero de tu equipo", cat:"llaveros", img:"llavero-2.jpg", wa:"Hola%20Version3D!%20Quiero%20un%20llavero%20de%20mi%20equipo" },
+  { title:"Llavero para empresas", cat:"llaveros", img:"llavero-3.jpg", sub:"Logo o isotipo de tu marca", wa:"Hola%20Version3D!%20Quiero%20llaveros%20con%20el%20logo%20de%20mi%20empresa" },
+  { title:"Llavero de tu mascota", cat:"llaveros", img:"llavero-4.jpg", wa:"Hola%20Version3D!%20Quiero%20un%20llavero%20con%20la%20forma%20de%20mi%20mascota" },
 
   { title:"Estadio Gran Parque Central", cat:"decoracion", img:null, sub:"Nacional · 24cm", badge:{cls:"badge-new", text:"Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Gran%20Parque%20Central" },
   { title:"Estadio Campeón del Siglo",   cat:"decoracion", img:null, sub:"Peñarol · 24cm",  badge:{cls:"badge-new", text:"Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Campe%C3%B3n%20del%20Siglo" },
@@ -436,15 +454,23 @@ const PRODUCTOS = [
 ];
 
 function normalCard(p){
-  const imgTag = p.img
-    ? `<img src="${p.img}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/500x400?text=${encodeURIComponent(p.title)}'">`
+  const imgs = (p.imgs && p.imgs.length) ? p.imgs : (p.img ? [p.img] : []);
+  const first = imgs[0];
+  const imgTag = first
+    ? `<img src="${first}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/500x400?text=${encodeURIComponent(p.title)}'">`
     : `<div class="w-full h-full flex items-center justify-center mono font-bold text-2xl" style="color:var(--ink-faint)">V3D</div>`;
+  const nav = imgs.length > 1 ? `
+        <button class="media-arrow left" onclick="v3dStep(event,-1)" aria-label="Foto anterior">‹</button>
+        <button class="media-arrow right" onclick="v3dStep(event,1)" aria-label="Foto siguiente">›</button>
+        <div class="media-dots">${imgs.map((_,i)=>`<button class="media-dot${i===0?' active':''}" onclick="v3dGoTo(event,${i})" aria-label="Foto ${i+1}"></button>`).join('')}</div>
+  ` : '';
   return `
     <div class="product-card">
-      <div class="product-media">
+      <div class="product-media" data-imgs="${imgs.join('|')}" data-idx="0">
         ${p.badge ? `<span class="badge ${p.badge.cls}"><span class="dot"></span>${p.badge.text}</span>` : ''}
         ${imgTag}
         ${p.price ? `<span class="price-chip mono">${p.price}</span>` : ''}
+        ${nav}
       </div>
       <div class="product-body">
         <h4 class="text-base font-semibold">${p.title}</h4>
@@ -454,6 +480,25 @@ function normalCard(p){
       </div>
     </div>
   `;
+}
+
+function v3dStep(evt, dir){
+  evt.preventDefault(); evt.stopPropagation();
+  const media = evt.currentTarget.closest('.product-media');
+  const imgs = media.dataset.imgs.split('|');
+  let idx = (parseInt(media.dataset.idx,10) + dir + imgs.length) % imgs.length;
+  media.dataset.idx = idx;
+  media.querySelector('img').src = imgs[idx];
+  media.querySelectorAll('.media-dot').forEach((d,i)=>d.classList.toggle('active', i===idx));
+}
+
+function v3dGoTo(evt, i){
+  evt.preventDefault(); evt.stopPropagation();
+  const media = evt.currentTarget.closest('.product-media');
+  const imgs = media.dataset.imgs.split('|');
+  media.dataset.idx = i;
+  media.querySelector('img').src = imgs[i];
+  media.querySelectorAll('.media-dot').forEach((d,idx)=>d.classList.toggle('active', idx===i));
 }
 
 function tieredCard(p){
