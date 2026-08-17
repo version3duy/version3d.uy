@@ -87,6 +87,14 @@
         .btn-consult{ margin-top:10px; display:flex; align-items:center; justify-content:center; gap:6px; border:1.5px solid var(--accent); color:var(--accent); font-size:.82rem; font-weight:700; padding:9px; border-radius:10px; transition:background .2s ease, color .2s ease; }
         .btn-consult:hover{ background:var(--accent); color:#fff; }
 
+        /* Tarjeta CTA "no encontraste tu figura" */
+        .cta-card{ background:var(--accent); border-color:var(--accent); justify-content:center; padding:28px 20px; }
+        .cta-card:hover{ transform:translateY(-4px); box-shadow:0 14px 30px rgba(41,82,200,0.35); }
+        .cta-body{ text-align:center; color:#fff; }
+        .cta-icon{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,0.15); color:#fff; margin-bottom:14px; }
+        .btn-cta-wa{ display:inline-flex; align-items:center; gap:6px; background:#fff; color:var(--accent); font-size:.82rem; font-weight:700; padding:10px 18px; border-radius:10px; transition:transform .15s ease; }
+        .btn-cta-wa:hover{ transform:translateY(-1px); }
+
         /* Precio */
         .price-tag{ color:var(--ink); font-weight:700; font-size:1.05rem; }
         .price-note{ color:var(--ink-faint); font-size:.72rem; }
@@ -99,6 +107,8 @@
         /* Menú de categorías del catálogo */
         .cat-pill{ border:1px solid var(--line); color:var(--ink-soft); font-size:.8rem; font-weight:600; transition:all .2s ease; }
         .cat-pill:hover{ border-color:var(--accent); color:var(--accent); }
+
+        .tag-chip{ display:inline-block; font-size:.75rem; font-weight:600; color:var(--accent); background:var(--accent-soft); border-radius:99px; padding:6px 14px; }
 
         /* Barra de categorías sticky */
         .cat-link{ font-size:.85rem; font-weight:600; color:rgba(255,255,255,0.75); padding:14px 0; border-bottom:2px solid transparent; transition:color .2s ease, border-color .2s ease; }
@@ -157,7 +167,7 @@
 </div>
 
 <!-- HERO -->
-<header id="top" class="relative py-24 md:py-32 px-6 text-center max-w-5xl mx-auto overflow-hidden">
+<header id="top" class="relative py-24 md:py-32 px-6 text-center overflow-hidden">
     <div class="hero-collage">
         <div class="hero-collage-grid">
             <img src="trabajo1.jpg" alt="" onerror="this.src='https://via.placeholder.com/300?text=+'">
@@ -173,7 +183,7 @@
         </div>
         <div class="hero-overlay"></div>
     </div>
-    <div class="relative">
+    <div class="relative max-w-5xl mx-auto">
         <span class="eyebrow-badge mb-6">
             <span class="dot"></span>Salto, Uruguay — Impresión 3D
         </span>
@@ -246,7 +256,8 @@
 </section>
 
 <section id="figuras" class="py-12 px-6 max-w-7xl mx-auto" style="scroll-margin-top:130px">
-    <h3 class="text-xl font-bold mb-6">Figuras</h3>
+    <h3 class="text-xl font-bold mb-1">Figuras</h3>
+    <p class="text-sm mb-6" style="color:var(--ink-soft)">Personajes de tus franquicias favoritas, impresos en 3D.</p>
     <div id="grid-figuras" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
@@ -399,14 +410,21 @@ const PRODUCTOS = [
     tiers:[[1,100],[5,70],[10,60],[20,50],[30,45],[50,40],[70,38],[100,35]],
     wa:"Hola%20Version3D!%20Me%20gustar%C3%ADa%20hacer%20unos%20llaveros%20personalizados" },
 
-  { title:"Estadio Gran Parque Central", cat:"figuras", img:null, sub:"Nacional · 24cm", badge:{cls:"badge-new", text:"Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Gran%20Parque%20Central" },
-  { title:"Estadio Campeón del Siglo",   cat:"figuras", img:null, sub:"Peñarol · 24cm",  badge:{cls:"badge-new", text:"Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Campe%C3%B3n%20del%20Siglo" },
+  { title:"Estadio Gran Parque Central", cat:"decoracion", img:null, sub:"Nacional · 24cm", badge:{cls:"badge-new", text:"Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Gran%20Parque%20Central" },
+  { title:"Estadio Campeón del Siglo",   cat:"decoracion", img:null, sub:"Peñarol · 24cm",  badge:{cls:"badge-new", text:"Nuevo"}, price:"$1.190", wa:"Hola%20Version3D!%20Me%20interesa%20el%20Estadio%20Campe%C3%B3n%20del%20Siglo" },
 
   { title:"Diseños a Medida", cat:"personalizados", img:"medida.png", wa:"Hola%20Version3D!%20Tengo%20una%20idea%20para%20un%20dise%C3%B1o%20espec%C3%ADfico" },
 
-  { title:"Colección BT21", cat:"tendencias", img:"bt21.jpg", badge:{cls:"badge-new", text:"Nuevo"}, wa:"Hola%20Version3D!%20Quiero%20info%20sobre%20la%20colecci%C3%B3n%20BT21" },
+  { title:"Figuras Toy Story", cat:"figuras", img:"figura-toystory.jpg", wa:"Hola%20Version3D!%20Quiero%20info%20sobre%20las%20figuras%20de%20Toy%20Story" },
+  { title:"Figuras Superhéroes", cat:"figuras", img:"figura-superheroes.jpg", wa:"Hola%20Version3D!%20Quiero%20info%20sobre%20las%20figuras%20de%20Superh%C3%A9roes" },
+  { title:"Figuras Spiderman", cat:"figuras", img:"figura-spiderman.jpg", wa:"Hola%20Version3D!%20Quiero%20info%20sobre%20las%20figuras%20de%20Spiderman" },
+  { title:"Figuras Gokú", cat:"figuras", img:"figura-goku.jpg", wa:"Hola%20Version3D!%20Quiero%20info%20sobre%20las%20figuras%20de%20Gok%C3%BA" },
+  { title:"Figuras Simpsons", cat:"figuras", img:"figura-simpsons.jpg", wa:"Hola%20Version3D!%20Quiero%20info%20sobre%20las%20figuras%20de%20Simpsons" },
+  { title:"Figuras Pokémon", cat:"figuras", img:"figura-pokemon.jpg", wa:"Hola%20Version3D!%20Quiero%20info%20sobre%20las%20figuras%20de%20Pok%C3%A9mon" },
+  { title:"Colección BT21", cat:"figuras", img:"bt21.jpg", badge:{cls:"badge-new", text:"Nuevo"}, wa:"Hola%20Version3D!%20Quiero%20info%20sobre%20la%20colecci%C3%B3n%20BT21" },
   { title:"Brainrots",      cat:"tendencias", img:"brianrots.png", price:"$350", wa:"Hola%20Version3D!%20Me%20interesan%20los%20Brainrots" },
-  { title:"Muñecas Huntrix", cat:"tendencias", img:"huntrix.jpg", badge:{cls:"badge-blue", text:"Especial"}, price:"$490", wa:"Hola%20Version3D!%20Consulto%20por%20las%20mu%C3%B1ecas%20Huntrix" },
+  { title:"Muñecas Huntrix", cat:"figuras", img:"huntrix.jpg", badge:{cls:"badge-blue", text:"Especial"}, price:"$490", wa:"Hola%20Version3D!%20Consulto%20por%20las%20mu%C3%B1ecas%20Huntrix" },
+  { title:"¿No encontraste tu figura?", cat:"figuras", variant:"cta", text:"Trabajamos con pedido a demanda: contanos qué personaje buscás y te confirmamos precio y tiempo.", wa:"Hola%20Version3D!%20Estoy%20buscando%20una%20figura%20que%20no%20vi%20en%20la%20web%2C%20%C2%BFme%20pod%C3%A9s%20ayudar%3F" },
 ];
 
 function normalCard(p){
@@ -452,8 +470,24 @@ function tieredCard(p){
   `;
 }
 
+function ctaCard(p){
+  return `
+    <div class="product-card cta-card">
+      <div class="cta-body">
+        <span class="cta-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </span>
+        <h4 class="text-lg font-bold mb-2">${p.title}</h4>
+        <p class="text-sm mb-4" style="color:rgba(255,255,255,0.85)">${p.text}</p>
+        <a href="https://wa.me/59898680317?text=${p.wa}" target="_blank" class="btn-cta-wa">Consultar por WhatsApp →</a>
+      </div>
+    </div>
+  `;
+}
+
 function cardHTML(p){
   if (p.variant === 'tiered') return tieredCard(p);
+  if (p.variant === 'cta') return ctaCard(p);
   return normalCard(p);
 }
 
