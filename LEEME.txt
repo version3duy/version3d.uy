@@ -1,0 +1,13 @@
+Primera propuesta local de Version3D
+
+Para verla: abrir index.html con Chrome o Edge. Se necesita conexión a Internet para cargar Tailwind y las fuentes, igual que en la versión original.
+
+Cambios: portada y tarjetas más claras; controles de galerías más grandes; ajustes para celular; corrección de dos nombres de fotos; retiro de referencias a imágenes ausentes en el collage y galería de trabajos; los cuatro llaveros sin foto mantienen sus entradas con un aviso; carga diferida de fotos; catálogo incluido también en el HTML para verse sin JavaScript.
+
+Se conservaron las 27 entradas del catálogo, precios, tabla por cantidad, mensajes de WhatsApp, enlaces originales, categorías y el archivo CNAME con version3d.uy.
+
+Pendiente: aportar las fotos reales de los productos sin imagen, revisar visualmente en celular y computadora y confirmar las condiciones comerciales actuales.
+
+Verificado: sintaxis del JavaScript, presencia de fotos referenciadas, conservación de títulos, precios, mensajes y enlaces originales. La vista previa integrada no pudo conectarse al servidor local, por lo que no se completó la revisión visual.
+
+Los archivos de Descargas y el sitio publicado no fueron modificados. No subir esta propuesta a GitHub hasta revisarla y autorizar la publicación.
